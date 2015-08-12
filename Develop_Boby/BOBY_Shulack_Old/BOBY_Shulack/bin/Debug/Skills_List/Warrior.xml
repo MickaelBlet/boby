@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ArrayOfSkills xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skills>
+    <Name>Seau sans fond</Name>
+    <HP>32</HP>
+    <MP>32</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de mana excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de mana excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de vie excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de vie excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Promesse de force magique</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Souffle de force magique</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tir d'absorption d'âme</Name>
+    <HP>60</HP>
+    <MP>80</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tir de pistolet</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>En plein dans le mille</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Insertion du projectile magique</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Salve rapide</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tir de précision</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+</ArrayOfSkills>

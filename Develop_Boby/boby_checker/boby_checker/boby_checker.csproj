@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{20FF9328-EFA9-4DDA-99D4-EAD743F19EAF}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>boby_checker</RootNamespace>
+    <AssemblyName>boby_checker</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWin32Manifest>False</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>True</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ini.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Aion_Resources\Aion_Resources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Button\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Button_Icone\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\CheckBox\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Common_Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Loading\Loading.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Slider\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Special_Button\Special_Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Textbox\Textbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Win_Button\Win_Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Windows\BG\BG.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Windows\Windows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="app.manifest" />
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Aion_Resources\vera.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Aion_Red.ico" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Center.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Center_Disable.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Center_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Center_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Left.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Left_Disable.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Left_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Left_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Right.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Right_Disable.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Right_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button\Right_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Button_Icone\Button.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\CheckBox\Check.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\CheckBox\Disable.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\CheckBox\UnCheck.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\List.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_01.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_02.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_03.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_04.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_05.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_06.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_07.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_08.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_09.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_10.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_11.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_12.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_13.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_14.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_15.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Loading\Shugo_16.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\New.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Open.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Save.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Slider\SliderThumb.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Slider\SliderThumb_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Slider\SliderThumb_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Slider\Slider_Center.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Slider\Slider_Left.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Slider\Slider_Right.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Left_Arrow.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Left_Arrow_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Left_Arrow_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Right_Arrow.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Right_Arrow_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Right_Arrow_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Search.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Search_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Special_Button\Search_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Textbox\Center.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Textbox\Keys_Center.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Textbox\Keys_Left.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Textbox\Keys_Right.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Textbox\Left.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Textbox\Right.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Close.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Close_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Close_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Hide.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Hide_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Hide_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Minimise.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Minimise_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Minimise_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Radar_Setting.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Refresh.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Refresh_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Refresh_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Setting.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Setting_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Setting_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Show.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Show_Hover.png" />
+    <Resource Include="Resources\Aion_Resources\Controls\Win_Button\Show_Pressed.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\BG\BG1_Bottom.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\BG\BG1_Center.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\BG\BG1_Top.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Bottom_Fill.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Bottom_Left.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Bottom_Right.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Center_Fill.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Left_Fill.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Right_Fill.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Top_Fill.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Top_Left.png" />
+    <Resource Include="Resources\Aion_Resources\Windows\Win_Top_Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Global_Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,131 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <CroppedBitmap x:Key="BG.BG"                        Source="BG\BG.png" SourceRect="0,0,199,199"/>
+    <CroppedBitmap x:Key="BG.Masque"                    Source="BG\BG.png" SourceRect="200,0,199,199"/>
+    <CroppedBitmap x:Key="BG.North"                     Source="BG\BG.png" SourceRect="0,200,199,199"/>
+    <CroppedBitmap x:Key="BG.View"                      Source="BG\BG.png" SourceRect="200,200,199,199"/>
+    <ImageSource   x:Key="BG.Setting">BG\BG_Setting.png</ImageSource>
+
+    <CroppedBitmap x:Key="Entity.Ally"                  Source="Entity_Icon\User.png" SourceRect="0,5,13,14"/>
+    <CroppedBitmap x:Key="Entity.Ally_Up"               Source="Entity_Icon\User.png" SourceRect="13,0,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ally_Down"             Source="Entity_Icon\User.png" SourceRect="26,0,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ally_Dead"             Source="Entity_Icon\User.png" SourceRect="39,0,13,24"/>
+    <CroppedBitmap x:Key="Entity.Group"                 Source="Entity_Icon\User.png" SourceRect="0,30,13,14"/>
+    <CroppedBitmap x:Key="Entity.Group_Up"              Source="Entity_Icon\User.png" SourceRect="13,25,13,24"/>
+    <CroppedBitmap x:Key="Entity.Group_Down"            Source="Entity_Icon\User.png" SourceRect="26,25,13,24"/>
+    <CroppedBitmap x:Key="Entity.Group_Dead"            Source="Entity_Icon\User.png" SourceRect="39,25,13,24"/>
+    <CroppedBitmap x:Key="Entity.Force"                 Source="Entity_Icon\User.png" SourceRect="0,55,13,14"/>
+    <CroppedBitmap x:Key="Entity.Force_Up"              Source="Entity_Icon\User.png" SourceRect="13,50,13,24"/>
+    <CroppedBitmap x:Key="Entity.Force_Down"            Source="Entity_Icon\User.png" SourceRect="26,50,13,24"/>
+    <CroppedBitmap x:Key="Entity.Force_Dead"            Source="Entity_Icon\User.png" SourceRect="39,50,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy"                Source="Entity_Icon\User.png" SourceRect="0,80,13,14"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Up"             Source="Entity_Icon\User.png" SourceRect="13,75,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Down"           Source="Entity_Icon\User.png" SourceRect="26,75,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Dead"           Source="Entity_Icon\User.png" SourceRect="39,75,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Fufu"           Source="Entity_Icon\User.png" SourceRect="0,105,13,14"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Fufu_Up"        Source="Entity_Icon\User.png" SourceRect="13,100,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Fufu_Down"      Source="Entity_Icon\User.png" SourceRect="26,100,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Transfo"        Source="Entity_Icon\User.png" SourceRect="0,130,13,14"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Transfo_Up"     Source="Entity_Icon\User.png" SourceRect="13,125,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Transfo_Down"   Source="Entity_Icon\User.png" SourceRect="26,125,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Safe"           Source="Entity_Icon\User.png" SourceRect="0,155,13,14"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Safe_Up"        Source="Entity_Icon\User.png" SourceRect="13,150,13,24"/>
+    <CroppedBitmap x:Key="Entity.Ennemy_Safe_Down"      Source="Entity_Icon\User.png" SourceRect="26,150,13,24"/>
+
+    <CroppedBitmap x:Key="Entity.Gather"                Source="Entity_Icon\Gather.png" SourceRect="0,0,16,16"/>
+    <CroppedBitmap x:Key="Entity.Gather_Not"            Source="Entity_Icon\Gather.png" SourceRect="16,0,16,16"/>
+    <CroppedBitmap x:Key="Entity.Ether"                 Source="Entity_Icon\Gather.png" SourceRect="0,16,16,16"/>
+    <CroppedBitmap x:Key="Entity.Ether_Not"             Source="Entity_Icon\Gather.png" SourceRect="16,16,16,16"/>
+
+    <CroppedBitmap x:Key="Entity.NPC_A"                 Source="Entity_Icon\NPC.png" SourceRect="0,0,6,6"/>
+    <CroppedBitmap x:Key="Entity.NPC_N"                 Source="Entity_Icon\NPC.png" SourceRect="6,0,6,6"/>
+    <CroppedBitmap x:Key="Entity.NPC_E"                 Source="Entity_Icon\NPC.png" SourceRect="12,0,6,6"/>
+    <CroppedBitmap x:Key="Entity.NPC_Loot"              Source="Entity_Icon\NPC.png" SourceRect="0,6,6,6"/>
+    <CroppedBitmap x:Key="Entity.NPC_O"                 Source="Entity_Icon\NPC.png" SourceRect="6,6,6,6"/>
+    <CroppedBitmap x:Key="Entity.NPC_NO"                Source="Entity_Icon\NPC.png" SourceRect="12,6,6,6"/>
+
+    <CroppedBitmap x:Key="Entity.Player"                Source="Entity_Icon\Player.png" SourceRect="0,0,22,22"/>
+    <CroppedBitmap x:Key="Entity.Player_Fly"            Source="Entity_Icon\Player.png" SourceRect="22,0,21,22"/>
+
+    <CroppedBitmap x:Key="Where.Where"                  Source="Where\Where.png" SourceRect="0,0,15,14"/>
+    <CroppedBitmap x:Key="Where.Where_Yellow"           Source="Where\Where.png" SourceRect="15,0,15,14"/>
+
+    <ImageSource x:Key="Sensory.Sensory_01">Sensory\Sensory_01.png</ImageSource>
+    <ImageSource x:Key="Sensory.Sensory_02">Sensory\Sensory_02.png</ImageSource>
+    <ImageSource x:Key="Sensory.Sensory_03">Sensory\Sensory_03.png</ImageSource>
+
+    <ImageSource x:Key="Help.Zoom">Help\Zoom.png</ImageSource>
+    <ImageSource x:Key="Help.Icon_Size">Help\Icon_Size.png</ImageSource>
+    <ImageSource x:Key="Help.Size">Help\Size.png</ImageSource>
+
+    <ImageSource x:Key="Sign_Popup.Altitude_Down">Sign_Popup\Altitude_Down.png</ImageSource>
+    <ImageSource x:Key="Sign_Popup.Altitude_Equal">Sign_Popup\Altitude_Equal.png</ImageSource>
+    <ImageSource x:Key="Sign_Popup.Altitude_Up">Sign_Popup\Altitude_Up.png</ImageSource>
+
+    <CroppedBitmap x:Key="Special_Icon.Chest_Green"     Source="Special_Icon\Chest.png" SourceRect="0,0,20,13"/>
+    <CroppedBitmap x:Key="Special_Icon.Chest_Blue"      Source="Special_Icon\Chest.png" SourceRect="0,13,20,13"/>
+    <CroppedBitmap x:Key="Special_Icon.Chest_Gold"      Source="Special_Icon\Chest.png" SourceRect="0,26,20,13"/>
+
+    <CroppedBitmap x:Key="Special_Icon.Negociant"       Source="Special_Icon\Common.png" SourceRect="0,0,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Merchant"        Source="Special_Icon\Common.png" SourceRect="16,0,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Teleport"        Source="Special_Icon\Common.png" SourceRect="32,0,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Chest"           Source="Special_Icon\Common.png" SourceRect="0,16,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Letter"          Source="Special_Icon\Common.png" SourceRect="16,16,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Greas"           Source="Special_Icon\Common.png" SourceRect="32,16,16,16"/>
+
+    <CroppedBitmap x:Key="Special_Icon.Quest_Start_0"   Source="Special_Icon\Quest.png" SourceRect="0,0,15,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Start_1"   Source="Special_Icon\Quest.png" SourceRect="0,16,15,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Start_4"   Source="Special_Icon\Quest.png" SourceRect="0,32,15,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Start_3"   Source="Special_Icon\Quest.png" SourceRect="0,48,15,16"/>
+
+    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_0"   Source="Special_Icon\Quest.png" SourceRect="16,0,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_1"   Source="Special_Icon\Quest.png" SourceRect="16,16,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_4"   Source="Special_Icon\Quest.png" SourceRect="16,32,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_3"   Source="Special_Icon\Quest.png" SourceRect="16,48,16,16"/>
+
+    <CroppedBitmap x:Key="Special_Icon.Quest_Final_0"   Source="Special_Icon\Quest.png" SourceRect="32,0,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Final_1"   Source="Special_Icon\Quest.png" SourceRect="32,16,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Final_4"   Source="Special_Icon\Quest.png" SourceRect="32,32,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Final_3"   Source="Special_Icon\Quest.png" SourceRect="32,48,16,16"/>
+
+    <Style x:Key="Style_Target" TargetType="{x:Type Image}">
+        <Setter Property="RenderTransformOrigin" Value=".5,.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform Angle="0"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="true">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard Timeline.DesiredFrameRate="4">
+                            <ObjectAnimationUsingKeyFrames Duration="0:0:1.00" Storyboard.TargetProperty="Source" RepeatBehavior="Forever">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage UriSource="Target\Target_Anim_01.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.25">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage UriSource="Target\Target_Anim_02.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.45">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage UriSource="Target\Target_Anim_03.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.75">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <BitmapImage UriSource="Target\Target_Anim_04.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

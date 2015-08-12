@@ -1,0 +1,2 @@
+D:\Users\mblet\Documents\GitHub\boby_shulack\Boby_Shulack_v2\bin\Debug\Boby_Shulack_v2.exe.config
+D:\Users\mblet\Documents\GitHub\boby_shulack\Boby_Shulack_v2\bin\Debug\Boby_Shulack.exe.config

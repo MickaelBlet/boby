@@ -1,0 +1,451 @@
+﻿<Application x:Class="BOBY_Shulack.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Win_Choose.xaml">
+	<Application.Resources>
+		<ResourceDictionary>
+			<Style x:Key="Style_Close_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="33" />
+				<Setter Property="Height" Value="24" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Image Name="image"	Source="Image_Control\Close.png" />
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter Property="Source" TargetName="image"
+									        Value="Image_Control\Close_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Close_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Minimise_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="28" />
+				<Setter Property="Height" Value="24" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Image Name="image"	Source="Image_Control\Minimise.png" />
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter Property="Source" TargetName="image"
+									        Value="Image_Control\Minimise_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Minimise_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Aion_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Height" Value="26" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Source="Image_Control\Button\Left.png" />
+								<Image Name="right" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Source="Image_Control\Button\Right.png" />
+								<Image Name="center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,0" Stretch="Fill" Source="Image_Control\Button\Center.png" />
+								<TextBlock Foreground="#FF000000" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,5,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+								<TextBlock Name="content" Foreground="#FFEFEDC4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsEnabled" Value="False">
+									<Setter Property="Source" TargetName="left" Value="Image_Control\Button\Left_Disable.png" />
+									<Setter Property="Source" TargetName="right" Value="Image_Control\Button\Right_Disable.png" />
+									<Setter Property="Source" TargetName="center" Value="Image_Control\Button\Center_Disable.png" />
+									<Setter Property="Foreground" TargetName="content" Value="#FFAAAAAA" />
+								</Trigger>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter Property="Source" TargetName="left" Value="Image_Control\Button\Left_Hover.png" />
+									<Setter Property="Source" TargetName="right" Value="Image_Control\Button\Right_Hover.png" />
+									<Setter Property="Source" TargetName="center" Value="Image_Control\Button\Center_Hover.png" />
+									<Setter Property="Foreground" TargetName="content" Value="#FFCBA85B" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter Property="Source" TargetName="left" Value="Image_Control\Button\Left_Pressed.png" />
+									<Setter Property="Source" TargetName="right" Value="Image_Control\Button\Right_Pressed.png" />
+									<Setter Property="Source" TargetName="center" Value="Image_Control\Button\Center_Pressed.png" />
+									<Setter Property="Foreground" TargetName="content" Value="#FFCBA85B" />
+									<Setter Property="Margin" TargetName="content" Value="0,5,0,0" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Setting_Button_Anim" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="28" />
+				<Setter Property="Height" Value="24" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Setting.png" />
+								<Image Name="image2" Opacity="0" Source="Image_Control\Setting_Anim.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver" Value="false">
+									<Trigger.EnterActions>
+										<BeginStoryboard>
+											<Storyboard Timeline.DesiredFrameRate="8" RepeatBehavior="10x">
+												<DoubleAnimation Storyboard.TargetProperty="(Image.Opacity)" Storyboard.TargetName="image2" From="0" To="1" AutoReverse="True" Duration="0:0:0.4" ></DoubleAnimation>
+											</Storyboard>
+										</BeginStoryboard>
+									</Trigger.EnterActions>
+								</Trigger>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Setting_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Setting_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Setting_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="28" />
+				<Setter Property="Height" Value="24" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Setting.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Setting_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Setting_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Show_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="28" />
+				<Setter Property="Height" Value="24" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Show.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Show_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Show_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Hide_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="28" />
+				<Setter Property="Height" Value="24" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Hide.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Hide_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Hide_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Left_Arrow_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="22" />
+				<Setter Property="Height" Value="22" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Left_Arrow.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Left_Arrow_Hover.png" />
+								</Trigger>
+								<Trigger Property="IsPressed" Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Left_Arrow_Pressed.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Play_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="20" />
+				<Setter Property="Height" Value="20" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Play.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Play_Hover.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Style_Stop_Button" TargetType="{x:Type Button}">
+				<Setter Property="Background" Value="Transparent" />
+				<Setter Property="Foreground" Value="Transparent" />
+				<Setter Property="Width" Value="20" />
+				<Setter Property="Height" Value="20" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Button}">
+							<Grid>
+								<Image Name="image"	Source="Image_Control\Stop.png" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"	Value="True">
+									<Setter	Property="Source" TargetName="image"
+									        Value="Image_Control\Stop_Hover.png" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style
+				TargetType="{x:Type CheckBox}">
+				<Setter
+					Property="Template">
+					<Setter.Value>
+						<ControlTemplate
+							TargetType="{x:Type CheckBox}">
+							<StackPanel
+								Background="Transparent"
+								Orientation="Horizontal">
+								<Image
+									x:Name="imageCheckBox"
+									Source="Image_Control\CheckBox_Check.png"
+									Width="19"
+									Height="19"
+									Margin="7,2" />
+								<Grid VerticalAlignment="Center">
+									<TextBlock
+										Text="{TemplateBinding Content}"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Margin="1,1,0,0"
+										Foreground="Black" />
+									<TextBlock
+										Name="content"
+										Text="{TemplateBinding Content}"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
+										Margin="0,0,0,0"
+										Foreground="#FFD8D6AF" />
+								</Grid>
+							</StackPanel>
+							<ControlTemplate.Triggers>
+								<Trigger
+									Property="IsChecked"
+									Value="False">
+									<Setter
+										TargetName="imageCheckBox"
+										Property="Source"
+										Value="Image_Control\CheckBox_UnCheck.png" />
+								</Trigger>
+								<Trigger
+									Property="IsMouseOver"
+									Value="True">
+									<Setter
+										TargetName="content"
+										Property="Foreground"
+										Value="#FFCBA85B" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style TargetType="{x:Type ContextMenu}">
+				<Setter Property="SnapsToDevicePixels"
+				        Value="true" />
+				<Setter Property="OverridesDefaultStyle"
+				        Value="true" />
+				<Setter Property="Grid.IsSharedSizeScope"
+				        Value="true" />
+				<Setter Property="HasDropShadow"
+				        Value="true" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type ContextMenu}">
+							<Border x:Name="Border"
+							        BorderThickness="1">
+								<Border.Background>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="1,1">
+										<GradientStop
+											Color="#FF555555"
+											Offset="0.0" />
+										<GradientStop
+											Color="#DD222222"
+											Offset="0.50" />
+										<GradientStop
+											Color="#FF555555"
+											Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.Background>
+								<Border.BorderBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="1,1">
+										<GradientStop
+											Color="#88DDDDDD"
+											Offset="0.0" />
+										<GradientStop
+											Color="#FFDDDDDD"
+											Offset="0.50" />
+										<GradientStop
+											Color="#88DDDDDD"
+											Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.BorderBrush>
+								<StackPanel IsItemsHost="True"
+								            KeyboardNavigation.DirectionalNavigation="Cycle" />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="HasDropShadow"
+								         Value="true">
+									<Setter TargetName="Border"
+									        Property="Padding"
+									        Value="0,3,0,3" />
+									<Setter TargetName="Border"
+									        Property="CornerRadius"
+									        Value="4" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="Null" TargetType="{x:Type MenuItem}">
+			</Style>
+			<Style TargetType="{x:Type MenuItem}">
+				<Style.Triggers>
+					<Trigger Property="IsMouseOver" Value="true">
+						<Setter Property="Background" Value="#55000000" />
+					</Trigger>
+					<Trigger Property="IsKeyboardFocusWithin" Value="true">
+						<Setter Property="Background" Value="#55000000" />
+					</Trigger>
+					<Trigger Property="IsCheckable" Value="true">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type MenuItem}">
+									<Grid Background="{TemplateBinding Background}">
+										<CheckBox Content="{TemplateBinding Header}" IsHitTestVisible="false" IsChecked="{TemplateBinding IsChecked}"></CheckBox>
+									</Grid>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Trigger>
+					<Trigger Property="IsCheckable" Value="false">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type MenuItem}">
+									<Grid Background="{TemplateBinding Background}">
+										<TextBlock Foreground="#FFD8D6AF" Margin="33,1" Height="19" Text="{TemplateBinding Header}" IsHitTestVisible="false" />
+									</Grid>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+			<Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="{x:Type Separator}">
+				<Setter Property="Margin" Value="0,2,0,2"/>
+				<Setter Property="Focusable" Value="false"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Separator}">
+							<Border
+								BorderThickness="1"
+								Height="1"
+								SnapsToDevicePixels="true">
+								<Border.BorderBrush>
+									<LinearGradientBrush
+										StartPoint="0,0"
+										EndPoint="1,1">
+										<GradientStop
+											Color="Transparent"
+											Offset="0.0" />
+										<GradientStop
+											Color="#FFDDDDDD"
+											Offset="0.50" />
+										<GradientStop
+											Color="Transparent"
+											Offset="1.0" />
+									</LinearGradientBrush>
+								</Border.BorderBrush>
+							</Border>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

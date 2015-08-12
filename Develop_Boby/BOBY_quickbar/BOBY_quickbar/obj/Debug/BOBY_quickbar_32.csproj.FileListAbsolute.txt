@@ -1,0 +1,4 @@
+D:\Users\mblet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Debug\BOBY_quickbar_32.exe
+D:\Users\mblet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Debug\BOBY_quickbar_32.pdb
+D:\Documents\Develop_Boby\BOBY_quickbar\BOBY_quickbar\obj\Debug\BOBY_quickbar_32.exe
+D:\Documents\Develop_Boby\BOBY_quickbar\BOBY_quickbar\obj\Debug\BOBY_quickbar_32.pdb

@@ -1,0 +1,945 @@
+<?xml version="1.0"?>
+<ArrayOfLoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Loot>
+    <Name>Appareil d'invocation de Talon</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'arme</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'arme notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'arme d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'arme de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'armure</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'armure notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'armure d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'armure de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'accessoire</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'accessoire notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'accessoire d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Excellent flux d'accessoire de maître</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Absorption de vitalité VIII</Name>
+  </Loot>
+  <Loot>
+    <Name>Canon de glace V</Name>
+  </Loot>
+  <Loot>
+    <Name>Esprit audacieux V</Name>
+  </Loot>
+  <Loot>
+    <Name>Frappe de sceau VIII</Name>
+  </Loot>
+  <Loot>
+    <Name>Frappe vengeresse VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Affaiblissement d'esprit V</Name>
+  </Loot>
+  <Loot>
+    <Name>Anti-tournoiement I</Name>
+  </Loot>
+  <Loot>
+    <Name>Brise pouvoir V</Name>
+  </Loot>
+  <Loot>
+    <Name>Broyage de sceau VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Colère de la Terre VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Complainte III</Name>
+  </Loot>
+  <Loot>
+    <Name>Coupure handicapante VII</Name>
+  </Loot>
+  <Loot>
+    <Name>Couteau runique V</Name>
+  </Loot>
+  <Loot>
+    <Name>Elévation I</Name>
+  </Loot>
+  <Loot>
+    <Name>Esprit têtu I</Name>
+  </Loot>
+  <Loot>
+    <Name>Esquive de tirs rapides I</Name>
+  </Loot>
+  <Loot>
+    <Name>Explosion de feu IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Frappe de l'Inquisiteur III</Name>
+  </Loot>
+  <Loot>
+    <Name>Furie d'absorption IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Grâce rédemptrice I</Name>
+  </Loot>
+  <Loot>
+    <Name>Ombrechute I</Name>
+  </Loot>
+  <Loot>
+    <Name>Parole de vie V</Name>
+  </Loot>
+  <Loot>
+    <Name>Piège d'entrave aérienne I</Name>
+  </Loot>
+  <Loot>
+    <Name>Piège entravant VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Poussée de rage VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Projectile du silence VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Protection VII</Name>
+  </Loot>
+  <Loot>
+    <Name>Siege endigué IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Souffle de la Nature V</Name>
+  </Loot>
+  <Loot>
+    <Name>Splendeur de récupération IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Swing jaillissant IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Tir d'absorption d'âme IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Torrent des âmes I</Name>
+  </Loot>
+  <Loot>
+    <Name>Tranchage divin VI</Name>
+  </Loot>
+  <Loot>
+    <Name>Transfert de soutien III</Name>
+  </Loot>
+  <Loot>
+    <Name>Zéro absolu I</Name>
+  </Loot>
+  <Loot>
+    <Name>Coup drainant III</Name>
+  </Loot>
+  <Loot>
+    <Name>Cyclone de colère III</Name>
+  </Loot>
+  <Loot>
+    <Name>Harpon de glace III</Name>
+  </Loot>
+  <Loot>
+    <Name>Sort de récupération III</Name>
+  </Loot>
+  <Loot>
+    <Name>Stabilité III</Name>
+  </Loot>
+  <Loot>
+    <Name>Vague destructrice V</Name>
+  </Loot>
+  <Loot>
+    <Name>Tir de canon répété I</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Plan : [Type B] Parchemin supérieur de courage</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : [Type B] Parchemin supérieur d'éveil</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : [Type B] Parchemin supérieur de course</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : [Type B] Parchemin supérieur de vent enragé</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Recette : Cocktail de Beshu</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Pâtes à la crème à l'Anévra</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Saucisse de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Maki de Fina</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sandwich de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Steak d'Innési</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle d'Entrin</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi de Plindit</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi d'Éther de Plindit</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Pâtes d'Éther d'Anévra à la crème</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Saucisse d'Éther de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Maki d'Éther de Fina</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sandwich d'Éther de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Steak d'Éther d'Innési</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle d'Éther d'Entrin</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi d'Éther de Plindit</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Saucisse de Grande crête aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Maki de Fina aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sandwich de Grande crête aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle d'Innési aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi de Plindit aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Recette : Cocktail de Drupa</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Pâtes de Gornicle à la crème</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sushi de Nokara</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sandwich de Navcher</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Steak de Poma au vin</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi de Poma</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Pâtes d'Éther de Gornicle à la crème</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Saucisse d'Éther de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sushi d'Éther de Nokara</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sandwich d'Éther de Navcher</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Steak d'Éther de Poma</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle d'Éther de Grande crête</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi d'Éther de Poma</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Saucisse de Grande crête aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sushi de Nokara aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Sandwich de Navcher aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle au vin et Poma aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Quenelle de Grande crête aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name>Recette : Bulgogi de Poma aux aromates</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de mailles de Drénium notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de mailles de Drénium notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de mailles de Drénium notables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de mailles de Drénium notables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Cotte de mailles de Drénium notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Capuche de mailles de Drénium notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de plates de Drénium notables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gantelets de Drénium notables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de plates de Drénium notables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de plates de Drénium notables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Plastron de Drénium notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Heaume de Drénium notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bouclier de Drénium notable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de mailles de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de mailles de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de mailles de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de mailles de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Cotte de mailles de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Capuche de mailles de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de plates de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gantelets de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de plates de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de plates de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Plastron de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Heaume de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bouclier de Drénium d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de mailles de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de mailles de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de mailles de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de mailles de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Cotte de mailles de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Capuche de mailles de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de plates de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gantelets de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de plates de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de plates de Drénium d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Plastron de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Heaume de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bouclier de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de mailles de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de mailles de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de mailles de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de mailles de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Cotte de mailles de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Capuche de mailles de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de plates de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gantelets de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de plates de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de plates de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Plastron de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Heaume de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bouclier de Drénium de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de mailles de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de mailles de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de mailles de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de mailles de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Cotte de mailles de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Capuche de mailles de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bottes de plates de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gantelets de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de plates de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Grèves de plates de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Plastron de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Haubert de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Heaume de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bouclier de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Guisarme de Drénium d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de cuir coriace notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de cuir coriace notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de cuir coriace notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de cuir coriace notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Pourpoint coriace notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de cuir coriace notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chapeau ferme notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de cuir coriace d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de cuir coriace d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de cuir coriace d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de cuir coriace d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Pourpoint coriace d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de cuir coriace d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chapeau ferme d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de cuir coriace durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de cuir coriace durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de cuir coriace durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de cuir coriace durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Pourpoint coriace durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture en cuir coriace durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chapeau ferme durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de Prolix notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de Prolix notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de Prolix notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de Prolix notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Tunique de Prolix notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de Prolix notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bandeau de Prolix notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures en Prolix d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants en Prolix d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières en Prolix d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières en Prolix d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Tunique en Prolix d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture en Prolix d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bandeau en Prolix d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de Prolix durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de Prolix durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de Prolix durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de Prolix durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Tunique de Prolix durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de Prolix durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bandeau de Prolix durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Plan : Collier en corindon durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Lunettes en corindon durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Anneau en corindon durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Boucles d'oreilles en corindon durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégant collier en corindon durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégantes lunettes en corindon durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégant anneau en corindon durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégantes boucles d'oreilles en corindon durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendide collier en corindon durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendides lunettes en corindon durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendide anneau en corindon durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendides boucles d'oreilles en corindon durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Collier en turquoise durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Lunettes en turquoise durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Anneau en turquoise durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Boucles d'oreilles en turquoise durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégant collier en turquoise durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégantes lunettes en turquoise durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégant anneau en turquoise durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Elégantes boucles d'oreilles en turquoise durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendide collier en turquoise durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendides lunettes en turquoise durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendide anneau en turquoise durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Splendides boucles d'oreilles en turquoise durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Arc de Nanyu notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bâton de Nanyu notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Arc de Nanyu d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bâton de Nanyu d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Arc de Nanyu durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bâton de Nanyu durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ouvrage de l'eau sombre notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Orbe de l'eau sombre notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ouvrage de l'eau sombre d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Orbe de l'eau sombre d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ouvrage de l'eau sombre durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Orbe de l'eau sombre durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de Hoca notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de Hoca notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de Hoca notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de Hoca notables durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Tunique de Hoca notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de Hoca notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bandeau de Hoca notable durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de Hoca d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de Hoca d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de Hoca d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de Hoca d'expert durables</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Tunique de Hoca d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de Hoca d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bandeau de Hoca d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Chaussures de Hoca durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Gants de Hoca durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Spallières de Hoca durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Jambières de Hoca durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Tunique de Hoca durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Ceinture de Hoca durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Bandeau de Hoca durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : Blocage +27</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : Parade +27</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : Précision +27</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Masse de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : Esquive +17</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : PM +95</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : revolvers à Éther de Drénium durables de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Bombardement d'Idium IV</Name>
+  </Loot>
+  <Loot>
+    <Name>Clé éthérée du juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Collier courageux de Kromède</Name>
+  </Loot>
+  <Loot>
+    <Name>Heaume de flamme</Name>
+  </Loot>
+  <Loot>
+    <Name>Artefact de Silence</Name>
+  </Loot>
+  <Loot>
+    <Name>Bâton du Juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Collier de Kromède</Name>
+  </Loot>
+  <Loot>
+    <Name>Capuche de mailles de feu</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : Esquive +10</Name>
+  </Loot>
+  <Loot>
+    <Name>Epingle de rang de tribun Archon</Name>
+  </Loot>
+  <Loot>
+    <Name>Revolvers à Éther du juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Flux d'arme majeur d'expert</Name>
+  </Loot>
+  <Loot>
+    <Name>Bandana de flammes</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Anneau en grenat élégant</Name>
+  </Loot>
+  <Loot>
+    <Name>Grimoire du Juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Dévotion inébranlable I</Name>
+  </Loot>
+  <Loot>
+    <Name>Flux d'accessoire fin</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : PV +50</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : PM +50</Name>
+  </Loot>
+  <Loot>
+    <Name>Espadon du Juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Elixir de vie supérieur</Name>
+  </Loot>
+  <Loot>
+    <Name>Épée du Juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Coffre à armes uniques du Juge</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Dague de Drénium durable de maître</Name>
+  </Loot>
+  <Loot>
+    <Name>Tessons de Stigma</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : Arc de Korie d'expert durable</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana  : Résistance magique +14</Name>
+  </Loot>
+  <Loot>
+    <Name>Pierre de mana : Préc. magique +14</Name>
+  </Loot>
+  <Loot>
+    <Name>Plan : instrument à cordes de Nanyu durable de maître</Name>
+  </Loot>
+</ArrayOfLoot>

@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<ArrayOfSkills xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skills>
+    <Name>Seau sans fond</Name>
+    <HP>32</HP>
+    <MP>32</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de mana excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de mana excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de vie excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de vie excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Restauration d'endurance</Name>
+    <HP>60</HP>
+    <MP>60</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Sort de récupération</Name>
+    <HP>50</HP>
+    <MP>0</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Halo de soins</Name>
+    <HP>40</HP>
+    <MP>0</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Jugement inéluctable</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Crash de montagne</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Frappe bénie</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Frappe de météore</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Frappe déstabilisante</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Sort de fureur</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Bénédiction de vitalité</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Bénédiction rocheuse</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Parole de renouveau</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Promesse du vent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Récupération magique</Name>
+    <HP>0</HP>
+    <MP>60</MP>
+    <Type>OffFight</Type>
+  </Skills>
+</ArrayOfSkills>

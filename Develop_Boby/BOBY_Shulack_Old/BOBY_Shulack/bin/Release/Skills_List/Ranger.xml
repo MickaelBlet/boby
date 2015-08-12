@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<ArrayOfSkills xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skills>
+    <Name>Seau sans fond</Name>
+    <HP>32</HP>
+    <MP>32</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de mana excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de mana excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de vie excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de vie excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Evasion concentrée</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tir étourdissant</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tir rapide</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Flèche d'explosion</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Flèche du coeur</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tir empêtrant</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Flèche choquante</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Flèche claire-ailette</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Flèche rafale</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Souffle de la Nature</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Astuce acérée</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Phytothérapie</Name>
+    <HP>70</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+</ArrayOfSkills>

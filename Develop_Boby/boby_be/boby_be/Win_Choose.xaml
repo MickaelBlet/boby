@@ -1,0 +1,242 @@
+﻿<Window x:Class="BOBY_Shulack.Win_Choose"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BOBY_Shulack"
+        Height="220"
+        Width="320"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        Closing="win_Closing"
+        FocusManager.FocusedElement="{Binding ElementName=listBox_Game}">
+	<Window.Resources>
+		<Style
+			x:Key="myLBStyle"
+			TargetType="{x:Type ListBoxItem}">
+			<Style.Resources>
+				<LinearGradientBrush
+					x:Key="{x:Static SystemColors.HighlightBrushKey}"
+					StartPoint="0,0"
+					EndPoint="1,0">
+					<GradientStop
+						Color="#8800AAAA"
+						Offset="0.0" />
+					<GradientStop
+						Color="#8800AAAA"
+						Offset="0.50" />
+					<GradientStop
+						Color="Transparent"
+						Offset="1.0" />
+				</LinearGradientBrush>
+				<LinearGradientBrush
+					x:Key="{x:Static SystemColors.ControlBrushKey}"
+					StartPoint="0,0"
+					EndPoint="1,0">
+					<GradientStop
+						Color="#8800AAAA"
+						Offset="0.0" />
+					<GradientStop
+						Color="#8800AAAA"
+						Offset="0.50" />
+					<GradientStop
+						Color="Transparent"
+						Offset="1.0" />
+				</LinearGradientBrush>
+				<SolidColorBrush
+					x:Key="{x:Static SystemColors.ControlTextBrushKey}"
+					Color="White" />
+			</Style.Resources>
+		</Style>
+	</Window.Resources>
+	<Grid>
+		<Image
+			Source="Image_Windows\BG_Choose.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="300"
+			Height="170"
+			Margin="10,38,0,0" />
+		<!--	Windows images	-->
+		<Image
+			Source="Image_Windows\Win_Top_Left.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Width="24"
+			Height="24"
+			Margin="0,0" />
+		<Image
+			Source="Image_Windows\Win_Top_Right.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Right"
+			Width="24"
+			Height="24"
+			Margin="0,0" />
+		<Image
+			Source="Image_Windows\Win_Top_Fill.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Right"
+			Stretch="Fill"
+			Height="24"
+			Margin="24,0" />
+		<Image
+			Source="Image_Windows\Win_Left_Fill.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Stretch="Fill"
+			Width="24"
+			Margin="0,24" />
+		<Image
+			Source="Image_Windows\Win_Center_Fill.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Stretch="Fill"
+			Margin="24,24" />
+		<Image
+			Source="Image_Windows\Win_Right_Fill.png"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Right"
+			Stretch="Fill"
+			Width="24"
+			Margin="0,24" />
+		<Image
+			Source="Image_Windows\Win_Bottom_Left.png"
+			VerticalAlignment="Bottom"
+			HorizontalAlignment="Left"
+			Width="24"
+			Height="24"
+			Margin="0,0" />
+		<Image
+			Source="Image_Windows\Win_Bottom_Right.png"
+			VerticalAlignment="Bottom"
+			HorizontalAlignment="Right"
+			Width="24"
+			Height="24"
+			Margin="0,0" />
+		<Image
+			Source="Image_Windows\Win_Bottom_Fill.png"
+			VerticalAlignment="Bottom"
+			HorizontalAlignment="Right"
+			Stretch="Fill"
+			Height="24"
+			Margin="24,0" />
+		<!--	/Windows images	-->
+		<Label
+			Content="BOBY BE"
+			FontSize="16"
+			FontFamily="Microsoft Tai Le"
+			FontWeight="Bold"
+			Foreground="#FFFFFFFF"
+			Grid.Column="0"
+			Grid.Row="0"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Margin="10,9,0,0"
+			Width="300"
+			Height="28"
+			HorizontalContentAlignment="Center"
+			VerticalContentAlignment="Top">
+			<Label.Effect>
+				<DropShadowEffect
+					ShadowDepth="0"
+					Color="White"
+					Opacity="0.5"
+					BlurRadius="10" />
+			</Label.Effect>
+		</Label>
+		<Rectangle
+			MouseLeftButtonDown="Title_MouseLeftButtonDown"
+			Height="24"
+			Stretch="UniformToFill"
+			Margin="9,9"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Name="rectangle1"
+			Cursor="SizeAll">
+			<Rectangle.Fill>
+				<SolidColorBrush
+					Color="Transparent" />
+			</Rectangle.Fill>
+		</Rectangle>
+		<Button
+			Name="Button_Close"
+			Style="{StaticResource Style_Close_Button}"
+			Click="Button_Close_Click"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Top"
+			Margin="0,9,13,0" />
+		<ListBox
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Margin="10,138,0,0"
+			Width="300"
+			Height="70"
+			BorderBrush="#00FFFFFF"
+			Foreground="#FFFFFFFF"
+			ItemContainerStyle="{StaticResource myLBStyle}"
+			Name="listBox_Game"
+			MouseDoubleClick="listBox_Game_MouseDoubleClick"
+			FontFamily="Arial"
+			FontSize="13"
+			PreviewKeyDown="listBox_Game_PreviewKeyDown">
+			<Control.Background>
+				<LinearGradientBrush
+					StartPoint="0,0"
+					EndPoint="1,0">
+					<GradientStop
+						Color="Transparent"
+						Offset="0.0" />
+					<GradientStop
+						Color="#55FFFFFF"
+						Offset="0.50" />
+					<GradientStop
+						Color="Transparent"
+						Offset="1.0" />
+				</LinearGradientBrush>
+			</Control.Background>
+		</ListBox>
+		<Button
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			Margin="0,112,0,0"
+			Width="80"
+			Style="{StaticResource Style_Aion_Button}"
+			Click="Button_Start_Click">Start</Button>
+		<TextBox
+			Name="tbLog"
+			x:FieldModifier="public"
+			Text=""
+			TextWrapping="WrapWithOverflow"
+			FontSize="11"
+			IsReadOnly="True"
+			Foreground="#FFFFFFFF"
+			BorderThickness="0"
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Margin="10,38.96,0,0"
+			Width="300"
+			Height="72">
+			<Control.Background>
+				<LinearGradientBrush
+					StartPoint="0,0"
+					EndPoint="1,0">
+					<GradientStop
+						Color="Transparent"
+						Offset="0.0" />
+					<GradientStop
+						Color="#55FFFFFF"
+						Offset="0.50" />
+					<GradientStop
+						Color="Transparent"
+						Offset="1.0" />
+				</LinearGradientBrush>
+			</Control.Background>
+		</TextBox>
+	</Grid>
+</Window>

@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ArrayOfLoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Loot>
+    <Name>Panacée de mana excellente</Name>
+  </Loot>
+  <Loot>
+    <Name>Elixir de mana excellent</Name>
+  </Loot>
+  <Loot>
+    <Name>Panacée de vie excellente</Name>
+  </Loot>
+  <Loot>
+    <Name>Elixir de vie excellent</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Anneau en corindon d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Anneau en latérite d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Anneau en turquoise d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Ceinture de cuir d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Ceinture de tissu d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Bottes de plates d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Bottes de mailles d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Bottes en cuir d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Chaussures d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Gantelets d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Gants de mailles d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Gants de cuir d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Gants d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name />
+  </Loot>
+  <Loot>
+    <Name>Spallières de plates d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Spallières de mailles d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Spallières de cuir d'Osbalaur</Name>
+  </Loot>
+  <Loot>
+    <Name>Spallières d'Osbalaur</Name>
+  </Loot>
+</ArrayOfLoot>

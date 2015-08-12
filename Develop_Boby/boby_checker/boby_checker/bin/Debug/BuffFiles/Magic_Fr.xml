@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfBuff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Buff>
+    <ID>9960</ID>
+    <COMMAND>Parchemin supérieur de course</COMMAND>
+  </Buff>
+  <Buff>
+    <ID>9959</ID>
+    <COMMAND>Parchemin supérieur d'éveil</COMMAND>
+  </Buff>
+  <Buff>
+    <ID>9958</ID>
+    <COMMAND>Parchemin majeur de crit. magiques</COMMAND>
+  </Buff>
+</ArrayOfBuff>

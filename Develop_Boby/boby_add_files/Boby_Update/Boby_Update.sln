@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boby_Update", "Boby_Update\Boby_Update.csproj", "{A7DC9385-A265-4551-97BB-EF529E595A9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A7DC9385-A265-4551-97BB-EF529E595A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DC9385-A265-4551-97BB-EF529E595A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DC9385-A265-4551-97BB-EF529E595A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DC9385-A265-4551-97BB-EF529E595A9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

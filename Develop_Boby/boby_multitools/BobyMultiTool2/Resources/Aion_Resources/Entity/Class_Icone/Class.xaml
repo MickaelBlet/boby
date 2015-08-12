@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+    <CroppedBitmap x:Key="Class_Icon.0"          Source="Class.png" SourceRect="0,0,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.1"          Source="Class.png" SourceRect="19,0,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.2"          Source="Class.png" SourceRect="38,0,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.3"          Source="Class.png" SourceRect="0,19,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.4"          Source="Class.png" SourceRect="19,19,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.5"          Source="Class.png" SourceRect="38,19,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.6"          Source="Class.png" SourceRect="0,38,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.7"          Source="Class.png" SourceRect="19,38,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.8"          Source="Class.png" SourceRect="38,38,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.9"          Source="Class.png" SourceRect="0,57,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.10"         Source="Class.png" SourceRect="19,57,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.11"         Source="Class.png" SourceRect="38,57,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.12"         Source="Class.png" SourceRect="0,76,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.13"         Source="Class.png" SourceRect="19,76,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.14"         Source="Class.png" SourceRect="38,76,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.15"         Source="Class.png" SourceRect="0,95,19,19"/>
+    <CroppedBitmap x:Key="Class_Icon.16"         Source="Class.png" SourceRect="19,95,19,19"/>
+</ResourceDictionary>

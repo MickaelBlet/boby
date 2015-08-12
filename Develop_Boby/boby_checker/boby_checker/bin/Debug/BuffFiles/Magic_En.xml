@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<ArrayOfBuff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Buff>
+    <ID>9960</ID>
+    <COMMAND>&lt;Greater Running Scroll&gt;</COMMAND>
+  </Buff>
+  <Buff>
+    <ID>9959</ID>
+    <COMMAND>&lt;Greater Awakening Scroll&gt;</COMMAND>
+  </Buff>
+  <Buff>
+    <ID>9958</ID>
+    <COMMAND>&lt;Major Crit Spell Scroll&gt;</COMMAND>
+  </Buff>
+</ArrayOfBuff>

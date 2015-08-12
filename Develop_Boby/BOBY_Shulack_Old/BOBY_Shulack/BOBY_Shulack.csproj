@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{424B615C-83A3-4899-ADF9-597783091C13}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>boby_shulack</RootNamespace>
+    <AssemblyName>boby_shulack</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <SignAssembly>False</SignAssembly>
+    <DelaySign>False</DelaySign>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>False</RunCodeAnalysis>
+    <SourceAnalysisOverrideSettingsFile>C:\Users\Mickael-Blet\AppData\Roaming\ICSharpCode/SharpDevelop4\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publier\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+    <Prefer32Bit>True</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>None</DebugType>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ability\Ability.cs" />
+    <Compile Include="AionMemory\List.cs" />
+    <Compile Include="AionMemory\Memory.cs" />
+    <Compile Include="AionMemory\Offset.cs" />
+    <Compile Include="AionMemory\Process.cs" />
+    <Compile Include="AionMemory\SplMemory.cs" />
+    <Compile Include="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Boucle\Boucle_Bateau.cs" />
+    <Compile Include="Boucle\Boucle_Delete.cs" />
+    <Compile Include="Boucle\Boucle_Skills.cs" />
+    <Compile Include="Boucle\Boucle_Status.cs" />
+    <Compile Include="Boucle\Thread_Entity.cs" />
+    <Compile Include="DownloadBox.xaml.cs">
+      <DependentUpon>DownloadBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Get_Online_Users.cs" />
+    <Compile Include="Html\Html.cs" />
+    <Compile Include="Listing\Listing.cs" />
+    <Compile Include="Orverlay.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\WPFAssemblyInfo.cs" />
+    <Compile Include="Setting\Setting.cs" />
+    <Compile Include="Win_Choose.xaml.cs">
+      <DependentUpon>Win_Choose.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Win_Loot.xaml.cs">
+      <DependentUpon>Win_Loot.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Win_Shulack.xaml.cs">
+      <DependentUpon>Win_Shulack.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Win_Skills.xaml.cs">
+      <DependentUpon>Win_Skills.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Win_Status.xaml.cs">
+      <DependentUpon>Win_Status.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Win_Viewer.xaml.cs">
+      <DependentUpon>Win_Viewer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DownloadBox.xaml" />
+    <Page Include="Win_Choose.xaml" />
+    <Page Include="Win_Loot.xaml" />
+    <Page Include="Win_Shulack.xaml" />
+    <Page Include="Win_Skills.xaml" />
+    <Page Include="Win_Status.xaml" />
+    <Page Include="Win_Viewer.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image_Control\BG Slider.png" />
+    <Resource Include="Image_Control\Button\Center.png" />
+    <Resource Include="Image_Control\Button\Center_Hover.png" />
+    <Resource Include="Image_Control\Button\Center_Pressed.png" />
+    <Resource Include="Image_Control\Button\Left.png" />
+    <Resource Include="Image_Control\Button\Left_Hover.png" />
+    <Resource Include="Image_Control\Button\Left_Pressed.png" />
+    <Resource Include="Image_Control\Button\Right.png" />
+    <Resource Include="Image_Control\Button\Right_Hover.png" />
+    <Resource Include="Image_Control\Button\Right_Pressed.png" />
+    <Resource Include="Image_Control\CheckBox_Check.png" />
+    <Resource Include="Image_Control\CheckBox_UnCheck.png" />
+    <Resource Include="Image_Control\Close.png" />
+    <Resource Include="Image_Control\Close_Hover.png" />
+    <Resource Include="Image_Control\Close_Hover_Red.png" />
+    <Resource Include="Image_Control\Close_Pressed.png" />
+    <Resource Include="Image_Control\Hide.png" />
+    <Resource Include="Image_Control\Hide_Hover.png" />
+    <Resource Include="Image_Control\Hide_Pressed.png" />
+    <Resource Include="Image_Control\List.png" />
+    <Resource Include="Image_Control\Minimise.png" />
+    <Resource Include="Image_Control\Minimise_Hover.png" />
+    <Resource Include="Image_Control\Minimise_Pressed.png" />
+    <Resource Include="Image_Control\New.png" />
+    <Resource Include="Image_Control\Open.png" />
+    <Resource Include="Image_Control\Pause.png" />
+    <Resource Include="Image_Control\Play.png" />
+    <Resource Include="Image_Control\Play_Hover.png" />
+    <Resource Include="Image_Control\Save.png" />
+    <Resource Include="Image_Control\Setting.png" />
+    <Resource Include="Image_Control\Setting_Anim.png" />
+    <Resource Include="Image_Control\Setting_Hover.png" />
+    <Resource Include="Image_Control\Setting_Pressed.png" />
+    <Resource Include="Image_Control\Show.png" />
+    <Resource Include="Image_Control\Show_Hover.png" />
+    <Resource Include="Image_Control\Show_Pressed.png" />
+    <Resource Include="Image_Control\SliderThumb.png" />
+    <Resource Include="Image_Control\Stop.png" />
+    <Resource Include="Image_Control\Stop_Hover.png" />
+    <Resource Include="Image_Windows\BG_Download.png" />
+    <Resource Include="Image_Windows\Win_Bottom_Fill.png" />
+    <Resource Include="Image_Windows\Win_Bottom_Left.png" />
+    <Resource Include="Image_Windows\Win_Bottom_Right.png" />
+    <Resource Include="Image_Windows\Win_Center_Fill.png" />
+    <Resource Include="Image_Windows\Win_Left_Fill.png" />
+    <Resource Include="Image_Windows\Win_Right_Fill.png" />
+    <Resource Include="Image_Windows\Win_Top_Fill.png" />
+    <Resource Include="Image_Windows\Win_Top_Left.png" />
+    <Resource Include="Image_Windows\Win_Top_Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="app.manifest" />
+    <Resource Include="Icon.ico" />
+    <Resource Include="Image_Windows\BG_Viewer.png" />
+    <Resource Include="Image_Control\Button\Center_Disable.png" />
+    <Resource Include="Image_Control\Button\Left_Disable.png" />
+    <Resource Include="Image_Control\Button\Right_Disable.png" />
+    <Resource Include="Image_Control\Left_Arrow.png" />
+    <Resource Include="Image_Control\Left_Arrow_Hover.png" />
+    <Resource Include="Image_Control\Left_Arrow_Pressed.png" />
+    <Resource Include="Image_Windows\BG_Choose.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

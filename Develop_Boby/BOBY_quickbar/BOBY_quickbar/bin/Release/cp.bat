@@ -1,0 +1,1 @@
+copy "D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar_64\bin\Release\BOBY_quickbar_64.exe" .

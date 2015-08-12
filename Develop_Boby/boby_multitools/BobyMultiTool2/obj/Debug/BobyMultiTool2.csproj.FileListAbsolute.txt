@@ -1,0 +1,10 @@
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\BobyMultiTool2.csprojResolveAssemblyReference.cache
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\App.g.cs
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\BobyMultiTool2_MarkupCompile.cache
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\BobyMultiTool2.g.resources
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\bin\Debug\BobyMultiTool2.exe
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\bin\Debug\BobyMultiTool2.pdb
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\Main.baml
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\Main.g.cs
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\BobyMultiTool2.exe
+D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BobyMultiTool2\BobyMultiTool2\obj\Debug\BobyMultiTool2.pdb

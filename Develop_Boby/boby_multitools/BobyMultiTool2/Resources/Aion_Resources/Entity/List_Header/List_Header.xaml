@@ -1,0 +1,108 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+    <CroppedBitmap x:Key="List_Header.Common_Left"          Source="Header_BG.png" SourceRect="0,0,3,17"/>
+    <CroppedBitmap x:Key="List_Header.Common_Center"         Source="Header_BG.png" SourceRect="3,0,4,17"/>
+    <CroppedBitmap x:Key="List_Header.Common_Right"        Source="Header_BG.png" SourceRect="7,0,3,17"/>
+
+    <CroppedBitmap x:Key="List_Header.Green_Left"          Source="Header_BG.png" SourceRect="0,17,3,17"/>
+    <CroppedBitmap x:Key="List_Header.Green_Center"         Source="Header_BG.png" SourceRect="3,17,4,17"/>
+    <CroppedBitmap x:Key="List_Header.Green_Right"        Source="Header_BG.png" SourceRect="7,17,3,17"/>
+
+    <CroppedBitmap x:Key="List_Header.Red_Left"          Source="Header_BG.png" SourceRect="0,34,3,17"/>
+    <CroppedBitmap x:Key="List_Header.Red_Center"         Source="Header_BG.png" SourceRect="3,34,4,17"/>
+    <CroppedBitmap x:Key="List_Header.Red_Right"        Source="Header_BG.png" SourceRect="7,34,3,17"/>
+
+    <Style
+        x:Key="List_Header"
+		TargetType="{x:Type Button}">
+        <Setter Property="Cursor" Value="Hand" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Height" Value="17" />
+		<Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Aion_Resources/#Bitstream Vera Sans" />
+        <Setter Property="FontSize" Value="10" />
+		<Setter Property="Template">
+			<Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image Name="left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Source="{StaticResource List_Header.Common_Left}" />
+                        <Image Name="right" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Source="{StaticResource List_Header.Common_Right}" />
+                        <Image Name="center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0" Stretch="Fill" Source="{StaticResource List_Header.Common_Center}" />
+                        <TextBlock Name="content_back" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,4,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+                        <TextBlock Name="content" Foreground="#FFEFEDC4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" TargetName="content" Value="#FFCBA85B" />
+                            <Setter Property="Margin" TargetName="content_back" Value="1,5,0,0" />
+                            <Setter Property="Margin" TargetName="content" Value="0,4,0,0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+    <Style
+        x:Key="List_Header_Green"
+		TargetType="{x:Type Button}">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="17" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Aion_Resources/#Bitstream Vera Sans" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image Name="left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Source="{StaticResource List_Header.Green_Left}" />
+                        <Image Name="right" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Source="{StaticResource List_Header.Green_Right}" />
+                        <Image Name="center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0" Stretch="Fill" Source="{StaticResource List_Header.Green_Center}" />
+                        <TextBlock Name="content_back" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,4,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+                        <TextBlock Name="content" Foreground="#FFEFEDC4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" TargetName="content" Value="#FFCBA85B" />
+                            <Setter Property="Margin" TargetName="content_back" Value="1,5,0,0" />
+                            <Setter Property="Margin" TargetName="content" Value="0,4,0,0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="List_Header_Red"
+		TargetType="{x:Type Button}">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="17" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Aion_Resources/#Bitstream Vera Sans" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image Name="left" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Source="{StaticResource List_Header.Red_Left}" />
+                        <Image Name="right" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,0,0" Source="{StaticResource List_Header.Red_Right}" />
+                        <Image Name="center" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0" Stretch="Fill" Source="{StaticResource List_Header.Red_Center}" />
+                        <TextBlock Name="content_back" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,4,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+                        <TextBlock Name="content" Foreground="#FFEFEDC4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" TargetName="content" Value="#FFCBA85B" />
+                            <Setter Property="Margin" TargetName="content_back" Value="1,5,0,0" />
+                            <Setter Property="Margin" TargetName="content" Value="0,4,0,0" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

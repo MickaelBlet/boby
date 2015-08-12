@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B1B0980F-AC80-44DD-B84E-6D9552A93EBA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Boby_Shulack</RootNamespace>
+    <AssemblyName>Boby_Shulack</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Listing\Listing.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\WPFAssemblyInfo.cs" />
+    <Compile Include="Aion_Module\Send_Chat.cs" />
+    <Compile Include="Windows_Module\Windows_And_Process.cs" />
+    <Compile Include="Windows_Module\Send_Key.cs" />
+    <Compile Include="_Win_Main\Close.cs" />
+    <Compile Include="_Win_Main\Get_Online_Users.cs" />
+    <Compile Include="_Win_Main\Refresh_lb_Game.cs" />
+    <Compile Include="_Win_Main\Start_App.cs" />
+    <Compile Include="_Win_Main\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_Win_Main\Win_Main.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>Win_Main.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\Setting.cs" />
+    <Compile Include="Setting\Type_To_XML.cs" />
+    <Compile Include="Memory\Memory.cs" />
+    <Compile Include="Aion_Module\Aion_Game.cs" />
+    <Compile Include="Memory\SplMemory.cs" />
+    <Compile Include="Aion_Module\Offset.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Global_Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\**\*.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\Aion_Resources\Aion_Resources.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Button\Button.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Button_Icone\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\CheckBox\CheckBox.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\ComboBox\ComboBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Controls\Common_Controls.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\ListBox.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Loading\Loading.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Slider\Slider.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Special_Button\Special_Button.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Textbox\Textbox.xaml" />
+    <Page Include="Resources\Aion_Resources\Controls\Win_Button\Win_Button.xaml" />
+    <Page Include="Resources\Aion_Resources\Entity\Class_Icone\Class.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Entity\List_Header\List_Header.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Entity\Target_Button\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Aion_Resources\Radar\Radar.xaml" />
+    <Page Include="Resources\Aion_Resources\Windows\BG\BG.xaml" />
+    <Page Include="Resources\Aion_Resources\Windows\Windows.xaml" />
+    <Page Include="_Win_Main\Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="_Win_Main\Win_Main.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.manifest" />
+    <None Include="Boby_Shulack.csproj" />
+    <Resource Include="Resources\Aion_Resources\vera.ttf" />
+    <Resource Include="Resources\Aion_Black.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

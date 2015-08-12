@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+	x:Class="BOBY_Shulack.DownloadBox" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	WindowStartupLocation="CenterScreen"
+	Topmost="True"
+	WindowStyle="None"
+	Background="Transparent"
+	AllowsTransparency="True"
+	Title="Download BOBY"
+	Height="138"
+	Width="300">
+	<Window.Resources>
+		<Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ProgressBar">
+						<Grid x:Name="PART_Track" >
+							<Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left" RadiusX="5" RadiusY="10">
+								<Rectangle.Fill>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Color="#2C2714" Offset="0"/>
+										<GradientStop Color="#AE8B43" Offset="0.1"/>
+										<GradientStop Color="#D3BC59" Offset="0.2"/>
+										<GradientStop Color="#7F5D33" Offset="0.3"/>
+										<GradientStop Color="#604829" Offset="0.4"/>
+										<GradientStop Color="#674A2A" Offset="0.5"/>
+										<GradientStop Color="#7E5D33" Offset="0.6"/>
+										<GradientStop Color="#C4874A" Offset="0.7"/>
+										<GradientStop Color="#CD934F" Offset="0.8"/>
+										<GradientStop Color="#6E5230" Offset="0.9"/>
+									</LinearGradientBrush>
+								</Rectangle.Fill>
+							</Rectangle>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
+	<Grid>
+		<Image
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top">
+			<Image.Source>
+				<BitmapImage
+					UriSource="Image_Windows\BG_Download.png" />
+			</Image.Source>
+		</Image>
+		<ProgressBar
+			Style="{StaticResource ProgressBarStyle}"
+			Name="PBar"
+			Grid.Column="0"
+			Grid.Row="0"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Top"
+			Margin="34,62,0,0"
+			Width="230"
+			Height="11"></ProgressBar>
+	</Grid>
+</Window>
