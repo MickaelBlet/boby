@@ -8,7 +8,7 @@
 	    AllowsTransparency="True"
 	    Title="BOBY"
 	    Height="180"
-	    Width="180">
+	    Width="380">
     <Window.Resources>
         <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
             <Setter Property="Template">
@@ -38,17 +38,16 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <ContentControl IsTabStop="False" Template="{StaticResource Style_Aion_Grid}" />
         <Grid Margin="9,9,9,9">
             <Label
                 Margin="0,0,0,0"
 				Content="BOBY Update"
-				FontSize="16"
+				FontSize="26"
 				FontWeight="Bold"
 				Foreground="#FFEFEDC4"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Center" 
-				Height="28"
+				Height="48"
 				HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Top">
                 <Label.Effect>
@@ -67,7 +66,7 @@
                 <Image.Effect>
                     <DropShadowEffect
 						ShadowDepth="0"
-						Color="#FF000000"
+						Color="#FFFFFFFF"
 						Opacity="1"
 						BlurRadius="20" />
                 </Image.Effect>
@@ -78,8 +77,16 @@
 			HorizontalAlignment="Center"
 			VerticalAlignment="Top"
 			Margin="0,135,0,0"
-			Width="140"
-			Height="11"></ProgressBar>
+			Width="340"
+			Height="11" Value="50">
+                <ProgressBar.Effect>
+                    <DropShadowEffect
+						ShadowDepth="0"
+						Color="#FFFFFFFF"
+						Opacity="1"
+						BlurRadius="20" />
+                </ProgressBar.Effect>
+            </ProgressBar>
         </Grid>
     </Grid>
 </Window>

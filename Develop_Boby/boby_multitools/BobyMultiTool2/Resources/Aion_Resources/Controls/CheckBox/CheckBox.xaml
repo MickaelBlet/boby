@@ -1,11 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-	<Style
+
+    <CroppedBitmap x:Key="Img.Checkbox"          Source="Checkbox.png" SourceRect="0,0,19,19"/>
+    <CroppedBitmap x:Key="Img.Checkbox.Checked"  Source="Checkbox.png" SourceRect="0,19,19,19"/>
+    <CroppedBitmap x:Key="Img.Checkbox.Disable"  Source="Checkbox.png" SourceRect="0,38,19,19"/>
+
+    <Style
 		TargetType="{x:Type CheckBox}">
-        <Setter Property="FontFamily"  Value="pack://application:,,,/Resources/Aion_Resources/#Bitstream Vera Sans" />
         <Setter Property="FontSize" Value="11.5" />
-        <Setter Property="Foreground" Value="#FFD8D6AF" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
 		<Setter
 			Property="Template">
 			<Setter.Value>
@@ -16,26 +20,27 @@
 						Orientation="Horizontal">
 						<Image
 							x:Name="imageCheckBox"
-							Source="Check.png"
+							Source="{StaticResource Img.Checkbox.Checked}"
 							Width="19"
 							Height="19"
 							Margin="7,2" />
 						<Grid Height="19" VerticalAlignment="Center">
-							<TextBlock
-								Name="content_back"
-								Text="{TemplateBinding Content}"
-								HorizontalAlignment="Left"
-								VerticalAlignment="Top"
-								Margin="1,4,0,0"
-								Foreground="Black" />
-							<TextBlock
+                            <TextBlock
 								Name="content"
 								Text="{TemplateBinding Content}"
 								HorizontalAlignment="Left"
 								VerticalAlignment="Top"
 								Margin="0,3,0,0"
-								Foreground="{TemplateBinding Foreground}" />
-						</Grid>
+								Foreground="{TemplateBinding Foreground}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect
+					                    ShadowDepth="1"
+					                    Color="#FF000000"
+					                    Opacity="1"
+					                    BlurRadius="1" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
 					</StackPanel>
 					<ControlTemplate.Triggers>
 						<Trigger
@@ -44,7 +49,7 @@
 							<Setter
 								TargetName="imageCheckBox"
 								Property="Source"
-								Value="UnCheck.png" />
+								Value="{StaticResource Img.Checkbox}" />
 						</Trigger>
 						<Trigger
 							Property="IsMouseOver"
@@ -52,11 +57,10 @@
 							<Setter
 								TargetName="content"
 								Property="Foreground"
-								Value="#FFCBA85B" />
+								Value="#FF88FFFF" />
 						</Trigger>
 						<Trigger Property="IsPressed" Value="True">
-							<Setter Property="Foreground" TargetName="content" Value="#FFCBA85B" />
-                            <Setter Property="Margin" TargetName="content_back" Value="1,5,0,0" />
+                            <Setter Property="Foreground" TargetName="content" Value="#FF88FFFF" />
                             <Setter Property="Margin" TargetName="content" Value="0,4,0,0" />
 						</Trigger>
 						<Trigger
@@ -65,7 +69,7 @@
 							<Setter
 								TargetName="imageCheckBox"
 								Property="Source"
-								Value="Disable.png" />
+								Value="{StaticResource Img.Checkbox.Disable}" />
 							<Setter
 								TargetName="content"
 								Property="Foreground"

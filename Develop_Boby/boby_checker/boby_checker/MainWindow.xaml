@@ -7,31 +7,45 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="boby_checker"
-        Height="200"
+        Height="190"
         Width="230">
 	<Grid>
 		<ContentControl IsTabStop="False" Template="{StaticResource Style_Aion_Grid}" />
 		<Grid Margin="9,9,9,9">
-			<Label
-				Margin="0,0,0,0"
+            <Label
+                VerticalAlignment="Top"
+				HorizontalAlignment="Left" 
+                Height="24"
+                Padding="5,1,0,0"
 				Content="BOBY Checker"
-				FontSize="16"
+				Foreground="#FF000000"
 				FontWeight="Bold"
-				Foreground="#FFEFEDC4"
-				VerticalAlignment="Top"
-				HorizontalAlignment="Center"
-				Height="28"
-				HorizontalContentAlignment="Center"
+				FontSize="16"
+                HorizontalContentAlignment="Center"
 				VerticalContentAlignment="Top">
-				<Label.Effect>
-					<DropShadowEffect
+                <Label.Effect>
+                    <DropShadowEffect
 						ShadowDepth="0"
-						Color="#FFEFEDC4"
-						Opacity="0.5"
-						BlurRadius="10" />
-				</Label.Effect>
-			</Label>
-			<Button
+						Color="#FFFFFFFF"
+						Opacity="1"
+						BlurRadius="3" />
+                </Label.Effect>
+            </Label>
+            <Rectangle
+				MouseLeftButtonDown="rt_Title_MouseLeftButtonDown"
+				Height="24"
+				Stretch="UniformToFill"
+				Margin="0,0,0,0"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Name="rt_Title"
+				Cursor="SizeAll">
+                <Rectangle.Fill>
+                    <SolidColorBrush
+						Color="Transparent" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <Button
 				Name="bt_Close"
 				IsTabStop="False"
 				Style="{StaticResource Style_Close_Button}"
@@ -41,35 +55,17 @@
 				Click="Bt_Close_Click" />
 		</Grid>
 		<StackPanel Margin="9,37,9,9">
-			<Label
-				Content="Username"
-				FontSize="12"
-				Foreground="#FFEFEDC4"
-				VerticalAlignment="Top"
-				HorizontalAlignment="Center"
-				Height="24"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Top">
-			</Label>
+            <TextBlock Margin="1,0,1,0" Style="{StaticResource style_TextBlock}" HorizontalAlignment="Center">Username</TextBlock>
 			<TextBox Name="tb_username"
 			         HorizontalAlignment="Center"
 			         VerticalAlignment="Top"
 			         Width="158"
 			         PreviewKeyDown="Tb_username_PreviewKeyDown"/>
-			<Label
-				Content="Password"
-				FontSize="12"
-				Foreground="#FFEFEDC4"
-				VerticalAlignment="Top"
-				HorizontalAlignment="Center"
-				Height="24"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Top">
-			</Label>
+            <TextBlock Margin="1,0,1,0" Style="{StaticResource style_TextBlock}" HorizontalAlignment="Center">Password</TextBlock>
 			<PasswordBox Name="tb_password"
 			             HorizontalAlignment="Center"
 			             VerticalAlignment="Top"
-			             PreviewKeyUp="Tb_password_PreviewKeyUp"
+                         PreviewKeyUp="Tb_password_PreviewKeyUp"
 			             PreviewKeyDown="Tb_username_PreviewKeyDown"
 			             Width="158"/>
 			<CheckBox HorizontalAlignment="Center"

@@ -29,15 +29,18 @@ namespace Boby_Update
 		public MainWindow   in_Win_Main                   = null;
 		public Style        Style_ShugoLoading            = null;
 		public string       in_update_name                = "";
+        static string       in_option                     = "";
 
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
 
-		public MainWindow(string update_name)
+		public MainWindow(string update_name, string option)
 		{
-			InitializeComponent();
+            string origin_path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            InitializeComponent();
 
 			in_Win_Main = this;
 
@@ -46,78 +49,80 @@ namespace Boby_Update
 			img_ShugoLoading.Style = null;
 			img_ShugoLoading.Style = Style_ShugoLoading;
 
-			in_update_name = update_name;
+            in_update_name = update_name;
+            in_option = option;
 
-			string fileVersion = "";
-			
-			if (System.IO.File.Exists(@".\" + update_name + ".exe"))
-			{
-				fileVersion = AssemblyName.GetAssemblyName(@"./" + update_name + ".exe").Version.ToString();
+            string fileVersion = "";
 
-				string check_version_web = "";
-				
-				using (WebClient Client = new WebClient())
-				{
-					Client.Proxy = null;
-					try
-					{
-						check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + update_name + ".exe");
-					}
-					catch (Exception)
-					{
-					}
-				}
-				
-				if (check_version_web == "..." || check_version_web == "")
-				{
-					foreach (Process proc in Process.GetProcessesByName(update_name))
-						proc.Kill();
-					Environment.Exit(0);
-				}
-				
-				if (fileVersion == check_version_web)
-				{
-					Environment.Exit(0);
-				}
-				
-				if (Process.GetProcessesByName(update_name).Length > 1)
-				{
-					if (MessageBox.Show("Close the other " + update_name + " Application?", "Warning Update", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-					{
-						Environment.Exit(0);
-					}
-				}
-				
-				while (System.IO.File.Exists(@".\" + update_name + ".exe"))
-				{
-					try
-					{
-						foreach (Process proc in Process.GetProcessesByName(update_name))
-							proc.Kill();
-						System.IO.File.Delete(@".\" + update_name + ".exe");
-					}
-					catch (Exception)
-					{
-						Thread.Sleep(100);
-					}
-				}
-			}
-			else
-			{
-				foreach (Process proc in Process.GetProcessesByName(update_name))
-					proc.Kill();
-			}
+            if (System.IO.File.Exists(@".\" + update_name + ".exe"))
+            {
+                fileVersion = AssemblyName.GetAssemblyName(@"./" + update_name + ".exe").Version.ToString();
 
-			using (WebClient Client = new WebClient())
-			{
-				Client.Proxy = null;
-				Client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
-				Client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-				Client.DownloadFileAsync(new Uri("http://boby.pe.hu/files/download.php?file=" + update_name + ".exe"), update_name + ".exe");
-			}
+                string check_version_web = "";
 
-			CheckUpdate();
-		}
+                using (WebClient Client = new WebClient())
+                {
+                    Client.Proxy = null;
+                    try
+                    {
+                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + update_name + ".exe");
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+                if (check_version_web == "..." || check_version_web == "")
+                {
+                    foreach (Process proc in Process.GetProcessesByName(update_name))
+                        proc.Kill();
+                    Environment.Exit(0);
+                }
+
+                if (fileVersion == check_version_web)
+                {
+                    Environment.Exit(0);
+                }
+
+                if (Process.GetProcessesByName(update_name).Length > 1)
+                {
+                    if (MessageBox.Show("Close the other " + update_name + " application?", "Warning Update", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        Environment.Exit(0);
+                }
+
+                while (System.IO.File.Exists(@".\" + update_name + ".exe"))
+                {
+                    try
+                    {
+                        foreach (Process proc in Process.GetProcessesByName(update_name))
+                            proc.Kill();
+                        System.IO.File.Delete(@".\" + update_name + ".exe");
+                    }
+                    catch (Exception)
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Process proc in Process.GetProcessesByName(update_name))
+                    proc.Kill();
+            }
+
+            using (WebClient Client = new WebClient())
+            {
+                Client.Proxy = null;
+                Client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(client_DownloadProgressChanged);
+                if (option == "nolaunch")
+                    Client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                else
+                    Client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompletedLaunch);
+                Client.DownloadFileAsync(new Uri("http://boby.pe.hu/files/download.php?file=" + update_name + ".exe"), origin_path + @"\" + update_name + ".exe");
+            }
+
+           // CheckUpdate();
+        }
 
 		void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
 		{
@@ -125,31 +130,41 @@ namespace Boby_Update
 			double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
 			double percentage = bytesIn / totalBytes * 100;
 			this.PBar.Value = int.Parse(Math.Truncate(percentage).ToString());
-			in_Win_Main.img_ShugoLoading.Height = this.PBar.Value * 2;
+            if (this.PBar.Value * 2 < 120)
+			    in_Win_Main.img_ShugoLoading.Height = this.PBar.Value * 2;
 		}
 
-		void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+		void client_DownloadFileCompletedLaunch(object sender, AsyncCompletedEventArgs e)
 		{
-			try
+            string origin_path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            try
 			{
-				ProcessStartInfo startInfo = new ProcessStartInfo();
-				startInfo.CreateNoWindow = false;
-				startInfo.UseShellExecute = false;
-				startInfo.WorkingDirectory = @".\";
-				startInfo.Verb = "runas";
-				startInfo.FileName = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\" + in_update_name + ".exe";
-				startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-				Process.Start(startInfo);
+                Process process = new Process();
+                process.StartInfo.CreateNoWindow = false;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.WorkingDirectory = origin_path + @"\";
+                process.StartInfo.Verb = "runas";
+                process.StartInfo.Arguments = in_option;
+                process.StartInfo.FileName = origin_path + @"\" + in_update_name + ".exe";
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                process.Start();
 			}
 			catch (Exception)
 			{
-				MessageBox.Show("Essayez de lancer le programme en tant qu'Administrateur.", "Erreur de lancement");
-			}
+                MessageBox.Show("Please run as administrator.", "Error");
+            }
 			this.Close();
 			Environment.Exit(0);
 		}
 
-		void CheckUpdate()
+        void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            this.Close();
+            Environment.Exit(0);
+        }
+
+        void CheckUpdate()
 		{
 			Thread tmp_thread = new Thread(Thread_CheckUpdate);
 			tmp_thread.Start();
@@ -160,16 +175,16 @@ namespace Boby_Update
 			int i = 0;
 			while (true)
 			{
-				i += 100;
+				i += 1;
 				if (i > 100)
 					i = 0;
 				in_Win_Main.Dispatcher.Invoke((Action)(() =>
 				                                       {
-				                                       	if (i * 2 <= 120)
-				                                       		in_Win_Main.img_ShugoLoading.Height = i * 2;
+                                                           if (i * 2 < 120)
+                                                               in_Win_Main.img_ShugoLoading.Height = i * 2;
 				                                       	in_Win_Main.PBar.Value = i;
 				                                       }));
-				Thread.Sleep(1000);
+				Thread.Sleep(50);
 			}
 		}
 	}

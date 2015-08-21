@@ -52,7 +52,7 @@ namespace BOBY_Shulack
         {
             long find_Roikinerk = 0;
             long find_Player = 0;
-            
+
             const int timeOutLimit = 23000;
 
             int step = 0;
@@ -60,9 +60,11 @@ namespace BOBY_Shulack
             int timeOut = 0;
 
             bool Asmoche = false;
-            
+
             float PlayerBaseX = float.NaN;
             float PlayerBaseY = float.NaN;
+
+            Get = new Dictionary<string, Control>();
 
             while (true)
             {
@@ -89,21 +91,87 @@ namespace BOBY_Shulack
 
                                 if (SplMemory.ReadWchar(roikinerk_status + Offset.Status.Name, 60) == "Roikinerk")
                                 {
-                                	if (float.IsNaN(PlayerBaseX) || float.IsNaN(PlayerBaseY))
-                                	{
-                                		PlayerBaseX = SplMemory.ReadFloat(player_loc + Offset.Loc.X);
-                                		PlayerBaseY = SplMemory.ReadFloat(player_loc + Offset.Loc.Y);
-                                	}
+                                    if (float.IsNaN(PlayerBaseX) || float.IsNaN(PlayerBaseY))
+                                    {
+                                        PlayerBaseX = SplMemory.ReadFloat(player_loc + Offset.Loc.X);
+                                        PlayerBaseY = SplMemory.ReadFloat(player_loc + Offset.Loc.Y);
+                                    }
                                 }
                                 else
                                 {
-                                	if (float.IsNaN(PlayerBaseX) || float.IsNaN(PlayerBaseY))
-                                	{
-                                		PlayerBaseX = SplMemory.ReadFloat(player_loc + Offset.Loc.X);
-                                		PlayerBaseY = SplMemory.ReadFloat(player_loc + Offset.Loc.Y);
-                                	}
+                                    if (float.IsNaN(PlayerBaseX) || float.IsNaN(PlayerBaseY))
+                                    {
+                                        bool good = false;
+
+                                        while (!good)
+                                        {
+                                            try
+                                            {
+                                                float PlayerXtmp = SplMemory.ReadFloat(player_loc + Offset.Loc.X);
+                                                float PlayerYtmp = SplMemory.ReadFloat(player_loc + Offset.Loc.Y);
+                                                float PlayerZtmp = SplMemory.ReadFloat(player_loc + Offset.Loc.Z);
+
+                                                if (step == 0)
+                                                {
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
+                                                    Thread.Sleep(120);
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.3f);
+                                                    Thread.Sleep(120);
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
+                                                    Thread.Sleep(120);
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) - 0.3f);
+                                                    if (PlayerZtmp < 213)
+                                                        step = 1;
+                                                }
+
+                                                if (step == 1)
+                                                {
+                                                    bool move = false;
+                                                    if (PlayerZtmp > 207f)
+                                                    {
+                                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.5f);
+                                                        move = true;
+                                                    }
+                                                    if (PlayerXtmp > 498.9779358f + 0.5f)
+                                                    {
+                                                        SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) - 0.5f);
+                                                        move = true;
+                                                    }
+                                                    if (PlayerXtmp < 498.9779358f - 0.5f)
+                                                    {
+                                                        SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.5f);
+                                                        move = true;
+                                                    }
+                                                    if (PlayerYtmp > 2039.907959f + 0.5f)
+                                                    {
+                                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 0.5f);
+                                                        move = true;
+                                                    }
+                                                    if (PlayerYtmp < 2039.907959f - 0.5f)
+                                                    {
+                                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) + 0.5f);
+                                                        move = true;
+                                                    }
+                                                    if (!move)
+                                                    {
+                                                        step = 3;
+                                                    }
+                                                }
+
+                                                if (step == 3)
+                                                {
+                                                    step = 0;
+                                                    PlayerBaseX = 498.9779358f;
+                                                    PlayerBaseY = 2039.907959f;
+                                                    good = true;
+                                                }
+                                            }
+                                            catch { }
+                                            Thread.Sleep(150);
+                                        }
+                                    }
                                 }
-                                
+
                                 SplMemory.WriteMemory(SplMemory.ReadLong(find_Player + Offset.Entity.Loc) + Offset.Loc.X, PlayerBaseX);
                                 SplMemory.WriteMemory(SplMemory.ReadLong(find_Player + Offset.Entity.Loc) + Offset.Loc.Y, PlayerBaseY);
 
@@ -111,9 +179,18 @@ namespace BOBY_Shulack
                                 float PlayerY = SplMemory.ReadFloat(player_loc + Offset.Loc.Y);
                                 float PlayerZ = SplMemory.ReadFloat(player_loc + Offset.Loc.Z);
 
-                                SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.X, PlayerX);
-                                SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.Y, PlayerY);
-                                SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.Z, PlayerZ);
+                                if (SplMemory.ReadWchar(roikinerk_status + Offset.Status.Name, 60) == "Roikinerk")
+                                {
+                                    SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.X, PlayerX);
+                                    SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.Y, PlayerY);
+                                    SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.Z, PlayerZ);
+                                }
+                                else
+                                {
+                                    SplMemory.WriteMemory(SplMemory.ReadLong(find_Player + Offset.Entity.Loc) + Offset.Loc.X, SplMemory.ReadFloat(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.X));
+                                    SplMemory.WriteMemory(SplMemory.ReadLong(find_Player + Offset.Entity.Loc) + Offset.Loc.Y, SplMemory.ReadFloat(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.Y));
+                                    SplMemory.WriteMemory(SplMemory.ReadLong(find_Roikinerk + Offset.Entity.Loc) + Offset.Loc.Z, PlayerZ);
+                                }
 
                                 SplMemory.WriteMemory(SplMemory.ReadLong((long)Offset.Base_windows.newbase["quest_dialog"]) + 0x28, 142);
                                 SplMemory.WriteMemory(SplMemory.ReadLong((long)Offset.Base_windows.newbase["quest_summary_dialog"]) + 0x28, 142);
@@ -137,7 +214,7 @@ namespace BOBY_Shulack
                                             if (Get.ContainsKey("dlg_dialog/html_view/1"))
                                                 Get["dlg_dialog/html_view/1"].Click();
                                         }
-                                        time = Time() + 400;
+                                        time = Time() + 200;
                                     }
                                 }
                                 else if (time < Time())
@@ -181,7 +258,7 @@ namespace BOBY_Shulack
 
                                 if (timeOut < Time())
                                 {
-                                	step = 16;
+                                    step = 16;
                                     timeOut = Time() + timeOutLimit;
                                 }
 
@@ -225,7 +302,7 @@ namespace BOBY_Shulack
                                     if (PlayerX < 440 && PlayerZ > plonge)
                                         step = 1;
                                     if (PlayerX > 440 && PlayerZ <= 885)
-                                    	SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.15f);
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.15f);
                                     if (PlayerX > 450 && PlayerY > 577)
                                         step = 3;
                                     if (PlayerX <= 450)
@@ -260,7 +337,7 @@ namespace BOBY_Shulack
                                 {
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.X, 450.88f);
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.Y, 577.70f);
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 885.50f);
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 885.60f);
                                     ini_Win_Choose.DlgAion("/Select Coffre au trésor");
                                     step = 5;
                                     time = Time() + 100;
@@ -272,9 +349,24 @@ namespace BOBY_Shulack
                                     {
                                         if (Get_HP_Target() > 0 && time < Time())
                                         {
+                                            SplMemory.WriteMemory(player_status + Offset.Status.AtkSpeed, 1);
                                             SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
-                                            SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.1f);
-                                            time = Time() + 1500;
+                                            if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
+                                            {
+                                                Get = new Dictionary<string, Control>();
+                                                ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["loot_dialog"]), "loot_dialog");
+
+                                                Thread.Sleep(70);
+                                                if (Get.ContainsKey("loot_dialog/takeall_button") && Is_Player(find_Player))
+                                                    Get["loot_dialog/takeall_button"].Click();
+                                                Thread.Sleep(70);
+                                                if (Get.ContainsKey("loot_dialog/cancel") && Is_Player(find_Player))
+                                                    Get["loot_dialog/cancel"].Click();
+
+                                                ini_Win_Choose.DlgAion("/Attack");
+                                            }
+                                            SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.01f);
+                                            time = Time() + 100;
                                         }
                                         else if (Get_HP_Target() == 0 && time < Time())
                                         {
@@ -294,22 +386,26 @@ namespace BOBY_Shulack
 
                                 if (step == 55 && time < Time())
                                 {
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, 460.88f);
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Y, 577.70f);
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 885.50f);
-                                    step = 6;
-                                    time = Time() + 200;
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 885.60f);
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 1.40f);
+                                    if (PlayerX > 468)
+                                        step = 6;
                                 }
 
                                 if (step == 6 && time < Time())
                                 {
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, 470.18f);
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Y, 577.84f);
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 885.50f);
-                                    ini_Win_Choose.DlgAion("/Select Coffre au trésor");
-                                    if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Entity.Is_Target) != 0 || Get_HP_Target() > 0)
-                                        step = 7;
-                                    time = Time() + 100;
+                                    if (PlayerX < 468)
+                                        step = 55;
+                                    else
+                                    {
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.X, 470.18f);
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Y, 577.84f);
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 885.60f);
+                                        ini_Win_Choose.DlgAion("/Select Coffre au trésor");
+                                        if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Entity.Is_Target) != 0 || Get_HP_Target() > 0)
+                                            step = 7;
+                                        time = Time() + 100;
+                                    }
                                 }
 
                                 if (step == 7)
@@ -324,9 +420,24 @@ namespace BOBY_Shulack
                                             {
                                                 if (time < Time())
                                                 {
+                                                    SplMemory.WriteMemory(player_status + Offset.Status.AtkSpeed, 1);
                                                     SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
-                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.1f);
-                                                    time = Time() + 1500;
+                                                    if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
+                                                    {
+                                                        Get = new Dictionary<string, Control>();
+                                                        ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["loot_dialog"]), "loot_dialog");
+
+                                                        Thread.Sleep(70);
+                                                        if (Get.ContainsKey("loot_dialog/takeall_button") && Is_Player(find_Player))
+                                                            Get["loot_dialog/takeall_button"].Click();
+                                                        Thread.Sleep(70);
+                                                        if (Get.ContainsKey("loot_dialog/cancel") && Is_Player(find_Player))
+                                                            Get["loot_dialog/cancel"].Click();
+
+                                                        ini_Win_Choose.DlgAion("/Attack");
+                                                    }
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.01f);
+                                                    time = Time() + 100;
                                                 }
                                             }
                                             else if (Get_HP_Target() == 0 && time < Time())
@@ -343,105 +454,124 @@ namespace BOBY_Shulack
                                             }
                                         }
                                         else
-                                            step = 7;
+                                            step = 6;
                                     }
                                 }
 
                                 if (step == 8 && ClassRange() && SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) == 1)
                                 {
-                                	if (PlayerZ > 882 && PlayerY >= 540)
-                                	{
-                                		SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
-                                	}
-                                	else if (PlayerZ < 892 && PlayerY < 540)
-                                	{
-                                		SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.5f);
-                                	}
-                                	if (PlayerY >= 522 && time < Time())
-                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 1.30f);
-                                	else if (PlayerY < 522){
-                                		step = 9;
-                                	}
+                                    if (PlayerZ > 882 && PlayerY >= 540)
+                                    {
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
+                                    }
+                                    else if (PlayerZ < 892 && PlayerY < 540)
+                                    {
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.5f);
+                                    }
+                                    if (PlayerY >= 522 && time < Time())
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 1.35f);
+                                    else if (PlayerY < 522)
+                                    {
+                                        step = 9;
+                                    }
                                 }
                                 else if (step == 8 && CommandSpecial())
-                                	step = 338;
+                                    step = 338;
                                 else if (step == 8)
-                                	step = 16;
+                                {
+                                    Get = new Dictionary<string, Control>();
+                                    ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["loot_dialog"]), "loot_dialog");
+
+                                    Thread.Sleep(70);
+                                    if (Get.ContainsKey("loot_dialog/takeall_button") && Is_Player(find_Player))
+                                        Get["loot_dialog/takeall_button"].Click();
+                                    Thread.Sleep(70);
+                                    if (Get.ContainsKey("loot_dialog/cancel") && Is_Player(find_Player))
+                                        Get["loot_dialog/cancel"].Click();
+
+                                    step = 16;
+                                }
 
                                 if (step == 9)
                                 {
-                                	SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.5f);
-                                	SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 0.1f);
-                                	SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.1f);
-                                	if (PlayerZ > 892)
-                                	{
-                                		step = 93;
-                                		time = Time() + 200;
-                                	}
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.5f);
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 0.1f);
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.1f);
+                                    if (PlayerZ > 892)
+                                    {
+                                        step = 93;
+                                        time = Time() + 200;
+                                    }
                                 }
-                                
+
                                 if (step == 93)
                                 {
-                                	SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 1.30f);
-                                	if (PlayerY < 514)
-                                	{
-                                		step = 11;
-                                		time = Time() + 200;
-                                	}
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 1.30f);
+                                    if (PlayerY < 514)
+                                    {
+                                        step = 11;
+                                        time = Time() + 200;
+                                    }
                                 }
-                                
+
                                 if (step == 11 && time < Time())
                                 {
+                                    ini_Win_Choose.DlgAion("/Select Coffre au trésor");
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.X, 473.0f);
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.Y, 514.0f);
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 892.0f);
-                                    ini_Win_Choose.DlgAion("/Select Coffre au trésor");
                                     step = 112;
                                     time = Time() + 100;
                                 }
-                                
+
                                 if (step == 112)
                                 {
-                                	SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
-                                    Thread.Sleep(120);
-                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.3f);
-                                    Thread.Sleep(120);
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
-                                    Thread.Sleep(120);
+                                    Thread.Sleep(80);
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.3f);
+                                    Thread.Sleep(80);
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
+                                    Thread.Sleep(80);
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) - 0.3f);
-                                	if (PlayerZ < 890)
-                                	{
-                                		step = 12;
-                                		time = Time() + 200;
-                                	}
+                                    if (PlayerZ < 890)
+                                    {
+                                        ini_Win_Choose.DlgAion("/Select Coffre au trésor");
+                                        step = 12;
+                                        time = Time() + 200;
+                                    }
                                 }
 
                                 if (step == 12 && time < Time())
                                 {
-                                    if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Entity.Is_Target) != 0)
-                                    {
-                                        if (Get_HP_Target() > 0 && time < Time())
-                                        {
-                                            SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
-                                            SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.1f);
-                                            time = Time() + 1500;
-                                        }
-                                        else if (Get_HP_Target() == 0 && time < Time())
-                                        {
-                                            if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
-                                            {
-                                                ini_Win_Choose.DlgAion("/Compétence Ramasser le butin");
-                                                Thread.Sleep(500);
-                                                ini_Win_Choose.DlgAion("/Compétence Ramasser le butin");
-                                                Thread.Sleep(500);
-                                            }
-                                            step = 13;
-                                        }
-                                    }
+                                    if (PlayerZ > 890)
+                                        step = 112;
                                     else
-                                        step = 11;
+                                    {
+                                        if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Entity.Is_Target) != 0)
+                                        {
+                                            if (Get_HP_Target() > 0 && time < Time())
+                                            {
+                                                SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
+                                                SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.03f);
+                                                time = Time() + 500;
+                                            }
+                                            else if (Get_HP_Target() == 0 && time < Time())
+                                            {
+                                                if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
+                                                {
+                                                    ini_Win_Choose.DlgAion("/Compétence Ramasser le butin");
+                                                    Thread.Sleep(500);
+                                                    ini_Win_Choose.DlgAion("/Compétence Ramasser le butin");
+                                                    Thread.Sleep(500);
+                                                }
+                                                step = 13;
+                                            }
+                                        }
+                                        else
+                                            step = 112;
+                                    }
                                 }
-                                
+
                                 if (step == 13 && time < Time())
                                 {
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.X, 463.00f);
@@ -459,24 +589,24 @@ namespace BOBY_Shulack
                                         step = 152;
                                     time = Time() + 100;
                                 }
-                                
+
                                 if (step == 152)
                                 {
-                                	if (PlayerZ > 890)
-                                	{
-	                                	SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
-	                                    Thread.Sleep(120);
-	                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.3f);
-	                                    Thread.Sleep(120);
-	                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
-	                                    Thread.Sleep(120);
-	                                    SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) - 0.3f);
-                                	}
-                                	else
-                                	{
-                                		step = 15;
-                                		time = Time() + 200;
-                                	}
+                                    if (PlayerZ > 890)
+                                    {
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
+                                        Thread.Sleep(120);
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) + 0.3f);
+                                        Thread.Sleep(120);
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.3f);
+                                        Thread.Sleep(120);
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.X, SplMemory.ReadFloat(player_loc + Offset.Loc.X) - 0.3f);
+                                    }
+                                    else
+                                    {
+                                        step = 15;
+                                        time = Time() + 200;
+                                    }
                                 }
 
                                 if (step == 15)
@@ -491,9 +621,10 @@ namespace BOBY_Shulack
                                             {
                                                 if (time < Time())
                                                 {
+                                                    SplMemory.WriteMemory(player_status + Offset.Status.AtkSpeed, 1);
                                                     SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
-                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.1f);
-                                                    time = Time() + 1500;
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 0.01f);
+                                                    time = Time() + 100;
                                                 }
                                             }
                                             else if (Get_HP_Target() == 0 && time < Time())
@@ -512,29 +643,30 @@ namespace BOBY_Shulack
                                             step = 15;
                                     }
                                 }
-                                
+
                                 if (step == 338)
                                 {
-                                	SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 1f);
-                                	if (PlayerZ < 875)
-                                	{
-                                		step = 339;
-                                		time = Time() + 200;
-                                	}
+                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) - 1f);
+                                    if (PlayerZ < 875)
+                                    {
+                                        step = 339;
+                                        time = Time() + 200;
+                                    }
                                 }
-                                
+
                                 if (step == 339)
                                 {
-                                	if (SplMemory.ReadInt(player_status + Offset.Status.Stance) != EnumAion.eStance.Combat)
+                                    if (SplMemory.ReadInt(player_status + Offset.Status.Stance) != EnumAion.eStance.Combat)
                                     {
                                         ini_Win_Choose.DlgAion("/Skill Mode combat");
                                     }
-                                	if (PlayerY >= 515 && time < Time())
+                                    if (PlayerY >= 515 && time < Time())
                                         SplMemory.WriteMemory(player_loc + Offset.Loc.Y, SplMemory.ReadFloat(player_loc + Offset.Loc.Y) - 1.20f);
-                                	else if (PlayerY < 515){
-                                		SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 875f);
-                                		step = 3310;
-                                	}
+                                    else if (PlayerY < 515)
+                                    {
+                                        SplMemory.WriteMemory(player_loc + Offset.Loc.Z, 875f);
+                                        step = 3310;
+                                    }
                                     ini_Win_Shulack.Dispatcher.Invoke((Action)(() =>
                                     {
                                         if (ini_Win_Shulack.checkBox_deloot.IsChecked == false)
@@ -544,7 +676,7 @@ namespace BOBY_Shulack
 
                                 if (step == 3310)
                                 {
-                                	if (SplMemory.ReadInt(player_status + Offset.Status.Stance) != EnumAion.eStance.Combat)
+                                    if (SplMemory.ReadInt(player_status + Offset.Status.Stance) != EnumAion.eStance.Combat)
                                     {
                                         ini_Win_Choose.DlgAion("/Skill Mode combat");
                                     }
@@ -564,7 +696,7 @@ namespace BOBY_Shulack
                                         step = 3311;
                                     }
                                 }
-                                
+
                                 if (step == 3311 && time < Time())
                                 {
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.X, 473.0f);
@@ -581,6 +713,20 @@ namespace BOBY_Shulack
                                         if (Get_HP_Target() > 0 && time < Time())
                                         {
                                             SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
+                                            if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
+                                            {
+                                                Get = new Dictionary<string, Control>();
+                                                ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["loot_dialog"]), "loot_dialog");
+
+                                                Thread.Sleep(70);
+                                                if (Get.ContainsKey("loot_dialog/takeall_button") && Is_Player(find_Player))
+                                                    Get["loot_dialog/takeall_button"].Click();
+                                                Thread.Sleep(70);
+                                                if (Get.ContainsKey("loot_dialog/cancel") && Is_Player(find_Player))
+                                                    Get["loot_dialog/cancel"].Click();
+
+                                                ini_Win_Choose.DlgAion("/Attack");
+                                            }
                                             SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.1f);
                                             time = Time() + 1500;
                                         }
@@ -599,8 +745,8 @@ namespace BOBY_Shulack
                                     else
                                         step = 3311;
                                 }
-                                
-                                 if (step == 3313 && time < Time())
+
+                                if (step == 3313 && time < Time())
                                 {
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.X, 463.00f);
                                     SplMemory.WriteMemory(player_loc + Offset.Loc.Y, 514.00f);
@@ -631,8 +777,22 @@ namespace BOBY_Shulack
                                                 if (time < Time())
                                                 {
                                                     SplMemory.WriteMemory(player_status + Offset.Status.State, 1);
-                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.1f);
-                                                    time = Time() + 1500;
+                                                    if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
+                                                    {
+                                                        Get = new Dictionary<string, Control>();
+                                                        ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["loot_dialog"]), "loot_dialog");
+
+                                                        Thread.Sleep(70);
+                                                        if (Get.ContainsKey("loot_dialog/takeall_button") && Is_Player(find_Player))
+                                                            Get["loot_dialog/takeall_button"].Click();
+                                                        Thread.Sleep(70);
+                                                        if (Get.ContainsKey("loot_dialog/cancel") && Is_Player(find_Player))
+                                                            Get["loot_dialog/cancel"].Click();
+
+                                                        ini_Win_Choose.DlgAion("/Attack");
+                                                    }
+                                                    SplMemory.WriteMemory(player_loc + Offset.Loc.Z, SplMemory.ReadFloat(player_loc + Offset.Loc.Z) + 0.03f);
+                                                    time = Time() + 500;
                                                 }
                                             }
                                             else if (Get_HP_Target() == 0 && time < Time())
@@ -651,7 +811,7 @@ namespace BOBY_Shulack
                                             step = 3315;
                                     }
                                 }
-                                
+
                                 if (step == 16 && Is_Player(find_Player))
                                 {
                                     if (SplMemory.ReadInt(player_status + Offset.Status.Stance) == EnumAion.eStance.Combat)
@@ -659,12 +819,14 @@ namespace BOBY_Shulack
                                         ini_Win_Choose.DlgAion("/Skill Mode combat");
                                     }
 
-                                    SplMemory.WriteMemory(player_status + (long)Offset.Status.No_Grav, 5);
-
                                     SplMemory.WriteMemory(SplMemory.ReadLong((long)Offset.Base_windows.newbase["quest_dialog"]) + 0x28, 143);
+
+                                    Console.WriteLine("completelist");
 
                                     Get = new Dictionary<string, Control>();
                                     ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["quest_dialog"]), "quest_dialog");
+
+                                    Console.WriteLine("completelistOK");
 
                                     ClickTmpOK();
                                     Thread.Sleep(70);
@@ -688,8 +850,8 @@ namespace BOBY_Shulack
                     }
                     else
                     {
-                    	PlayerBaseX = float.NaN;
-            			PlayerBaseY = float.NaN;
+                        PlayerBaseX = float.NaN;
+                        PlayerBaseY = float.NaN;
                     }
                     Thread.Sleep(150);
                 }
@@ -719,7 +881,7 @@ namespace BOBY_Shulack
                     }
                     else if (ini_Win_Shulack.Is_Boat)
                     {
-                    	if (!Is_Player(find_Player))
+                        if (!Is_Player(find_Player))
                         {
                             find_Player = FindPlayerPtr();
                         }
@@ -728,7 +890,7 @@ namespace BOBY_Shulack
                             long player_status = SplMemory.ReadLong(find_Player + Offset.Entity.Status);
                             SplMemory.WriteMemory(player_status + (long)Offset.Status.No_Grav, 0);
                         }
-                    } 
+                    }
                 }
                 catch { }
                 Thread.Sleep(20);
@@ -739,18 +901,18 @@ namespace BOBY_Shulack
         {
             return SplMemory.ReadByte(addr + Offset.Entity.Type) == EnumAion.eType.Player;
         }
-        
+
         static bool CommandSpecial()
         {
-        	int lvlPlayer = 0;
-        	try
+            int lvlPlayer = 0;
+            try
             {
                 foreach (var entity in ini_Win_Choose.in_threadentity.DicCopy.Values)
                 {
                     if (entity.Name == "Commande spéciale" && entity.Lvl == 1)
                         return true;
                     if (entity.Type == (int)EnumAion.eType.Player)
-                      	lvlPlayer = entity.Lvl;
+                        lvlPlayer = entity.Lvl;
                 }
             }
             catch (Exception)
@@ -759,20 +921,20 @@ namespace BOBY_Shulack
             }
             if (lvlPlayer > 54)
             {
-            	return true;
+                return true;
             }
             return false;
         }
-        
+
         static bool ClassRange()
         {
-        	bool PlayerRange = false;
-        	try
+            bool PlayerRange = false;
+            try
             {
                 foreach (var entity in ini_Win_Choose.in_threadentity.DicCopy.Values)
                 {
                     if (entity.Type == (int)EnumAion.eType.Player)
-                    	PlayerRange = (SplMemory.ReadInt(SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Status) + Offset.Status.WeaponStyle) > 7);
+                        PlayerRange = (SplMemory.ReadInt(SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Status) + Offset.Status.WeaponStyle) > 7);
                 }
             }
             catch (Exception)
@@ -837,11 +999,14 @@ namespace BOBY_Shulack
 
         public void ToSearch(long Base, string name)
         {
-            SearchControl(Base, name);
+            HashSet<long> rest = new HashSet<long>();
+            SearchControl(Base, name, rest);
         }
 
-        void SearchControl(long Base, string name)
+        void SearchControl(long Base, string name, HashSet<long> rest)
         {
+            if (!rest.Add(Base))
+                return;
             if (Base != 0 && Base != 0xCDCDCDCD)
             {
                 long search = SplMemory.ReadLong(Base + 0x270);
@@ -851,21 +1016,26 @@ namespace BOBY_Shulack
                     if (search != 0 && search != 0xCDCDCDCD)
                     {
                         byte i = 0;
-                        while (SplMemory.ReadLong(search + 0x8) != 0 && SplMemory.ReadLong(search + 0x8) != 0xCDCDCDCD)
+                        while (SplMemory.ReadLong(search + 0x8) != 0 && SplMemory.ReadLong(search + 0x8) != 0xCDCDCDCD && SplMemory.ReadLong(SplMemory.ReadLong(search + 0x8) + 0x268) == Base)
                         {
                             string tmp_name = GetName(SplMemory.ReadLong(search + 0x8));
-                            if (tmp_name == "")
+                            string tmp_name2 = GetName(SplMemory.ReadLong(search + 0x8));
+                            if (tmp_name == "" && i < 50)
                                 tmp_name = name + "/" + i;
-                            else
+                            else if (tmp_name != "")
                                 tmp_name = name + "/" + tmp_name;
+                            else
+                                break;
                             Control tmp = new Control(tmp_name, SplMemory.ReadLong(search + 0x8));
                             if (!Get.ContainsKey(tmp_name))
                                 Get.Add(tmp_name, tmp);
-                            SearchControl(SplMemory.ReadLong(search + 0x8), tmp_name);
+                            else
+                                break;
+                            Console.WriteLine(tmp_name + " " + search.ToString("X"));
+                            //if (tmp_name2 != "plus" && tmp_name2 != "minus")
+                            SearchControl(SplMemory.ReadLong(search + 0x8), tmp_name, rest);
                             search = SplMemory.ReadLong(search);
                             i++;
-                            if (i > 50)
-                                break;
                         }
                     }
                 }
@@ -936,12 +1106,16 @@ namespace BOBY_Shulack
 
         private int Get_HP_Target()
         {
-            return (SplMemory.ReadInt(
-                SplMemory.ReadLong(
+            if (SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Entity.Is_Target) != 0)
+            {
+                return (SplMemory.ReadInt(
                     SplMemory.ReadLong(
-                        AionProcess.Modules.Game + (long)Offset.Entity.To_Target)
-                    + (long)Offset.Entity.Status)
-                + (long)Offset.Status.HP));
+                        SplMemory.ReadLong(
+                            AionProcess.Modules.Game + (long)Offset.Entity.To_Target)
+                        + (long)Offset.Entity.Status)
+                    + (long)Offset.Status.HP));
+            }
+            return 0;
         }
 
         private void ClickTmpOK()
@@ -1025,7 +1199,7 @@ namespace BOBY_Shulack
 
             addOption(optionPointer);
         }
-        
+
         public class Option
         {
             long Base;

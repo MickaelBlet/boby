@@ -1,9 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <CroppedBitmap x:Key="BG.BG"                        Source="BG\BG.png" SourceRect="0,0,199,199"/>
-    <CroppedBitmap x:Key="BG.Masque"                    Source="BG\BG.png" SourceRect="200,0,199,199"/>
-    <CroppedBitmap x:Key="BG.North"                     Source="BG\BG.png" SourceRect="0,200,199,199"/>
-    <CroppedBitmap x:Key="BG.View"                      Source="BG\BG.png" SourceRect="200,200,199,199"/>
+    <CroppedBitmap x:Key="BG.North"                     Source="BG\BG.png" SourceRect="0,1,399,399"/>
+    <CroppedBitmap x:Key="BG.View"                      Source="BG\BG.png" SourceRect="400,1,399,399"/>
     <ImageSource   x:Key="BG.Setting">BG\BG_Setting.png</ImageSource>
 
     <CroppedBitmap x:Key="Entity.Ally"                  Source="Entity_Icon\User.png" SourceRect="0,5,13,14"/>

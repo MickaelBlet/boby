@@ -322,6 +322,7 @@ namespace BOBY_Shulack
                 Directory.CreateDirectory("Skills_List");
 
             UpdateText("debug ?\nhttps://docs.google.com/document/d/1J2LkcPVLWdIk9gXSKL9K2qCUmftxR8CXu9rOcBuqYSo");
+
             if (!File.Exists(".\\zap") && SearchBOBY() < 2)
             {
                 string version_exe = "";

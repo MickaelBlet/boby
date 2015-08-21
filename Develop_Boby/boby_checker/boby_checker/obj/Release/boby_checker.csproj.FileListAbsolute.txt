@@ -21,3 +21,13 @@ D:\Users\blet\Documents\SharpDevelop Projects\boby_checker\boby_checker\obj\Rele
 D:\Users\blet\Documents\SharpDevelop Projects\boby_checker\boby_checker\obj\Release\boby_checker_MarkupCompile.cache
 D:\Users\blet\Documents\SharpDevelop Projects\boby_checker\boby_checker\obj\Release\boby_checker.g.resources
 D:\Users\blet\Documents\SharpDevelop Projects\boby_checker\boby_checker\obj\Release\boby_checker.exe
+D:\Documents\Develop_Boby\boby_checker\boby_checker\bin\Release\boby_checker.exe.config
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker.exe
+D:\Documents\Develop_Boby\boby_checker\boby_checker\bin\Release\boby_checker.exe
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker.csprojResolveAssemblyReference.cache
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\MainWindow.baml
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\App.baml
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\MainWindow.g.cs
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\App.g.cs
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker_MarkupCompile.cache
+D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker.g.resources

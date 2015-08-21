@@ -3,15 +3,9 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls\Common_Controls.xaml" />
         <ResourceDictionary Source="Controls\Button\Button.xaml" />
-        <ResourceDictionary Source="Controls\Button_Icone\Button.xaml" />
-        <ResourceDictionary Source="Controls\Special_Button\Special_Button.xaml" />
         <ResourceDictionary Source="Controls\CheckBox\CheckBox.xaml" />
-        <ResourceDictionary Source="Controls\Loading\Loading.xaml" />
-        <ResourceDictionary Source="Controls\Slider\Slider.xaml" />
         <ResourceDictionary Source="Controls\Textbox\Textbox.xaml" />
         <ResourceDictionary Source="Controls\Win_Button\Win_Button.xaml" />
-        <ResourceDictionary Source="Controls\ListBox.xaml" />
         <ResourceDictionary Source="Windows\Windows.xaml" />
-        <ResourceDictionary Source="Windows\BG\BG.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

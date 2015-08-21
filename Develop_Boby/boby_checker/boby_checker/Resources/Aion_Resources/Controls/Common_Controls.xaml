@@ -1,13 +1,20 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-    <Style TargetType="{x:Type Label}">
-        <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Aion_Resources/#Bitstream Vera Sans" />
-        <Setter Property="Foreground" Value="#FFEFEDC4" />
+
+    <Style x:Key="style_TextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+					ShadowDepth="1"
+					Color="#FF000000"
+					Opacity="1"
+					BlurRadius="1" />
+            </Setter.Value>
+        </Setter>
     </Style>
-    <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Aion_Resources/#Bitstream Vera Sans" />
-    </Style>
+
     <Style TargetType="{x:Type ContextMenu}">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -41,8 +48,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    <Style x:Key="Null" TargetType="{x:Type MenuItem}">
     </Style>
     <Style TargetType="{x:Type MenuItem}">
         <Setter Property="Template">

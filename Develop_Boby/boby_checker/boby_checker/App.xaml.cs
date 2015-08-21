@@ -15,9 +15,10 @@ namespace boby_checker
 	{
 		void App_Startup(object sender, StartupEventArgs e)
         {
-            if (e.Args.Length != 1)
-                Environment.Exit(0);
-            string exe_name = e.Args[0];
+            //if (e.Args.Length != 1)
+            //    Environment.Exit(0);
+            //string exe_name = e.Args[0];
+            string exe_name = "boby_multitools";
 
             MainWindow mainWindow = new MainWindow(exe_name);
             mainWindow.Show();

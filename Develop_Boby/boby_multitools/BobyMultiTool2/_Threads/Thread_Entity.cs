@@ -425,14 +425,14 @@ namespace _Threads
                                 this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Quest_Inter_" + this.ID_Type_Quest_Type);
                             else if (this.ID_Type_Quest == EnumAion.eTypeQuest.Final_Quest)
                                 this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Quest_Final_" + this.ID_Type_Quest_Type);
-							else if (this.Action == EnumAion.eAction.Vendor)
-                                this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Merchant");
-							else if (this.ID_Type_NPC == (int)EnumAion.eTypeNPC.Negociant)
+                            else if (this.ID_Type_NPC == (int)EnumAion.eTypeNPC.Negociant)
                                 this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Negociant");
-							else if (this.ID_Type_NPC == (int)EnumAion.eTypeNPC.Entrepo || this.ID_Type_NPC == (int)EnumAion.eTypeNPC.LegionEntrepo)
+                            else if (this.ID_Type_NPC == (int)EnumAion.eTypeNPC.Entrepo || this.ID_Type_NPC == (int)EnumAion.eTypeNPC.LegionEntrepo)
                                 this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Chest");
-							else if (this.ID_Type_NPC == (int)EnumAion.eTypeNPC.Teleport)
+                            else if (this.ID_Type_NPC == (int)EnumAion.eTypeNPC.Teleport)
                                 this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Teleport");
+                            else if (this.Action == EnumAion.eAction.Vendor)
+                                this._Image_Object = (ImageSource)Application.Current.FindResource("Special_Icon.Merchant");
 							else
                                 this._Image = (ImageSource)Application.Current.FindResource("Entity.NPC_A");
 						}

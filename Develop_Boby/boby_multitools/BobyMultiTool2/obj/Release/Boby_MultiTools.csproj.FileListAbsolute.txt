@@ -130,9 +130,7 @@ D:\Users\blet\Documents\GitHub\boby_multitools\BobyMultiTool2\obj\Release\Boby_M
 C:\Documents\Downloads\Documents\GitHub\GitHub\boby_multitools\BobyMultiTool2\bin\Release\boby_multitools.exe.config
 C:\Documents\Downloads\Documents\GitHub\GitHub\boby_multitools\BobyMultiTool2\obj\Release\boby_multitools.exe
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\bin\Release\boby_multitools.exe.config
-D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\boby_multitools.exe
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\bin\Release\boby_multitools.exe
-D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\Boby_MultiTools.csprojResolveAssemblyReference.cache
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\Resources\Aion_Resources\Aion_Resources.baml
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\Resources\Aion_Resources\Controls\Button\Button.baml
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\Resources\Aion_Resources\Controls\Button_Icone\Button.baml
@@ -181,3 +179,5 @@ D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\_Win_Cheat\
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\_Win_Quick\Win_Setting\Win_Quick_Setting.baml
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\_Win_Radar\Win_Setting\Win_Radar_Setting.baml
 D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\boby_multitools.g.resources
+D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\boby_multitools.exe
+D:\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Release\Boby_MultiTools.csprojResolveAssemblyReference.cache

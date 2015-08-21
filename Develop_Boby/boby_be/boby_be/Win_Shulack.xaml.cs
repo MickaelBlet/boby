@@ -270,17 +270,18 @@ namespace BOBY_Shulack
 
         void Button_Skills_List_Click(object sender, RoutedEventArgs e)
         {
-            ini_Win_Skills = ini_Win_Choose.ini_Win_Skills;
-            if (ini_Win_Skills.IsVisible)
-            {
-                ini_Win_Skills.Hide();
-                ini_Win_Skills.Save_List();
-            }
-            else
-            {
-                Window_LocationChanged(null, null);
-                ini_Win_Skills.Show();
-            }
+            ini_Win_Choose.ini_Boucle_Bateau.ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["quest_dialog"]), "quest_dialog");
+            //ini_Win_Skills = ini_Win_Choose.ini_Win_Skills;
+            //if (ini_Win_Skills.IsVisible)
+            //{
+            //    ini_Win_Skills.Hide();
+            //    ini_Win_Skills.Save_List();
+            //}
+            //else
+            //{
+            //    Window_LocationChanged(null, null);
+            //    ini_Win_Skills.Show();
+            //}
         }
 
         void Button_Hide_Click(object sender, RoutedEventArgs e)
@@ -291,11 +292,11 @@ namespace BOBY_Shulack
         void Button_Start_Click(object sender, RoutedEventArgs e)
         {
             ini_Win_Choose.DlgAionIni();
-            //if (!Is_Run && SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
-            //{
-            //    MessageBox.Show("Pet Loot !?");
-            //    return;
-            //}
+            if (!Is_Run && SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
+            {
+                MessageBox.Show("Pet Loot !?");
+                return;
+            }
             if (!Is_Assist)
                 Is_Run = !Is_Run;
             if (!Is_Run)

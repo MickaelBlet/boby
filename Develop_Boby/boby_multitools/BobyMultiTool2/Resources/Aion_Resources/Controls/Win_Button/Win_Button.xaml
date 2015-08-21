@@ -1,52 +1,62 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
-	<Style x:Key="Style_Close_Button" TargetType="{x:Type Button}">
+
+    <CroppedBitmap x:Key="WindowButton.Close"          Source="Close.png" SourceRect="0,0,34,24"/>
+    <CroppedBitmap x:Key="WindowButton.Close.Hover"    Source="Close.png" SourceRect="0,24,34,24"/>
+    <CroppedBitmap x:Key="WindowButton.Close.Pressed"  Source="Close.png" SourceRect="0,48,34,24"/>
+
+    <Style x:Key="Style_Close_Button" TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
-		<Setter Property="Width" Value="33" />
+		<Setter Property="Width" Value="34" />
 		<Setter Property="Height" Value="24" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">
-					<Image Name="image"	Source="Close.png" />
+                    <Image Name="image"	Source="{StaticResource WindowButton.Close}" />
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver"	Value="True">
 							<Setter Property="Source" TargetName="image"
-							        Value="Close_Hover.png" />
+							        Value="{StaticResource WindowButton.Close.Hover}" />
 						</Trigger>
 						<Trigger Property="IsPressed" Value="True">
 							<Setter	Property="Source" TargetName="image"
-							        Value="Close_Pressed.png" />
+							        Value="{StaticResource WindowButton.Close.Pressed}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
-	<Style x:Key="Style_Minimise_Button" TargetType="{x:Type Button}">
+
+    <CroppedBitmap x:Key="WindowButton.Minimise"          Source="Minimise.png" SourceRect="0,0,26,24"/>
+    <CroppedBitmap x:Key="WindowButton.Minimise.Hover"    Source="Minimise.png" SourceRect="0,24,26,24"/>
+    <CroppedBitmap x:Key="WindowButton.Minimise.Pressed"  Source="Minimise.png" SourceRect="0,48,26,24"/>
+    
+    <Style x:Key="Style_Minimise_Button" TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
-		<Setter Property="Width" Value="28" />
+		<Setter Property="Width" Value="26" />
 		<Setter Property="Height" Value="24" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Button}">
-					<Image Name="image"	Source="Minimise.png" />
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver"	Value="True">
-							<Setter Property="Source" TargetName="image"
-							        Value="Minimise_Hover.png" />
-						</Trigger>
-						<Trigger Property="IsPressed" Value="True">
-							<Setter	Property="Source" TargetName="image"
-							        Value="Minimise_Pressed.png" />
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Image Name="image"	Source="{StaticResource WindowButton.Minimise}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"	Value="True">
+                            <Setter Property="Source" TargetName="image"
+							        Value="{StaticResource WindowButton.Minimise.Hover}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter	Property="Source" TargetName="image"
+							        Value="{StaticResource WindowButton.Minimise.Pressed}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 	<Style x:Key="Style_Setting_Button" TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
@@ -147,81 +157,6 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
-    <Style x:Key="Style_Check_Win_Button"
-		TargetType="{x:Type CheckBox}">
-        <Setter
-			Property="Template">
-            <Setter.Value>
-                <ControlTemplate
-					TargetType="{x:Type CheckBox}">
-                    <StackPanel
-						Background="Transparent"
-						Orientation="Horizontal">
-                        <Image
-							x:Name="imageCheckBox"
-							Source="Check.png"
-							Width="28"
-							Height="24"
-							Margin="0,0" />
-                    </StackPanel>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                            <Condition Property="IsChecked" Value="False" />
-                            <Condition Property="IsMouseOver" Value="False" />
-                                </MultiTrigger.Conditions>
-                            <Setter
-								TargetName="imageCheckBox"
-								Property="Source"
-								Value="Not_Check.png" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsChecked" Value="False" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                                </MultiTrigger.Conditions>
-                            <Setter
-								TargetName="imageCheckBox"
-								Property="Source"
-								Value="Not_Check_Hover.png" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsChecked" Value="False" />
-                                <Condition Property="IsPressed" Value="True" />
-                                </MultiTrigger.Conditions>
-                            <Setter
-								TargetName="imageCheckBox"
-								Property="Source"
-								Value="Not_Check_Pressed.png" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsChecked" Value="True" />
-                                <Condition Property="IsMouseOver" Value="True" />
-                                </MultiTrigger.Conditions>
-                            <Setter
-								TargetName="imageCheckBox"
-								Property="Source"
-								Value="Check_Hover.png" />
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsChecked" Value="True" />
-                                <Condition Property="IsPressed" Value="True" />
-                            </MultiTrigger.Conditions>
-                            <Setter
-								TargetName="imageCheckBox"
-								Property="Source"
-								Value="Check_Pressed.png" />
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <CroppedBitmap x:Key="Radar_Setting"                  Source="Radar_Setting.png" SourceRect="0,0,20,20"/>
     <CroppedBitmap x:Key="Radar_Setting.Hover"            Source="Radar_Setting.png" SourceRect="20,0,20,20"/>
     <CroppedBitmap x:Key="Radar_Setting.Pressed"          Source="Radar_Setting.png" SourceRect="40,0,20,20"/>

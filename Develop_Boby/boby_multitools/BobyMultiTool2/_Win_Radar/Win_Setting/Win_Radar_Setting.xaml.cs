@@ -335,7 +335,6 @@ namespace BobyMultitools
             in_Win_Main.in_Win_Radar.BG.Height = in_Win_Main.in_Setting.in_Radar.Radar_Height.Get_Value();
             in_Win_Main.in_Win_Radar.View.Width = in_Win_Main.in_Setting.in_Radar.Radar_Width.Get_Value();
             in_Win_Main.in_Win_Radar.View.Height = in_Win_Main.in_Setting.in_Radar.Radar_Height.Get_Value();
-            in_Win_Main.in_Win_Radar.BG_Opa2.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
             in_Win_Main.in_Win_Radar.BG_Opa.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
             in_Win_Main.in_Win_Radar.BG_Mask.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
 

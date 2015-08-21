@@ -40,10 +40,8 @@ namespace BobyMultitools
             this.Left = in_Win_Main.in_Setting.in_Radar.Left.Get_Value();
             this.Top = in_Win_Main.in_Setting.in_Radar.Top.Get_Value();
 
-            //s_BG = this.BG.Source;
-            //s_View = this.View.Source;
             s_North = this.North.Source;
-            s_BG_Setting = this.BG_Setting.Source;
+            //s_BG_Setting = this.BG_Setting.Source;
 
             #region _Check_Box_Ini_
             c_NPC.IsChecked         = in_Win_Main.in_Setting.in_Radar.NPC.Get_Value();
@@ -64,10 +62,10 @@ namespace BobyMultitools
 
             if (c_BG.IsChecked)
             {
-                //this.BG.Source = null;
-                //this.View.Source = null;
+                this.BG.Opacity = 0;
+                this.View.Opacity = 0;
                 this.North.Source = null;
-                this.BG_Setting.Source = null;
+                //this.BG_Setting.Source = null;
                 this.bt_Setting.Opacity = 0;
             }
 
@@ -176,20 +174,20 @@ namespace BobyMultitools
 
         private void c_BG_Checked(object sender, RoutedEventArgs e)
         {
-            //this.BG.Source = null;
-            //this.View.Source = null;
+            this.BG.Opacity = 0;
+            this.View.Opacity = 0;
             this.North.Source = null;
-            this.BG_Setting.Source = null;
+            //this.BG_Setting.Source = null;
             this.bt_Setting.Opacity = 0;
             in_Win_Main.in_Setting.in_Radar.BGon.Set_Value(true);
         }
 
         private void c_BG_Unchecked(object sender, RoutedEventArgs e)
         {
-            //this.BG.Source = s_BG;
-            //this.View.Source = s_View;
+            this.BG.Opacity = 1;
+            this.View.Opacity = 1;
             this.North.Source = s_North;
-            this.BG_Setting.Source = s_BG_Setting;
+           // this.BG_Setting.Source = s_BG_Setting;
             this.bt_Setting.Opacity = 1;
             in_Win_Main.in_Setting.in_Radar.BGon.Set_Value(false);
         }

@@ -51,10 +51,10 @@ namespace BobyMultitools
                 {
                     Client.Proxy = null;
                     Client.DownloadString(@"http://boby.pe.hu/listing.php");
-                    in_Win_Main.Dispatcher.Invoke((Action)(() =>
-                    {
-                        l_Users.Content = "Online Users: " + Client.DownloadString(@"http://boby.pe.hu/count_online.php");
-                    }));
+                    //in_Win_Main.Dispatcher.Invoke((Action)(() =>
+                    //{
+                    //    l_Users.Content = "Online Users: " + Client.DownloadString(@"http://boby.pe.hu/count_online.php");
+                    //}));
                 }
                 tentative = 0;
             }

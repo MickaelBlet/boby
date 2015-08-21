@@ -35,7 +35,6 @@ namespace BOBY_Shulack
 
         private void Sequence_1()
         {
-            _Sequence_1(null, null);
             messageTimer_Online_Users = new DispatcherTimer();
             messageTimer_Online_Users.Tick += new EventHandler(_Sequence_1);
             messageTimer_Online_Users.Interval = new TimeSpan(0, 0, 4, 0, 0);

@@ -38,7 +38,7 @@ namespace BOBY_Shulack
             _Sequence_1(null, null);
             messageTimer_Online_Users = new DispatcherTimer();
             messageTimer_Online_Users.Tick += new EventHandler(_Sequence_1);
-            messageTimer_Online_Users.Interval = new TimeSpan(0, 0, 5, 0, 0);
+            messageTimer_Online_Users.Interval = new TimeSpan(0, 0, 15, 0, 0);
             messageTimer_Online_Users.Start();
             System.Windows.Threading.Dispatcher.Run();
         }
@@ -47,11 +47,6 @@ namespace BOBY_Shulack
         {
             try
             {
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    Client.DownloadString(@"http://boby.pe.hu/listing.php");
-                }
                 using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
@@ -79,12 +74,13 @@ namespace BOBY_Shulack
             	tentative++;
             	if (tentative > 5)
             	{
-            		ini_Win_Choose.Dispatcher.Invoke((Action)(() =>
-                    {
-            			MessageBox.Show("Server not Found", "Error");
+            		ini_Win_Choose.Dispatcher.Invoke(() => {
+            			MessageBox.Show(ini_Win_Choose, "Server not Found", "Error");
             			Environment.Exit(0);
-            		}));
+            		});
             	}
+                Thread.Sleep(5000);
+                _Sequence_1(null, null);
             }
         }
     }

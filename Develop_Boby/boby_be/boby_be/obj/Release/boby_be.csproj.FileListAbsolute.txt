@@ -22,3 +22,27 @@ D:\Users\blet\Documents\SharpDevelop Projects\boby_be\boby_be\obj\Release\Win_Lo
 D:\Users\blet\Documents\SharpDevelop Projects\boby_be\boby_be\obj\Release\Win_Skills.baml
 D:\Users\blet\Documents\SharpDevelop Projects\boby_be\boby_be\obj\Release\boby_be.g.resources
 D:\Users\blet\Documents\SharpDevelop Projects\boby_be\boby_be\obj\Release\boby_be.exe
+D:\Documents\Develop_Boby\boby_be\boby_be\bin\Release\boby_be.exe.config
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\boby_be.exe
+D:\Documents\Develop_Boby\boby_be\boby_be\bin\Release\boby_be.exe
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\boby_be.csprojResolveAssemblyReference.cache
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\DownloadBox.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Choose.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Shulack.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Status.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Viewer.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\App.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\DownloadBox.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Choose.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Loot.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Shulack.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Skills.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Status.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Viewer.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\App.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\GeneratedInternalTypeHelper.g.cs
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\boby_be_MarkupCompile.cache
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\boby_be_MarkupCompile.lref
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Loot.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\Win_Skills.baml
+D:\Documents\Develop_Boby\boby_be\boby_be\obj\Release\boby_be.g.resources
