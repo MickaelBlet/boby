@@ -8,7 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-using NS_Aion_Game;
+using Aion_Process;
 using MemoryLib;
 using _Threads;
 
@@ -38,33 +38,31 @@ namespace BobyMultitools
             Altitude_Up = (ImageSource)FindResource("Sign_Popup.Altitude_Up");
         }
 
-        public void PopupContent(Entity entity)
+        public void PopupContent(Aion_Game.Entity entity)
         {
             BrushConverter bc = new BrushConverter();
 
-            entity.DistanceReal = Get_Distance_Real(entity);
-
-            if (entity.Type == EnumAion.eType.Gather)
+            if (entity.Type == Aion_Game.eType.Gather)
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FFDDDD00");
-            else if ((entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject) && entity.Race == EnumAion.eAttitude.Friendly)
+            else if ((entity.Type == Aion_Game.eType.Pet || entity.Type == Aion_Game.eType.NPC || entity.Type == Aion_Game.eType.PlaceableObject) && entity.Attitude == Aion_Game.fAttitude.Friendly)
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FF22FFFF");
-            else if ((entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject) && entity.Race == EnumAion.eAttitude.Hostile)
+            else if ((entity.Type == Aion_Game.eType.Pet || entity.Type == Aion_Game.eType.NPC || entity.Type == Aion_Game.eType.PlaceableObject) && entity.Attitude == Aion_Game.fAttitude.Hostile)
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FFFFAAAA");
-            else if ((entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject) && (entity.Race == EnumAion.eAttitude.Passive || entity.Race == EnumAion.eAttitude.NoCombat))
+            else if ((entity.Type == Aion_Game.eType.Pet || entity.Type == Aion_Game.eType.NPC || entity.Type == Aion_Game.eType.PlaceableObject) && (entity.Attitude == Aion_Game.fAttitude.Passive || entity.Attitude == Aion_Game.fAttitude.NoCombat))
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FF22FF22");
-            else if ((entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject))
+            else if ((entity.Type == Aion_Game.eType.Pet || entity.Type == Aion_Game.eType.NPC || entity.Type == Aion_Game.eType.PlaceableObject))
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FF22FF22");
-            else if (entity.Type == EnumAion.eType.User && entity.Race == EnumAion.eAttitude.Friendly)
+            else if (entity.Type == Aion_Game.eType.User && entity.Attitude == Aion_Game.fAttitude.Friendly)
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FFFFFFFF");
-            else if (entity.Type == EnumAion.eType.User && entity.Race != EnumAion.eAttitude.Friendly)
+            else if (entity.Type == Aion_Game.eType.User && entity.Attitude != Aion_Game.fAttitude.Friendly)
                 this.tbName.Foreground = (Brush)bc.ConvertFrom("#FFFFAAAA");
-            if ((entity.Z + 10) < Thread_Entity.ePlayer.Z)
+            if ((entity.Z + 10) < Aion_Game.Player.Z)
                 this.Altitude.Source = Altitude_Down;
-            else if ((entity.Z - 10) > Thread_Entity.ePlayer.Z)
+            else if ((entity.Z - 10) > Aion_Game.Player.Z)
                 this.Altitude.Source = Altitude_Up;
             else
                 this.Altitude.Source = Altitude_Equal;
-            if (entity.Type == EnumAion.eType.User)
+            if (entity.Type == Aion_Game.eType.User)
             {
                 if (entity.Guild.Length > 0)
                 {
@@ -73,17 +71,17 @@ namespace BobyMultitools
                 }
                 else
                     this.tbGuild.Height = 0;
-                this.tbLvl.Text = "Lvl " + entity.Lvl + "	" + (EnumAion.AionClasses)entity.Class;
-                this.tbDistance.Text = entity.DistanceReal + "m";
+                this.tbLvl.Text = "Lvl " + entity.Lvl + "	" + (Aion_Game.eClass)entity.Class;
+                this.tbDistance.Text = Get_Distance_Real(entity) + "m";
             }
             else
             {
                 this.tbGuild.Height = 0;
                 this.tbLvl.Text = "Lvl " + entity.Lvl;
-                this.tbDistance.Text = entity.DistanceReal + "m";
+                this.tbDistance.Text = Get_Distance_Real(entity) + "m";
             }
             this.tbName.Text = entity.Name;
-            if (entity.Type == EnumAion.eType.Gather)
+            if (entity.Type == Aion_Game.eType.Gather)
             {
                 this.tbName.Text = entity.Name + " (" + entity.Lvl + "p)";
                 this.prgHP.Height = 0;
@@ -98,10 +96,10 @@ namespace BobyMultitools
                 this.prgHP.Height = 7;
                 this.tbHP.Height = 9;
                 this.tbHPbg.Height = 9;
-                if (entity.HP != entity.HP_Percent)
+                if (entity.Hp != entity.HpPercent)
                 {
-                    this.tbHP.Text = String.Format("{0:### ### ### ###}", entity.HP).Trim();
-                    this.tbHPbg.Text = String.Format("{0:### ### ### ###}", entity.HP).Trim();
+                    this.tbHP.Text = String.Format("{0:### ### ### ###}", entity.Hp).Trim();
+                    this.tbHPbg.Text = String.Format("{0:### ### ### ###}", entity.Hp).Trim();
                 }
                 else
                 {
@@ -109,21 +107,21 @@ namespace BobyMultitools
                     this.tbHPbg.Text = "";
                 }
                 this.tbLvl.Height = Double.NaN;
-                this.prgHP.Value = entity.HP_Percent;
+                this.prgHP.Value = entity.HpPercent;
             }
-            this.entityPtr = entity.PtrEntity;
+            this.entityPtr = entity.Node;
             this.entityName = entity.Name;
-            if (entity.Aggro)
+            /*if (entity.Aggro)
                 this.border_bg.BorderBrush = Brushes.Yellow;
-            else
+            else*/
                 this.border_bg.BorderBrush = Brushes.Gray;
         }
 
-        private int Get_Distance_Real(Entity entity)
+        private int Get_Distance_Real(Aion_Game.Entity entity)
         {
-            float PlayerX = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.X);
-            float PlayerY = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Y);
-            float PlayerZ = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Z);
+            float PlayerX = SplMemory.ReadFloat(Game.Base + Offset.Player.X);
+            float PlayerY = SplMemory.ReadFloat(Game.Base + Offset.Player.Y);
+            float PlayerZ = SplMemory.ReadFloat(Game.Base + Offset.Player.Z);
 
             double part1 = (entity.X - PlayerX) * (entity.X - PlayerX);
             double part2 = (entity.Y - PlayerY) * (entity.Y - PlayerY);

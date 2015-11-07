@@ -81,9 +81,13 @@ namespace BobyMultitools
                 }
                 
                 encrypt = minicrypt(encrypt);
-                
-             	WebClient client = new WebClient();
-                client.DownloadString(@"http://boby.pe.hu/check.php?k=1" + encrypt);
+
+                try
+                {
+                    //WebClient client = new WebClient();
+                    //client.DownloadString(@"http://boby.pe.hu/check.php?k=1" + encrypt);
+                }
+                finally { }
                 
             }).Start();
         }

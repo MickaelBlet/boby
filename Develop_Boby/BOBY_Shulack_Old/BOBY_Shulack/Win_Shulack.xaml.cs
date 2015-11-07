@@ -137,11 +137,6 @@ namespace BOBY_Shulack
             this.Shulack_Count.Text = "Shulack(s) Kill : " + str;
         }
 
-        public void Set_Kinas(string str)
-        {
-            this.Kinas_Count.Text = "Kinas : " + String.Format("{0:N0}", long.Parse(str));
-        }
-
         public void Set_Enable_Start()
         {
             this.Button_Start.IsEnabled = true;

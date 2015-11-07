@@ -47,22 +47,22 @@ namespace MemoryLib
         public static void Loading(int Base)
         {
             WinDlg.Name = 0xC;
-            GetWindowsOffset(Base, 0xEC88D0);
+            GetWindowsOffset(Base, 0xF02610);
             Base_windows.IsOpen = 0x28;
 
-            Game.Login = 0xE70EB0;
-            Game.TimeDisconnect = 0xE74F48;
-            Game.x = 0xEC27EC;
+            Game.Login = 0;
+            Game.TimeDisconnect = 0xEB0810; 
+            Game.x = 0xEFC16C;
             Game.y = Game.x + 0x4;
-            Game.Where = 0xEBBF5C;
+            Game.Where = 0xEF1A1C;
 
-            Player.ID = 0xE705C0;
+            Player.ID = 0xEABDD0;
             Player.Name = Player.ID + 0x4;
             Player.Guild = Player.Name + 0xB0;
             Player.Class = Player.Name + 0x3C;
             Player.Race = Player.Class - 0x4;
             Player.Lvl = Player.Name + 0xA4;
-            Player.HP_Max = 0xE7A0CC;
+            Player.HP_Max = 0xEB5AA4;
             Player.HP = Player.HP_Max + 0x4;
             Player.MP_Max = Player.HP + 0x4;
             Player.MP = Player.MP_Max + 0x4;
@@ -70,27 +70,29 @@ namespace MemoryLib
             Player.ED = Player.ED_Max + 0x2;
             Player.Fly_Max = Player.ED + 0x2;
             Player.Fly_Time = Player.Fly_Max + 0x4;
-            Player.IsMove = 0xE6FD98;
+            Player.IsFly = Player.Fly_Time + 0x4;
+            Player.AtkSpeed = Player.IsFly + 0x18;
+            Player.AtkSpeed = Player.AtkSpeed + 0xE0;
+            Player.MoveSpeed = Player.AtkSpeed + 0x4;
+            Game.TimeStamp = Player.MoveSpeed + 0x4;
+
+            Player.IsMove = 0xEAB5A8;
             Player.IsJump = Player.IsMove + 0x2;
             Player.CamRotV = Player.IsMove + 0x14;
             Player.CamRotH = Player.CamRotV + 0x8;
             Player.FreeCamRotH = Player.CamRotH + 0xC;
             Player.FreeCamRot = Player.FreeCamRotH + 0x10;
-            Player.X = Player.IsMove + 0x400;
+            Player.X = Player.IsMove + 0x404;
             Player.Y = Player.X + 0x4;
             Player.Z = Player.Y + 0x4;
-            Player.IsFly = 0xE7A0E8;
-            Player.AtkSpeed = 0xE7A1E0;
-            Player.MoveSpeed = Player.AtkSpeed + 0x4;
-            Game.TimeStamp = Player.MoveSpeed + 0x4;
 
             Player.QuickBar = 0xE526E8;
 
-            Entity.Is_Target = 0xA2C120;
+            Entity.Is_Target = 0xA656E8;
             Entity.To_Target = Entity.Is_Target - 0x8;
-            Entity.Status = 0x254;
-            Entity.Loc = 0x130;
-            Entity.Type = 0x13E;
+            Entity.Status = 0x264;
+            Entity.Loc = 0x140;
+            Entity.Type = 0x14E;
 
             Status.Node = 0x4;
             Status.ID = 0x28;
@@ -104,19 +106,19 @@ namespace MemoryLib
             Status.Guild = 0x108;
             Status.Lvl = 0x3A;
             Status.HP_Percent = 0x3C;
-            Status.HP = 0x12B8;
-            Status.HP_Max = Status.HP + 0x4;
+            Status.HP_Max = 0x12C8;
+            Status.HP = Status.HP_Max + 0x4;
             Status.Rank = 0x105C;
-            Status.Is_Attackable = 0x10A4;
+            Status.Is_Attackable = 0x10B4;
             Status.Action = 0x1d4;
             Status.Link = 0x204;
             Status.Type = 0x1C;
             Status.WeaponStyle = 0x334;
             Status.Class = 0x21C;
             Status.Stance = 0x2A8;
-            Status.State = 0x1578;
-            Status.No_Grav = 0x888 + 0x8;
-            Status.No_Skill = 0x1680;
+            Status.State = 0x1588;
+            Status.No_Grav = 0x890;
+            Status.No_Skill = 0x1690;
             Status.AtkSpeed = 0x4d2;
             Status.MoveSpeed = 0x6a4;
             Status.BuffCount = 0xf5C;
@@ -131,7 +133,7 @@ namespace MemoryLib
             Loc.Z = Loc.Y + 0x4;
             Loc.Zplan = 0x6DC;
 
-            EntityList.Pointer = 0xE7A654;
+            EntityList.Pointer = 0xEB60CC;
             EntityList.Array = 0x48;
             EntityList.Size = 0x58;
             EntityList.User = 0xD0;
@@ -141,16 +143,16 @@ namespace MemoryLib
             ForceList.Length = 0x24;
 
             ChatDlg.IsOpen = 0x28;
-            ChatDlg.Jump = 0x480;
-            ChatDlg.Length = 0x34c;
-            ChatDlg.Input = 0x338;
+            ChatDlg.Jump = 0x4a0;
+            ChatDlg.Length = 0x318;
+            ChatDlg.Input = 0x328;
 
             Cube.Base_List = 0x4b0;
             Cube.ListItem = 0x384;
             Cube.ListX = 0x88;
             Cube.ListY = 0x90;
-            Cube.ListW = 0x58;
-            Cube.ListH = 0X60;
+            Cube.ListW = 0x68;
+            Cube.ListH = 0X70;
             Cube.ItemListW = 0x320;
             Cube.ItemListH = 0x328;
             Cube.ItemID = 0x88;
@@ -168,22 +170,22 @@ namespace MemoryLib
             Resurrect.Bt_w = 0x98;
             Resurrect.Bt_h = 0xA0;
 
-            Tmp_Win.Base = 0xEC8F70;
+            Tmp_Win.Base = 0xF02CD8;
             Tmp_Win.Next = 0x4;
-            Tmp_Win.Jump = 0x514;
-            Tmp_Win.Bt_x = 0x88;
-            Tmp_Win.Bt_y = 0x90;
-            Tmp_Win.Bt_w = 0x98;
-            Tmp_Win.Bt_h = 0xA0;
+            Tmp_Win.Jump = 0x534;
+            Tmp_Win.Bt_x = 0x98;
+            Tmp_Win.Bt_y = 0xA0;
+            Tmp_Win.Bt_w = 0xA8;
+            Tmp_Win.Bt_h = 0xB0;
 
             Html.Jump = 0x484;
             Html.Bt_Count = 0x274;
             Html.Bt_Base = 0x270;
             Html.Bt_Jump = 0x8;
-            Html.Bt_x = 0x88;
-            Html.Bt_y = 0x90;
-            Html.Bt_w = 0x98;
-            Html.Bt_h = 0xA0;
+            Html.Bt_x = 0x98;
+            Html.Bt_y = 0xA0;
+            Html.Bt_w = 0xA8;
+            Html.Bt_h = 0xB0;
 
             ChainsManager.ArrayStart2 = 0x490;
             ChainsManager.ArrayStart = 0x4C0;
@@ -192,7 +194,7 @@ namespace MemoryLib
             Chain.IsElapsed = 0x428; // 0 si skill up
             Chain.Timeout = Chain.IsElapsed + 0x4; // 0 si skill up
 
-            Pet.Loot = 0xEBC4E0;
+            Pet.Loot = 0xEF63F8;
 
             AbilityList.Pointer = Cube.BaseCount;
             AbilityList.FirstItem = 0xB24;
@@ -216,6 +218,177 @@ namespace MemoryLib
             Ability.Cooldown = 0x38;
             Ability.CooldownEnd = 0x40;
             Ability.CastTime = 0x60;
+
+            /*WinDlg.Name = 0xC;
+            GetWindowsOffset(Base, 0xEFE170);
+            Base_windows.IsOpen = 0x28;
+
+            Game.Login = 0;
+            Game.TimeDisconnect = 0xEACB88; 
+            Game.x = 0xEF7CCC;
+            Game.y = Game.x + 0x4;
+            Game.Where = 0xEF1A1C;
+
+            Player.ID = 0xEA8188;
+            Player.Name = Player.ID + 0x4;
+            Player.Guild = Player.Name + 0xB0;
+            Player.Class = Player.Name + 0x3C;
+            Player.Race = Player.Class - 0x4;
+            Player.Lvl = Player.Name + 0xA4;
+            Player.HP_Max = 0xEB1E14;
+            Player.HP = Player.HP_Max + 0x4;
+            Player.MP_Max = Player.HP + 0x4;
+            Player.MP = Player.MP_Max + 0x4;
+            Player.ED_Max = Player.MP + 0x4;
+            Player.ED = Player.ED_Max + 0x2;
+            Player.Fly_Max = Player.ED + 0x2;
+            Player.Fly_Time = Player.Fly_Max + 0x4;
+            Player.IsMove = 0xEA7960;
+            Player.IsJump = Player.IsMove + 0x2;
+            Player.CamRotV = Player.IsMove + 0x14;
+            Player.CamRotH = Player.CamRotV + 0x8;
+            Player.FreeCamRotH = Player.CamRotH + 0xC;
+            Player.FreeCamRot = Player.FreeCamRotH + 0x10;
+            Player.X = Player.IsMove + 0x404;
+            Player.Y = Player.X + 0x4;
+            Player.Z = Player.Y + 0x4;
+            Player.IsFly = 0xE7A0E8;
+            Player.AtkSpeed = 0xEB1F28;
+            Player.MoveSpeed = Player.AtkSpeed + 0x4;
+            Game.TimeStamp = Player.MoveSpeed + 0x4;
+
+            Player.QuickBar = 0xE526E8;
+
+            Entity.Is_Target = 0xA626E8;
+            Entity.To_Target = Entity.Is_Target - 0x8;
+            Entity.Status = 0x264;
+            Entity.Loc = 0x140;
+            Entity.Type = 0x14E;
+
+            Status.Node = 0x4;
+            Status.ID = 0x28;
+            Status.ID_Type_NPC = 0xC0;
+            Status.ID_Type_Quest = 0x1CC;
+            Status.ID_Type_Quest_Type = 0x1D0;
+            Status.ID_Object = 0x2C;
+            Status.TargetId = 0x330;
+            Status.Rot = 0x78C;
+            Status.Name = 0x3E;
+            Status.Guild = 0x108;
+            Status.Lvl = 0x3A;
+            Status.HP_Percent = 0x3C;
+            Status.HP_Max = 0x12C8;
+            Status.HP = Status.HP_Max + 0x4;
+            Status.Rank = 0x105C;
+            Status.Is_Attackable = 0x10B4;
+            Status.Action = 0x1d4;
+            Status.Link = 0x204;
+            Status.Type = 0x1C;
+            Status.WeaponStyle = 0x334;
+            Status.Class = 0x21C;
+            Status.Stance = 0x2A8;
+            Status.State = 0x1588;
+            Status.No_Grav = 0x890;
+            Status.No_Skill = 0x1690;
+            Status.AtkSpeed = 0x4d2;
+            Status.MoveSpeed = 0x6a4;
+            Status.BuffCount = 0xf5C;
+            Status.BuffArray = 0xF64;
+            Status.BuffSize = 0x12;
+
+            Buff.ObjectId = 0x0;
+            Buff.Id = 0x4;
+
+            Loc.X = 0x64;
+            Loc.Y = Loc.X + 0x4;
+            Loc.Z = Loc.Y + 0x4;
+            Loc.Zplan = 0x6DC;
+
+            EntityList.Pointer = 0xEB2444;
+            EntityList.Array = 0x48;
+            EntityList.Size = 0x58;
+            EntityList.User = 0xD0;
+
+            PartyList.Jump = 0x490;
+            PartyList.Length = 0x7C;
+            ForceList.Length = 0x24;
+
+            ChatDlg.IsOpen = 0x28;
+            ChatDlg.Jump = 0x4a0;
+            ChatDlg.Length = 0x318;
+            ChatDlg.Input = 0x328;
+
+            Cube.Base_List = 0x4b0;
+            Cube.ListItem = 0x384;
+            Cube.ListX = 0x88;
+            Cube.ListY = 0x90;
+            Cube.ListW = 0x68;
+            Cube.ListH = 0X70;
+            Cube.ItemListW = 0x320;
+            Cube.ItemListH = 0x328;
+            Cube.ItemID = 0x88;
+            Cube.ItemCD = 0x98;
+            Cube.ItemName1 = 0x48;
+            Cube.ItemName2 = 0x4;
+            Cube.ItemName3 = 0x4;
+            Cube.BaseCount = 0xE526A0;
+            Cube.Curent = 0x8F8;
+            Cube.Size = 0x908;
+
+            Resurrect.Jump = 0x494;
+            Resurrect.Bt_x = 0x88;
+            Resurrect.Bt_y = 0x90;
+            Resurrect.Bt_w = 0x98;
+            Resurrect.Bt_h = 0xA0;
+
+            Tmp_Win.Base = 0xEFE838;
+            Tmp_Win.Next = 0x4;
+            Tmp_Win.Jump = 0x534;
+            Tmp_Win.Bt_x = 0x98;
+            Tmp_Win.Bt_y = 0xA0;
+            Tmp_Win.Bt_w = 0xA8;
+            Tmp_Win.Bt_h = 0xB0;
+
+            Html.Jump = 0x484;
+            Html.Bt_Count = 0x274;
+            Html.Bt_Base = 0x270;
+            Html.Bt_Jump = 0x8;
+            Html.Bt_x = 0x98;
+            Html.Bt_y = 0xA0;
+            Html.Bt_w = 0xA8;
+            Html.Bt_h = 0xB0;
+
+            ChainsManager.ArrayStart2 = 0x490;
+            ChainsManager.ArrayStart = 0x4C0;
+
+            Chain.AbilityId = 0x3d8;
+            Chain.IsElapsed = 0x428; // 0 si skill up
+            Chain.Timeout = Chain.IsElapsed + 0x4; // 0 si skill up
+
+            Pet.Loot = 0xEF1F58;
+
+            AbilityList.Pointer = Cube.BaseCount;
+            AbilityList.FirstItem = 0xB24;
+
+            AbilityArrayItem.Pointer1 = 0x0;
+            AbilityArrayItem.Pointer2 = 0x4;
+            AbilityArrayItem.Pointer3 = 0x8;
+            AbilityArrayItem.AbilityID = 0xC;
+            AbilityArrayItem.AbilityPointer = 0x14;
+            AbilityArrayItem.AbilityAcquired = 0x18;
+
+            AbilityPointers.First = 0x0;
+            AbilityPointers.Second = 0x14;
+            AbilityPointers.Third = 0x4;
+            AbilityPointers.Final = 0x8;
+
+            Ability.ID = 0x8;
+            Ability.Name = 0x1C;
+            Ability.NameLength = 0x2C;
+            Ability.LastUseTimestamp = 0x44;
+            Ability.Cooldown = 0x38;
+            Ability.CooldownEnd = 0x40;
+            Ability.CastTime = 0x60;*/
         }
 
         public class Base_windows

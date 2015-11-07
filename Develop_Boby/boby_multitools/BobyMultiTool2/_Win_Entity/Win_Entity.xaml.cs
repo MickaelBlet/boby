@@ -15,8 +15,8 @@ using System.Windows.Interop;
 
 using System.Runtime.InteropServices;
 
-using NS_Aion_Game;
 using MemoryLib;
+using Aion_Game;
 
 namespace BobyMultitools
 {
@@ -47,6 +47,9 @@ namespace BobyMultitools
             refresh_style_button();
 
             in_Win_Entity_Popup = new Win_Entity_Popup();
+            in_Win_Entity_Popup.Show();
+            in_Win_Entity_Popup.Left = -1000;
+            in_Win_Entity_Popup.Top = -1000;
 
             this.Left = in_Win_Main.in_Setting.in_Entity.Left.Get_Value();
             this.Top = in_Win_Main.in_Setting.in_Entity.Top.Get_Value();
@@ -92,8 +95,6 @@ namespace BobyMultitools
         private void Rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
-            in_Win_Main.in_Setting.in_Entity.Left.Set_Value((int)this.Left);
-            in_Win_Main.in_Setting.in_Entity.Top.Set_Value((int)this.Top);
         }
 
         void Check_NPC_Checked(object sender, RoutedEventArgs e)
@@ -143,7 +144,8 @@ namespace BobyMultitools
                 if (select_is_ready)
                 {
                     select_is_ready = false;
-                    in_Win_Entity_Popup.Hide();
+                    in_Win_Entity_Popup.Left = -1000;
+                    in_Win_Entity_Popup.Top = -1000;
                     Thread Select = new Thread(() => SlashSelect(in_Win_Entity_Popup.entityPtr));
                     Select.Start();
                 }
@@ -152,20 +154,21 @@ namespace BobyMultitools
 
         private void tb_where_TextChanged(object sender, TextChangedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Where = tb_where.Text.ToLower();
+            in_Win_Main.in_Setting.in_Entity.Where = tb_where.Text;
         }
 
         #endregion
 
         void SlashSelect(long entityPtr)
         {
-            Character.Select(entityPtr);
+            //Character.Select(entityPtr);
             select_is_ready = true;
         }
 
         void GridViewRowPresenter_MouseLeave(object sender, MouseEventArgs e)
         {
-            in_Win_Entity_Popup.Hide();
+            in_Win_Entity_Popup.Left = -1000;
+            in_Win_Entity_Popup.Top = -1000;
         }
 
         void GridViewRowPresenter_MouseEnter(object sender, MouseEventArgs e)
@@ -175,9 +178,10 @@ namespace BobyMultitools
                 Grid grid = (Grid)sender;
                 GridViewRowPresenter lvItem = (GridViewRowPresenter)grid.Children[6];
                 in_Win_Entity_Popup.PopupContent(((Entity_View)lvItem.Content).Entity_Save);
-                in_Win_Entity_Popup.Show();
                 in_Win_Entity_Popup.Left = GetMousePosition().X - in_Win_Entity_Popup.Width - 2;
                 in_Win_Entity_Popup.Top = GetMousePosition().Y - in_Win_Entity_Popup.Height - 2;
+                in_Win_Entity_Popup.Topmost = false;
+                in_Win_Entity_Popup.Topmost = true;
             }
             catch { }
         }
@@ -287,10 +291,10 @@ namespace BobyMultitools
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            lv_Entity.Height = this.Height - 77;
-            lv_Entity.Width = this.Width - 22;
-            BG_Count_Ally.Width = (this.Width - 38) / 2;
-            BG_Count_Ennemy.Width = (this.Width - 38) / 2;
+            lv_Entity.Height = this.Height - 64;
+            lv_Entity.Width = this.Width - 4;
+            BG_Count_Ally.Width = (this.Width - 20) / 2;
+            BG_Count_Ennemy.Width = (this.Width - 20) / 2;
             AutoSizeColumns();
             in_Win_Main.in_Setting.in_Entity.Height.Set_Value((int)this.Height);
             in_Win_Main.in_Setting.in_Entity.Width.Set_Value((int)this.Width);
@@ -303,16 +307,16 @@ namespace BobyMultitools
             {
                 if (this.Width - 238 > 121)
                 {
-                    gv.Columns[1].Width = (this.Width - 238) / 2;
-                    gv.Columns[2].Width = (this.Width - 238) / 2 + 8;
-                    bt_Name.Width = (this.Width - 238) / 2 + 2;
-                    bt_Guild.Width = (this.Width - 238) / 2;
+                    gv.Columns[1].Width = (this.Width - 220) / 2;
+                    gv.Columns[2].Width = (this.Width - 220) / 2 + 8;
+                    bt_Name.Width = (this.Width - 220) / 2 + 2;
+                    bt_Guild.Width = (this.Width - 220) / 2;
                 }
                 else
                 {
-                    gv.Columns[1].Width = this.Width - 238 + 8;
+                    gv.Columns[1].Width = this.Width - 220 + 8;
                     gv.Columns[2].Width = 0;
-                    bt_Name.Width = this.Width - 238 + 2;
+                    bt_Name.Width = this.Width - 220 + 2;
                     bt_Guild.Width = 0;
                 }
             }
@@ -381,6 +385,12 @@ namespace BobyMultitools
             refresh_style_button();
         }
 
+        private void bt_up_Click(object sender, RoutedEventArgs e)
+        {
+            if (lv_Entity.Items.Count > 0)
+                lv_Entity.ScrollIntoView(lv_Entity.Items[0]);
+        }
+
         private void refresh_style_button()
         {
             bt_Rnk.Style = style_List_Header;
@@ -425,25 +435,30 @@ namespace BobyMultitools
             tb_where.Text = Get_Target_Name();
         }
 
+        private void bt_clear_target_Click(object sender, RoutedEventArgs e)
+        {
+            tb_where.Text = "";
+        }
+
         private string Get_Target_Name()
         {
             string name = "";
-            int ID = 0;
+            long ID = 0;
 
-            foreach (var entity in in_Win_Main.in_Thread_Entity.DicCopy.Values)
+            foreach (var entity in EntityList.List.Values)
             {
-                if (entity.Type == EnumAion.eType.Player)
+                if (entity.Type == eType.Player)
                 {
-                    ID = entity.TargetID;
+                    ID = entity.TargetId;
                     break;
                 }
             }
 
             if (ID != 0)
             {
-                foreach (var entity in in_Win_Main.in_Thread_Entity.DicCopy.Values)
+                foreach (var entity in EntityList.List.Values)
                 {
-                    if (entity.ID == ID)
+                    if (entity.Id == ID)
                     {
                         name = entity.Name;
                         break;
@@ -464,14 +479,16 @@ namespace BobyMultitools
 
         private void Window_LocationChanged(object sender, EventArgs e)
         {
-            if (this.Top < 0)
+            if (this.Top < 1)
                 this.Top = 0;
-            if (this.Left < -8)
-                this.Left = -8;
-            if (this.Top + this.Height - 8 > SystemParameters.VirtualScreenHeight)
-                this.Top = SystemParameters.VirtualScreenHeight - this.Height + 8;
-            if (this.Left + this.Width - 9 > SystemParameters.VirtualScreenWidth)
-                this.Left = SystemParameters.VirtualScreenWidth - this.Width + 9;
+            if (this.Left < 1)
+                this.Left = 0;
+            if (this.Top + this.Height + 1 > SystemParameters.VirtualScreenHeight)
+                this.Top = SystemParameters.VirtualScreenHeight - this.Height;
+            if (this.Left + this.Width + 1 > SystemParameters.VirtualScreenWidth)
+                this.Left = SystemParameters.VirtualScreenWidth - this.Width;
+            in_Win_Main.in_Setting.in_Entity.Left.Set_Value((int)this.Left);
+            in_Win_Main.in_Setting.in_Entity.Top.Set_Value((int)this.Top);
         }
     }
 }

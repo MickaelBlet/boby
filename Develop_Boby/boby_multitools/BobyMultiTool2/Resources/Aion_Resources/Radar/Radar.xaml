@@ -69,22 +69,28 @@
     <CroppedBitmap x:Key="Special_Icon.Teleport"        Source="Special_Icon\Common.png" SourceRect="32,0,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Chest"           Source="Special_Icon\Common.png" SourceRect="0,16,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Letter"          Source="Special_Icon\Common.png" SourceRect="16,16,16,16"/>
-    <CroppedBitmap x:Key="Special_Icon.Greas"           Source="Special_Icon\Common.png" SourceRect="32,16,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Stigma"          Source="Special_Icon\Common.png" SourceRect="32,16,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Coins"           Source="Special_Icon\Common.png" SourceRect="0,32,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Table"           Source="Special_Icon\Common.png" SourceRect="16,32,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.House"           Source="Special_Icon\Common.png" SourceRect="32,32,16,16"/>
 
     <CroppedBitmap x:Key="Special_Icon.Quest_Start_0"   Source="Special_Icon\Quest.png" SourceRect="0,0,15,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Start_1"   Source="Special_Icon\Quest.png" SourceRect="0,16,15,16"/>
-    <CroppedBitmap x:Key="Special_Icon.Quest_Start_4"   Source="Special_Icon\Quest.png" SourceRect="0,32,15,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Start_2"   Source="Special_Icon\Quest.png" SourceRect="0,32,15,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Start_3"   Source="Special_Icon\Quest.png" SourceRect="0,48,15,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Start_4"   Source="Special_Icon\Quest.png" SourceRect="0,64,15,16"/>
 
     <CroppedBitmap x:Key="Special_Icon.Quest_Inter_0"   Source="Special_Icon\Quest.png" SourceRect="16,0,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Inter_1"   Source="Special_Icon\Quest.png" SourceRect="16,16,16,16"/>
-    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_4"   Source="Special_Icon\Quest.png" SourceRect="16,32,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_2"   Source="Special_Icon\Quest.png" SourceRect="16,32,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Inter_3"   Source="Special_Icon\Quest.png" SourceRect="16,48,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Inter_4"   Source="Special_Icon\Quest.png" SourceRect="16,64,16,16"/>
 
     <CroppedBitmap x:Key="Special_Icon.Quest_Final_0"   Source="Special_Icon\Quest.png" SourceRect="32,0,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Final_1"   Source="Special_Icon\Quest.png" SourceRect="32,16,16,16"/>
-    <CroppedBitmap x:Key="Special_Icon.Quest_Final_4"   Source="Special_Icon\Quest.png" SourceRect="32,32,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Final_2"   Source="Special_Icon\Quest.png" SourceRect="32,32,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Final_3"   Source="Special_Icon\Quest.png" SourceRect="32,48,16,16"/>
+    <CroppedBitmap x:Key="Special_Icon.Quest_Final_4"   Source="Special_Icon\Quest.png" SourceRect="32,64,16,16"/>
 
     <Style x:Key="Style_Target" TargetType="{x:Type Image}">
         <Setter Property="RenderTransformOrigin" Value=".5,.5" />

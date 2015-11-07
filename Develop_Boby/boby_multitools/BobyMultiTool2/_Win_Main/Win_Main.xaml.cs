@@ -18,237 +18,39 @@ using System.ComponentModel;
 using System.IO.Compression;
 using System.Reflection;
 
+using System.Runtime.InteropServices; // DllImport
+
 using _Threads;
 
 namespace BobyMultitools
 {
     public partial class Win_Main : Window
     {
+        [DllImport("User32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
+
         public Setting      in_Setting                    = null;
         public Win_Main     in_Win_Main                   = null;
         public Win_Radar    in_Win_Radar                  = null;
         public Win_Entity   in_Win_Entity                 = null;
         public Win_Cheat    in_Win_Cheat                  = null;
-        public Win_Buff     in_Win_Buff                   = null;
-        public Win_Quick    in_Win_Quick                  = null;
+        public Win_Script   in_Win_Script                 = null;
         public Thread_Entity in_Thread_Entity             = null;
+        public Aion_Game.EntityList in_Entity_List                = null;
         public Style        Style_ShugoLoading            = null;
         public Style        Style_Radar_Target            = null;
-		
-        void CheckUpdate()
-        {
-            if (File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_update.exe"))
-            {
-                string fileVersion = AssemblyName.GetAssemblyName(@"./" + "boby_update" + ".exe").Version.ToString();
-                string check_version_web = "";
-
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    try
-                    {
-                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_update" + ".exe");
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-                if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
-                }
-                
-                if (fileVersion != check_version_web)
-                {
-                    using (WebClient Client = new WebClient())
-                    {
-                        Client.Proxy = null;
-                        Client.DownloadFile(new Uri("http://boby.pe.hu/files/download.php?file=" + "boby_update.exe"), @".\boby_update.exe");
-                    }
-                }
-            }
-            if (!File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_update.exe"))
-            {
-            	string check_version_web = "";
-            	
-            	using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    try
-                    {
-                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_update" + ".exe");
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-                if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
-                }
-            	
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    Client.DownloadFile(new Uri("http://boby.pe.hu/files/download.php?file=" + "boby_update.exe"), @".\boby_update.exe");
-                }
-            }
-            try
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.CreateNoWindow = false;
-                startInfo.UseShellExecute = false;
-                startInfo.WorkingDirectory = @".\";
-                startInfo.Verb = "runas";
-                startInfo.Arguments = "boby_multitools";
-                startInfo.FileName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_update.exe";
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                Process.Start(startInfo);
-                while (Process.GetProcessesByName("boby_update").Any() == false)
-                    ;
-                while (Process.GetProcessesByName("boby_update").Any() == true)
-                    ;
-            }
-            catch
-            {
-                //in_Win_Main.Hide();
-                //MessageBox.Show(in_Win_Main, "boby_update.exe not found.", "Error");
-                //Environment.Exit(0);
-            }
-        }
-        
-        void CheckChecker()
-        {
-            if (File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_checker.exe"))
-            {
-                string fileVersion = AssemblyName.GetAssemblyName(@"./" + "boby_checker" + ".exe").Version.ToString();
-                string check_version_web = "";
-
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    try
-                    {
-                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_checker" + ".exe");
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-                if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
-                }
-                
-                if (fileVersion != check_version_web)
-                {
-                    using (WebClient Client = new WebClient())
-                    {
-                        Client.Proxy = null;
-                        Client.DownloadFile(new Uri("http://boby.pe.hu/files/download.php?file=" + "boby_checker.exe"), @".\boby_checker.exe");
-                    }
-                }
-            }
-            if (!File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_checker.exe"))
-            {
-            	string check_version_web = "";
-            	
-            	using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    try
-                    {
-                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_checker" + ".exe");
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
-                if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
-                }
-            	
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    Client.DownloadFile(new Uri("http://boby.pe.hu/files/download.php?file=" + "boby_checker.exe"), @".\boby_checker.exe");
-                }
-            }
-            try
-            {
-                ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.CreateNoWindow = false;
-                startInfo.UseShellExecute = false;
-                startInfo.WorkingDirectory = @".\";
-                startInfo.Verb = "runas";
-                startInfo.Arguments = "boby_multitools";
-                startInfo.FileName = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_checker.exe";
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                Process.Start(startInfo);
-            }
-            catch
-            {
-                //in_Win_Main.Hide();
-                //MessageBox.Show(in_Win_Main, "boby_update.exe not found.", "Error");
-                //Environment.Exit(0);
-            }
-        }
-        
-        void CheckValidKey(string _key)
-        {
-        	string r_key = "";
-	        
-	        try
-            {
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    r_key = Client.DownloadString(@"http://boby.pe.hu/checkkey.php?k="+_key);
-                }
-	        }
-	        catch
-	        {
-	        	MessageBox.Show("Connection server.", "Error");
-            	Environment.Exit(0);
-	        }
-	        
-	        for (int i = 0; i < 32; i++)
-	        {
-	        	if (r_key[i] != '&')
-            		Environment.Exit(0);	        		
-	        }
-        }
 
         public Win_Main()
         {
+            Listing.List();
+            in_Win_Main = this;
             InitializeComponent();
 
-            in_Win_Main = this;
-            if (!File.Exists(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location) + ".vshost.exe"))
-            {
-                CheckUpdate();
-            	Listing.List();
-            }
-            if (Environment.GetCommandLineArgs().Length == 1)
-            {
-            	CheckChecker();
-            	Environment.Exit(0);
-            }
-            CheckValidKey(Environment.GetCommandLineArgs()[1]);
             this.Show();
 
             in_Setting = new Setting(in_Win_Main);
 
-            Online_Users_Sequence();
+            //Online_Users_Sequence();
 
             Style_ShugoLoading = this.FindResource("Style_ShugoLoading") as Style;
             Style_Radar_Target = this.FindResource("Style_Target") as Style;
@@ -257,12 +59,12 @@ namespace BobyMultitools
 
             cb_Radar.IsChecked = in_Setting.in_Radar.Show.Get_Value();
             cb_Entity.IsChecked = in_Setting.in_Entity.Show.Get_Value();
-            cb_Buff.IsChecked = in_Setting.in_Buff.Show.Get_Value();
+            cb_Script.IsChecked = in_Setting.in_Scripts.Show.Get_Value();
             cb_Cheat.IsChecked = in_Setting.in_Cheat.Show.Get_Value();
-            cb_Quick.IsChecked = in_Setting.in_Quick.Show.Get_Value();
         }
 
         #region _Event gui_
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Full_Close();
@@ -304,19 +106,11 @@ namespace BobyMultitools
                 }));
             }
 
-            if (in_Win_Buff != null && in_Setting.in_Buff.Show.Get_Value() == true)
+            if (in_Win_Script != null && in_Setting.in_Scripts.Show.Get_Value() == true)
             {
-                in_Win_Buff.Dispatcher.Invoke((Action)(() =>
+                in_Win_Script.Dispatcher.Invoke((Action)(() =>
                 {
-                    in_Win_Buff.Show();
-                }));
-            }
-
-            if (in_Win_Quick != null && in_Setting.in_Quick.Show.Get_Value() == true)
-            {
-                in_Win_Quick.Dispatcher.Invoke((Action)(() =>
-                {
-                    in_Win_Quick.Show();
+                    in_Win_Script.Show();
                 }));
             }
         }
@@ -347,26 +141,13 @@ namespace BobyMultitools
                 }));
             }
         
-            if (in_Win_Buff != null)
+            if (in_Win_Script != null)
             {
-                in_Win_Buff.Dispatcher.Invoke((Action)(() =>
+                in_Win_Script.Dispatcher.Invoke((Action)(() =>
                 {
-                    in_Win_Buff.Hide();
+                    in_Win_Script.Hide();
                 }));
             }
-
-            if (in_Win_Quick != null)
-            {
-                in_Win_Quick.Dispatcher.Invoke((Action)(() =>
-                {
-                    in_Win_Quick.Hide();
-                }));
-            }
-        }
-
-        private void Rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
         }
 
         private void Lb_Game_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -475,53 +256,41 @@ namespace BobyMultitools
             in_Setting.in_Cheat.Show.Set_Value(false);
         }
 
-        private void cb_Buff_Checked(object sender, RoutedEventArgs e)
+        private void cb_Script_Checked(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Buff != null)
+            if (in_Win_Script != null)
             {
-                in_Win_Buff.Dispatcher.Invoke((Action)(() =>
+                in_Win_Script.Dispatcher.Invoke((Action)(() =>
                 {
-                    in_Win_Buff.Show();
+                    in_Win_Script.Show();
                 }));
             }
-            in_Setting.in_Buff.Show.Set_Value(true);
+            in_Setting.in_Scripts.Show.Set_Value(true);
         }
 
-        private void cb_Buff_Unchecked(object sender, RoutedEventArgs e)
+        private void cb_Script_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Buff != null)
+            if (in_Win_Script != null)
             {
-                in_Win_Buff.Dispatcher.Invoke((Action)(() =>
+                in_Win_Script.Dispatcher.Invoke((Action)(() =>
                 {
-                    in_Win_Buff.Hide();
+                    in_Win_Script.Hide();
                 }));
             }
-            in_Setting.in_Buff.Show.Set_Value(false);
-        }
-
-        private void cb_Quick_Checked(object sender, RoutedEventArgs e)
-        {
-            if (in_Win_Quick != null)
-            {
-                in_Win_Quick.Dispatcher.Invoke((Action)(() =>
-                {
-                    in_Win_Quick.Show();
-                }));
-            }
-            in_Setting.in_Quick.Show.Set_Value(true);
-        }
-
-        private void cb_Quick_Unchecked(object sender, RoutedEventArgs e)
-        {
-            if (in_Win_Quick != null)
-            {
-                in_Win_Quick.Dispatcher.Invoke((Action)(() =>
-                {
-                    in_Win_Quick.Hide();
-                }));
-            }
-            in_Setting.in_Quick.Show.Set_Value(false);
+            in_Setting.in_Scripts.Show.Set_Value(false);
         }
         #endregion
+
+        private void Window_LocationChanged(object sender, EventArgs e)
+        {
+            if (this.Top < 1)
+                this.Top = 0;
+            if (this.Left < 1)
+                this.Left = 0;
+            if (this.Top + this.Height + 1 > SystemParameters.VirtualScreenHeight)
+                this.Top = SystemParameters.VirtualScreenHeight - this.Height;
+            if (this.Left + this.Width + 1 > SystemParameters.VirtualScreenWidth)
+                this.Left = SystemParameters.VirtualScreenWidth - this.Width;
+        }
     }
 }

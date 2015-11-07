@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ArrayOfScript_Element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Script_Element>
+    <file>test.cs</file>
+  </Script_Element>
+  <Script_Element>
+    <file>test2.cs</file>
+  </Script_Element>
+  <Script_Element>
+    <file>test3.cs</file>
+  </Script_Element>
+</ArrayOfScript_Element>

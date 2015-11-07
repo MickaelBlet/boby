@@ -22,6 +22,8 @@ namespace BobyMultitools
 
         private void Refresh_lb_Game()
         {
+            Aion_Process.Game.Pid = 0;
+            Aion_Process.Game.Base = 0;
             lb_Game.Focus();
             lb_Game.Opacity = 0;
             img_ShugoLoading.Style = null;
@@ -37,7 +39,7 @@ namespace BobyMultitools
 
         private void Thread_SearchGame()
         {
-            string[] itemsource = SearchGame();
+            List<Game_View> itemsource = SearchGame();
 
             bool is_Update = false;
 
@@ -83,47 +85,78 @@ namespace BobyMultitools
             }
         }
 
-        private static string[] SearchGame()
+        private static List<Game_View> SearchGame()
         {
-            string[] db;
+            List<Game_View> db = new List<Game_View>();
             Process[] pid = Process.GetProcessesByName("aion.bin");
-            db = new string[pid.Length];
 
             if (pid.Length == 0)
                 return null;
 
             for (int i = 0; i < pid.Length; i++)
             {
-                db[i] = pid[i].Id + ": ";
+                string Pid;
+                string Name;
+                string Lvl = "";
+                int Class = 0;
+                ImageSource class_image = null;
+
+                Pid = pid[i].Id.ToString();
                 IntPtr hanble = Memory.OpenProcess(pid[i].Id);
                 SplMemory.SetHanble(hanble);
-                int Aion_DLL_Game = GetModuleBase("Game.dll", pid[i].Id);
+                int Aion_DLL_Game = Aion_Process.Game.GetModuleBase("Game.dll", pid[i].Id);
                 if (Aion_DLL_Game != 0)
                 {
                     Offset.Loading(Aion_DLL_Game);
                     string name = SplMemory.ReadWchar(Aion_DLL_Game + Offset.Player.Name, 30);
                     byte lvl = SplMemory.ReadByte(Aion_DLL_Game + Offset.Player.Lvl);
+                    Class = SplMemory.ReadByte(Aion_DLL_Game + Offset.Player.Class);
                     if (name != string.Empty)
-                        db[i] += name + " (" + lvl + ")";
+                    {
+                        Name = name;
+                        Lvl = "Lvl: " + lvl.ToString();
+                        class_image = (ImageSource)Application.Current.FindResource("Class_Icon." + Class);
+                    }
                     else
-                        db[i] += "(Login / Select.Character)";
+                    {
+                        Name = "(Login / Select.Character)";
+                        Lvl = "Pid: " + pid[i].Id.ToString();
+                    }
                 }
                 else
-                    db[i] += "(game.dll not found)";
+                {
+                    Name = "(game.dll not found)";
+                    Lvl = "Pid: " + pid[i].Id.ToString();
+                }
+                db.Add(new Game_View { Pid = Pid, Name = Name, Lvl = Lvl, Class = "", graph_class = class_image, Race = "" });
                 Memory.CloseHandle(hanble);
             }
 
             return (db);
         }
+    }
 
-        private static int GetModuleBase(string modulename, int pid)
+    public class Game_View
+    {
+        public string Pid { get; set; }
+        public string Name { get; set; }
+        public string Lvl { get; set; }
+        public string Class { get; set; }
+        public string Race { get; set; }
+
+        public ImageSource graph_class { get; set; }
+        
+        public Game_View()
         {
-            System.Diagnostics.Process HandleP = System.Diagnostics.Process.GetProcessById(pid);
+        }
 
-            foreach (System.Diagnostics.ProcessModule Module in HandleP.Modules)
-                if (modulename == Module.ModuleName)
-                    return Module.BaseAddress.ToInt32();
-            return 0;
+        public void Copy(Entity_View tmp)
+        {
+            Name = tmp.Name;
+            Lvl = tmp.Lvl;
+            Class = tmp.Class;
+            Race = tmp.Race;
+            graph_class = tmp.graph_class;
         }
     }
 }

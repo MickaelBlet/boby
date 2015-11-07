@@ -1,0 +1,140 @@
+﻿<Window x:Class="Boby_Update.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:boby_multitools.Resources.Global_Resources"
+        WindowStartupLocation="CenterScreen"
+	    Topmost="True"
+	    WindowStyle="None"
+	    Background="Transparent"
+	    AllowsTransparency="True"
+        ResizeMode="NoResize"
+	    Title="BOBY"
+	    Height="160"
+	    Width="300">
+    <Window.Resources>
+        <Style x:Key="ProgressBarStyle" TargetType="ProgressBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid x:Name="PART_Track" >
+                            <Rectangle Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" HorizontalAlignment="Left" RadiusX="5" RadiusY="10">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF000000" Offset="0"/>
+                                        <GradientStop Color="#FF000000" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left" RadiusX="5" RadiusY="10">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF1D5666" Offset="1"/>
+                                        <GradientStop Color="#FF09B6FF"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!--WINDOW-->
+        <Controls:Windows Title="boby update" />
+        <!--TITLE BARRE-->
+        <Grid Margin="0,0,5,0"
+              HorizontalAlignment="Right"
+			  VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <Button
+				    Name="bt_Minimise"
+                    IsTabStop="False"
+                    Foreground="#9D0888FE"
+                    Background="#9D0043B5"
+				    Style="{StaticResource Style_Win_Button}"
+                    Width="32"
+				    Click="bt_Minimise_Click">
+                    <Image Source="{StaticResource WindowButton.Mini}" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="1,29,1,1">
+            <StackPanel>
+                <Grid Margin="0,0,0,0">
+                    <Image
+                        Name="img_ShugoLoading"
+				        HorizontalAlignment="Center"
+				        VerticalAlignment="Top"
+                        Margin="0,-5,0,0"
+                        Height="100"
+                        Width="100">
+                        <Image.Effect>
+                            <DropShadowEffect
+						    ShadowDepth="0"
+						    Color="#FFFFFFFF"
+						    Opacity="1"
+						    BlurRadius="10" />
+                        </Image.Effect>
+                    </Image>
+                    <TextBlock
+                        Name="exe"
+                        VerticalAlignment="Top"
+				        HorizontalAlignment="Center" 
+                        Height="28"
+                        Padding="5,1,5,0"
+                        Margin="0,70,0,0"
+				        Text="EXE NAME"
+				        Foreground="#FFFFFFFF"
+				        FontWeight="Bold"
+				        FontSize="16">
+                        <TextBlock.Effect>
+                            <DropShadowEffect
+						    ShadowDepth="0"
+						    Color="#FF000000"
+						    Opacity="1"
+						    BlurRadius="5" />
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <Label
+                        Name="percent"
+                        VerticalAlignment="Top"
+				        HorizontalAlignment="Center" 
+                        Height="28"
+                        Margin="0,90,0,0"
+                        Padding="5,1,5,0"
+				        Content="PERCENT"
+				        Foreground="#FFFFFFFF"
+				        FontWeight="Bold"
+				        FontSize="14"
+                        HorizontalContentAlignment="Center"
+				        VerticalContentAlignment="Top">
+                        <Label.Effect>
+                            <DropShadowEffect
+						    ShadowDepth="0"
+						    Color="#FF000000"
+						    Opacity="1"
+						    BlurRadius="5" />
+                        </Label.Effect>
+                    </Label>
+                    <ProgressBar
+			            Style="{StaticResource ProgressBarStyle}"
+			            Name="PBar"
+			            HorizontalAlignment="Stretch"
+			            VerticalAlignment="Top"
+			            Margin="10,110,10,0"
+                        Width="278"
+			            Height="11" Value="50">
+                        <ProgressBar.Effect>
+                            <DropShadowEffect
+						        ShadowDepth="0"
+						        Color="#FFFFFFFF"
+						        Opacity="1"
+						        BlurRadius="3" />
+                        </ProgressBar.Effect>
+                    </ProgressBar>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

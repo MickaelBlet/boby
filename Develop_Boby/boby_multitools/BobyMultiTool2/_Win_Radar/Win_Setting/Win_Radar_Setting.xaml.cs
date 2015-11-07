@@ -18,9 +18,8 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
-using NS_Aion_Game;
 using MemoryLib;
-using _Threads;
+using Aion_Game;
 
 namespace BobyMultitools
 {
@@ -244,22 +243,26 @@ namespace BobyMultitools
         private string Get_Target_Name()
         {
             string name = "";
-            int ID = 0;
+            long ID = 0;
 
-            foreach (var entity in in_Win_Main.in_Thread_Entity.DicCopy.Values)
+            foreach (var entity in EntityList.List.Values)
             {
-                if (entity.Type == EnumAion.eType.Player)
+                if (entity.Type == eType.Player)
                 {
-                    ID = entity.TargetID;
-                    break ;
+                    ID = entity.TargetId;
+                    break;
                 }
             }
-            foreach (var entity in in_Win_Main.in_Thread_Entity.DicCopy.Values)
+
+            if (ID != 0)
             {
-                if (entity.ID == ID)
+                foreach (var entity in EntityList.List.Values)
                 {
-                    name = entity.Name;
-                    break;
+                    if (entity.Id == ID)
+                    {
+                        name = entity.Name;
+                        break;
+                    }
                 }
             }
 

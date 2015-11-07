@@ -99,8 +99,15 @@ namespace _Threads
             foreach (var entityPtr in entitiesToRemove)
                 eList.Remove(entityPtr);
 
-			foreach (var newEntityPtr in found.Except(eList.Keys))
-				eList[newEntityPtr] = new Entity(newEntityPtr);
+            foreach (var newEntityPtr in found.Except(eList.Keys))
+            {
+                eList[newEntityPtr] = new Entity(newEntityPtr);
+            }
+
+            /*foreach (var test in found)
+            {
+                Console.WriteLine(test.ToString("X"));
+            }*/
 
             found.Clear();
             found = null;
@@ -113,7 +120,7 @@ namespace _Threads
 				long entityPtr = SplMemory.ReadLong(nodePtr + 12);
 				if (entityPtr == 0 || entityPtr == stop || !found.Add(entityPtr))
 					return;
-                entityPtr = SplMemory.ReadLong(nodePtr + 4);
+                entityPtr = SplMemory.ReadLong(nodePtr + 0);
 
                 if (entityPtr != 0 && entityPtr != stop)
 				{
@@ -153,7 +160,7 @@ namespace _Threads
                 this.Z = SplMemory.ReadFloat(Modules + Offset.Player.Z);
                 this.ID = SplMemory.ReadInt(Modules + Offset.Player.ID);
 
-                long GroupEntityBase = SplMemory.ReadLong((long)Offset.Base_windows.newbase["party_dialog"]) + Offset.PartyList.Jump;
+                /*long GroupEntityBase = SplMemory.ReadLong((long)Offset.Base_windows.newbase["party_dialog"]) + Offset.PartyList.Jump;
                 for (int i = 0; i < 6; i++)
                 {
                     try
@@ -164,13 +171,13 @@ namespace _Threads
                     {
                         this.ID_Group[i] = 0;
                     }
-                }
+                }*/
              }
             catch
             { }
             try
             {
-                long ForceEntityBase = SplMemory.ReadLong((long)Offset.Base_windows.newbase["force_dialog"]) + Offset.PartyList.Jump + 0x8;
+                /*long ForceEntityBase = SplMemory.ReadLong((long)Offset.Base_windows.newbase["force_dialog"]) + Offset.PartyList.Jump + 0x8;
                 for (int i = 0; i < 24; i++)
                 {
                     try
@@ -181,7 +188,7 @@ namespace _Threads
                     {
                         this.ID_Force[i] = 0;
                     }
-                }
+                }*/
             }
             catch
             { }
@@ -251,7 +258,9 @@ namespace _Threads
 			{
 				try
 				{
-					Player ePlayer = Thread_Entity.Return_Player();
+                    //Console.WriteLine("01");
+
+                    Player ePlayer = Thread_Entity.Return_Player();
 
                     tWhere = Thread_Entity.tWhere;
 
@@ -259,8 +268,10 @@ namespace _Threads
 					this.X = SplMemory.ReadFloat(EntityLoc + Offset.Loc.X);
 					this.Y = SplMemory.ReadFloat(EntityLoc + Offset.Loc.Y);
 					this.Z = SplMemory.ReadFloat(EntityLoc + Offset.Loc.Z);
-					
-					GetDistance(ePlayer);
+
+                    //Console.WriteLine("02");
+
+					//GetDistance(ePlayer);
 
 					this._PtrEntity = SplMemory.ReadLong(PtrEntity + Offset.Entity.Status);
 					if (this._PtrEntity != 0 && this._PtrEntity != stop)
@@ -268,11 +279,12 @@ namespace _Threads
 						this.ID 			= SplMemory.ReadInt(_PtrEntity + Offset.Status.ID);
 						this.ID_Object		= SplMemory.ReadInt(_PtrEntity + Offset.Status.ID_Object);
 						this.Name 			= SplMemory.ReadWchar(_PtrEntity + Offset.Status.Name, 60);
+                        //Console.WriteLine(this.Name);
 						this.Lvl 			= SplMemory.ReadByte(_PtrEntity + Offset.Status.Lvl);
 						this.HP 			= SplMemory.ReadInt(_PtrEntity + Offset.Status.HP);
 						this.HP_Percent		= SplMemory.ReadByte(_PtrEntity + Offset.Status.HP_Percent);
 						this.Type			= SplMemory.ReadByte(PtrEntity + Offset.Entity.Type);
-						this.Stance			= SplMemory.ReadByte(_PtrEntity + Offset.Status.Stance);
+						/*this.Stance			= SplMemory.ReadByte(_PtrEntity + Offset.Status.Stance);
 						this.Action			= SplMemory.ReadByte(_PtrEntity + Offset.Status.Action);
 						this.Race			= SplMemory.ReadByte(_PtrEntity + Offset.Status.Type);
 						this.Is_Attackable	= SplMemory.ReadInt(_PtrEntity + Offset.Status.Is_Attackable);
@@ -294,7 +306,7 @@ namespace _Threads
                             this.Lvl = (int)EnumAion.Gather.gather[this.ID_Object];
                         }
 						Buff_Fufu();
-						this.Update2();
+						this.Update2();*/
 					}
 
                     if (this.Type == EnumAion.eType.Player)

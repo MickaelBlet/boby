@@ -270,18 +270,18 @@ namespace BOBY_Shulack
 
         void Button_Skills_List_Click(object sender, RoutedEventArgs e)
         {
-            ini_Win_Choose.ini_Boucle_Bateau.ToSearch(SplMemory.ReadLong((long)Offset.Base_windows.newbase["quest_dialog"]), "quest_dialog");
-            //ini_Win_Skills = ini_Win_Choose.ini_Win_Skills;
-            //if (ini_Win_Skills.IsVisible)
-            //{
-            //    ini_Win_Skills.Hide();
-            //    ini_Win_Skills.Save_List();
-            //}
-            //else
-            //{
-            //    Window_LocationChanged(null, null);
-            //    ini_Win_Skills.Show();
-            //}
+            //ini_Win_Choose.SendSpace();
+            ini_Win_Skills = ini_Win_Choose.ini_Win_Skills;
+            if (ini_Win_Skills.IsVisible)
+            {
+                ini_Win_Skills.Hide();
+                ini_Win_Skills.Save_List();
+            }
+            else
+            {
+                Window_LocationChanged(null, null);
+                ini_Win_Skills.Show();
+            }
         }
 
         void Button_Hide_Click(object sender, RoutedEventArgs e)
@@ -294,8 +294,8 @@ namespace BOBY_Shulack
             ini_Win_Choose.DlgAionIni();
             if (!Is_Run && SplMemory.ReadInt(AionProcess.Modules.Game + (long)Offset.Pet.Loot) != 1)
             {
-                MessageBox.Show("Pet Loot !?");
-                return;
+               // MessageBox.Show("Pet Loot !?");
+                //return;
             }
             if (!Is_Assist)
                 Is_Run = !Is_Run;
@@ -323,8 +323,8 @@ namespace BOBY_Shulack
                     Button_Viewer.IsEnabled = true;
                     Button_Start.Content = "Stop";
                     Is_Boat = true;
-                    ini_Win_Choose.ini_Boucle_Delete.thread_Delete.Abort();
-                    ini_Win_Choose.ini_Boucle_Skills.thread_Chain.Abort();
+                    //ini_Win_Choose.ini_Boucle_Delete.thread_Delete.Abort();
+                    //ini_Win_Choose.ini_Boucle_Skills.thread_Chain.Abort();
                 }
                 else if (player_x > 499.0f - 8 && player_x < 499.0 + 8 && player_y > 2039.9 - 8 && player_y < 2039.9 + 8)
                 {
@@ -332,8 +332,8 @@ namespace BOBY_Shulack
                     Button_Viewer.IsEnabled = true;
                     Button_Start.Content = "Stop";
                     Is_Boat = true;
-                    ini_Win_Choose.ini_Boucle_Delete.thread_Delete.Abort();
-                    ini_Win_Choose.ini_Boucle_Skills.thread_Chain.Abort();
+                    //ini_Win_Choose.ini_Boucle_Delete.thread_Delete.Abort();
+                    //ini_Win_Choose.ini_Boucle_Skills.thread_Chain.Abort();
                 }
                 else
                     ini_Win_Choose.DlgAion("/anon");

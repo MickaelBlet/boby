@@ -1,9 +1,0 @@
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\bin\Release\BOBY_quickbar_64.exe
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\BOBY_quickbar_64.csprojResolveAssemblyReference.cache
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\Window_Base.baml
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\App.baml
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\Window_Base.g.cs
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\App.g.cs
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\BOBY_quickbar_64_MarkupCompile.cache
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\BOBY_quickbar_64.g.resources
-D:\Users\Mickael-Blet\Documents\SharpDevelop Projects\BOBY_quickbar\BOBY_quickbar\obj\Release\BOBY_quickbar_64.exe

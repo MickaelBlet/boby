@@ -70,94 +70,25 @@ namespace BOBY_Shulack
 			{
 				try
 				{
-					long CubeBase = SplMemory.ReadLong((long)Offset.Base_windows.newbase["inventory_dialog"]);
+					//long CubeBase = SplMemory.ReadLong((long)Offset.Base_windows.newbase["inventory_dialog"]);
 					
-					string[] ItemCube = new string[135];
+					List<string> Name_User = new List<string>();
+
+                    foreach (var entity in ini_Win_Choose.in_threadentity2.DicCopy.Values)
+                    {
+                        //if (entity.Type == EnumAion.eType.User && entity.Race != EnumAion.eAttitude.Friendly && entity.Name != "Fashionboby")
+                        if (entity.Type == EnumAion.eType.User)
+                        {
+                            //MessageBox.Show("true");
+                            Name_User.Add(entity.Name);
+                        }
+                    }
 					
-					for (int i=0;i < 27;i++)
-					{
-						long Item = SplMemory.ReadLong(CubeBase + (long)Offset.Cube.Base_List);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ListItem);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + i * 4);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName1);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName2);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName3);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							ItemCube[i] = SplMemory.ReadWchar(Item, 100);
-						else
-							ItemCube[i] = "";
-						Item = SplMemory.ReadLong(CubeBase + (long)Offset.Cube.Base_List + 4);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ListItem);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + i * 4);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName1);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName2);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName3);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							ItemCube[i + 27] = SplMemory.ReadWchar(Item, 100);
-						else
-							ItemCube[i + 27] = "";
-						Item = SplMemory.ReadLong(CubeBase + (long)Offset.Cube.Base_List + 8);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ListItem);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + i * 4);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName1);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName2);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName3);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							ItemCube[i + 54] = SplMemory.ReadWchar(Item, 100);
-						else
-							ItemCube[i + 54] = "";
-						Item = SplMemory.ReadLong(CubeBase + (long)Offset.Cube.Base_List + 12);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ListItem);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + i * 4);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName1);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName2);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName3);
-						if (Item != 0 && Item != 0xCDCDCDCD)
-							ItemCube[i + 81] = SplMemory.ReadWchar(Item, 100);
-						else
-							ItemCube[i + 81] = "";
-                        Item = SplMemory.ReadLong(CubeBase + (long)Offset.Cube.Base_List + 16);
-                        if (Item != 0 && Item != 0xCDCDCDCD)
-                            Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ListItem);
-                        if (Item != 0 && Item != 0xCDCDCDCD)
-                            Item = SplMemory.ReadLong(Item + i * 4);
-                        if (Item != 0 && Item != 0xCDCDCDCD)
-                            Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName1);
-                        if (Item != 0 && Item != 0xCDCDCDCD)
-                            Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName2);
-                        if (Item != 0 && Item != 0xCDCDCDCD)
-                            Item = SplMemory.ReadLong(Item + (long)Offset.Cube.ItemName3);
-                        if (Item != 0 && Item != 0xCDCDCDCD)
-                            ItemCube[i + 108] = SplMemory.ReadWchar(Item, 100);
-                        else
-                            ItemCube[i + 108] = "";
-					}
-					
-					ini_Win_Choose.Dispatcher.Invoke(
+					ini_Win_Choose.ini_Win_Skills.Dispatcher.Invoke(
 						new SetString(ini_Win_Choose.Set_List_Skill_Item),
-						new object[] { ItemCube.OrderBy(q => q).ToList() }
+						new object[] { Name_User }
 					);
-					if (SplMemory.ReadInt(AionProcess.Modules.Game+(long)Offset.Entity.Is_Target) == 1)
+					/*if (SplMemory.ReadInt(AionProcess.Modules.Game+(long)Offset.Entity.Is_Target) == 1)
 					{
 						//test;
 					}
@@ -169,16 +100,16 @@ namespace BOBY_Shulack
 						if (IsCheckRecycleLoot())
 							ini_Win_Choose.ini_Html._Delete_Loot(ItemCube, SplMemory.ReadInt(SplMemory.ReadLong(AionProcess.Modules.Game + (long)Offset.Cube.BaseCount) + (long)Offset.Cube.Size)
 							                                     - SplMemory.ReadInt(SplMemory.ReadLong(AionProcess.Modules.Game + (long)Offset.Cube.BaseCount) + (long)Offset.Cube.Curent));
-					}
+					}*/
 				}
 				catch{}
-				Thread.Sleep(2000);
-				if (!WindowsIs())
-				{
-					ini_Win_Choose.SendMousseMove(3000, 3000);
-					SplMemory.WriteMemory(AionProcess.Modules.Game + (long)Offset.Game.x, 3000);
-					SplMemory.WriteMemory(AionProcess.Modules.Game + (long)Offset.Game.y, 3000);
-				}
+				Thread.Sleep(1000);
+				//if (!WindowsIs())
+				//{
+				//	ini_Win_Choose.SendMousseMove(3000, 3000);
+				//	SplMemory.WriteMemory(AionProcess.Modules.Game + (long)Offset.Game.x, 3000);
+				//	SplMemory.WriteMemory(AionProcess.Modules.Game + (long)Offset.Game.y, 3000);
+				//}
 			}
 		}
 		

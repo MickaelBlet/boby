@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>False</RunCodeAnalysis>
     <SourceAnalysisOverrideSettingsFile>C:\Users\mblet\AppData\Roaming\ICSharpCode/SharpDevelop4\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
+    <NoWin32Manifest>False</NoWin32Manifest>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -40,7 +41,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -76,12 +76,16 @@
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <Prefer32Bit>True</Prefer32Bit>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>0</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -99,12 +103,27 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BobyScript, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\BobyScript.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="ScintillaNET, Version=3.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\ScintillaNET.dll</HintPath>
+      <Private>False</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -114,6 +133,7 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
@@ -124,14 +144,21 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aion\Game\Entity.cs" />
+    <Compile Include="Aion\Game\Enum.cs" />
+    <Compile Include="Aion\Game\Game.cs" />
+    <Compile Include="Aion\Game\Player.cs" />
+    <Compile Include="Aion\Script\Script.cs" />
     <Compile Include="App.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
@@ -139,23 +166,42 @@
     <Compile Include="Listing\Listing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\WPFAssemblyInfo.cs" />
-    <Compile Include="Aion_Module\Send_Chat.cs" />
+    <Compile Include="Aion\Game\Chat.cs" />
+    <Compile Include="Resources\Global_Resources\Windows.xaml.cs">
+      <DependentUpon>Windows.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows_Module\Windows_And_Process.cs" />
     <Compile Include="Windows_Module\Send_Key.cs" />
+    <Compile Include="Aion\Game\Entity_List.cs" />
     <Compile Include="_Threads\Thread_Entity.cs" />
-    <Compile Include="_Win_Buff\Buff_Sequence.cs" />
-    <Compile Include="_Win_Buff\Win_Buff.xaml.cs">
-      <DependentUpon>Win_Buff.xaml</DependentUpon>
+    <Compile Include="_Win_Scripts\Buff_Sequence.cs" />
+    <Compile Include="_Win_Scripts\Win_Script.xaml.cs">
+      <DependentUpon>Win_Script.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_Win_Buff\Win_Setting\Win_Buff_Setting.xaml.cs">
+    <Compile Include="_Win_Scripts\Win_Setting\Win_Buff_Setting.xaml.cs">
       <DependentUpon>Win_Buff_Setting.xaml</DependentUpon>
     </Compile>
     <Compile Include="_Win_Cheat\Cheat_Sequence.cs" />
     <Compile Include="_Win_Cheat\Win_Cheat.xaml.cs">
       <DependentUpon>Win_Cheat.xaml</DependentUpon>
     </Compile>
+    <Compile Include="_Win_Cheat\Win_Move\Win_Cheat_Move.xaml.cs">
+      <DependentUpon>Win_Cheat_Move.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_Win_Cheat\Win_Setting\Win_Cheat_Setting.xaml.cs">
       <DependentUpon>Win_Cheat_Setting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_Win_Download\Win_Download.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_Win_Download\Win_Download.Designer.cs">
+      <DependentUpon>Win_Download.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_Win_Editor\Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_Win_Editor\Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
     </Compile>
     <Compile Include="_Win_Entity\Entity_List_View.cs" />
     <Compile Include="_Win_Entity\Win_Entity.xaml.cs">
@@ -175,18 +221,11 @@
     <Compile Include="Setting\Setting.cs" />
     <Compile Include="Setting\Type_To_XML.cs" />
     <Compile Include="Memory\Memory.cs" />
-    <Compile Include="Aion_Module\Aion_Game.cs" />
+    <Compile Include="Aion\Process\Aion_Game.cs" />
     <Compile Include="Memory\SplMemory.cs" />
-    <Compile Include="Aion_Module\Offset.cs" />
-    <Compile Include="_Win_Quick\Quick_Sequence.cs" />
-    <Compile Include="_Win_Quick\Win_Quick.xaml.cs">
-      <DependentUpon>Win_Quick.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="_Win_Quick\Win_Setting\Win_Quick_Setting.xaml.cs">
-      <DependentUpon>Win_Quick_Setting.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Aion\Offset.cs" />
     <Compile Include="_Win_Radar\Canvas_Img.cs" />
-    <Compile Include="_Win_Radar\North_View.cs" />
+    <Compile Include="_Win_Radar\Entity_To_View.cs" />
     <Compile Include="_Win_Radar\Win_Popup\Win_Radar_Popup.xaml.cs">
       <DependentUpon>Win_Radar_Popup.xaml</DependentUpon>
     </Compile>
@@ -197,9 +236,7 @@
       <DependentUpon>Win_Radar_Setting.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Global_Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\**\*.png" />
   </ItemGroup>
@@ -232,15 +269,23 @@
     <Page Include="Resources\Aion_Resources\Radar\Radar.xaml" />
     <Page Include="Resources\Aion_Resources\Windows\BG\BG.xaml" />
     <Page Include="Resources\Aion_Resources\Windows\Windows.xaml" />
-    <Page Include="_Win_Buff\Win_Buff.xaml">
+    <Page Include="Resources\Global_Resources\Windows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="_Win_Scripts\Win_Script.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="_Win_Buff\Win_Setting\Win_Buff_Setting.xaml">
+    <Page Include="_Win_Scripts\Win_Setting\Win_Buff_Setting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="_Win_Cheat\Win_Cheat.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="_Win_Cheat\Win_Move\Win_Cheat_Move.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="_Win_Cheat\Win_Setting\Win_Cheat_Setting.xaml">
@@ -255,14 +300,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="_Win_Main\Win_Main.xaml" />
-    <Page Include="_Win_Quick\Win_Quick.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="_Win_Quick\Win_Setting\Win_Quick_Setting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="_Win_Radar\Win_Popup\Win_Radar_Popup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -282,7 +319,6 @@
     </None>
     <None Include="app.manifest" />
     <None Include="Boby_MultiTools.csproj" />
-    <Resource Include="Resources\Aion_Resources\vera.ttf" />
     <Resource Include="Resources\Aion_Black.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +337,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="_Win_Download\Win_Download.resx">
+      <DependentUpon>Win_Download.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="_Win_Editor\Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

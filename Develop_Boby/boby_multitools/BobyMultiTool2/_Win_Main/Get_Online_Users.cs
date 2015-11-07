@@ -15,19 +15,20 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices; // DllImport
 
 using MemoryLib;
-using NS_Aion_Game;
 using _Threads;
-using NS_Windows_And_Process;
+using Windows_And_Process;
 
 namespace BobyMultitools
 {
     public partial class Win_Main
     {
     	int				tentative;
+        string user;
         DispatcherTimer messageTimer_Online_Users;
 
         private void Online_Users_Sequence()
         {
+            user = Environment.GetCommandLineArgs()[2];
             Thread T_Online = new Thread(Sequence_1);
             T_Online.SetApartmentState(ApartmentState.STA);
             T_Online.Start();
@@ -38,7 +39,7 @@ namespace BobyMultitools
             _Sequence_1(null, null);
             messageTimer_Online_Users = new DispatcherTimer();
             messageTimer_Online_Users.Tick += new EventHandler(_Sequence_1);
-            messageTimer_Online_Users.Interval = new TimeSpan(0, 0, 4, 0, 0);
+            messageTimer_Online_Users.Interval = new TimeSpan(0, 0, 20, 0, 0);
             messageTimer_Online_Users.Start();
             System.Windows.Threading.Dispatcher.Run();
         }
@@ -50,11 +51,7 @@ namespace BobyMultitools
                 using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
-                    Client.DownloadString(@"http://boby.pe.hu/listing.php");
-                    //in_Win_Main.Dispatcher.Invoke((Action)(() =>
-                    //{
-                    //    l_Users.Content = "Online Users: " + Client.DownloadString(@"http://boby.pe.hu/count_online.php");
-                    //}));
+                    Client.DownloadString(@"http://boby.pe.hu/listing.php?account=" + user);
                 }
                 tentative = 0;
             }
@@ -64,10 +61,11 @@ namespace BobyMultitools
             	{
             		in_Win_Main.Dispatcher.Invoke((Action)(() =>
                     {
-            			MessageBox.Show("Server not Found", "Error");
+            			MessageBox.Show(in_Win_Main, "Server not Found", "Error");
             			Environment.Exit(0);
             		}));
             	}
+                _Sequence_1(null, null);
             }
         }
     }

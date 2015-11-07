@@ -67,13 +67,15 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <WarningLevel>4</WarningLevel>
-    <Optimize>True</Optimize>
+    <Optimize>false</Optimize>
+    <LangVersion>4</LangVersion>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -126,6 +128,7 @@
     <Compile Include="Boucle\Boucle_Delete.cs" />
     <Compile Include="Boucle\Boucle_Skills.cs" />
     <Compile Include="Boucle\Boucle_Status.cs" />
+    <Compile Include="Boucle\Thread_Entity2.cs" />
     <Compile Include="Boucle\Thread_Entity.cs" />
     <Compile Include="DownloadBox.xaml.cs">
       <DependentUpon>DownloadBox.xaml</DependentUpon>

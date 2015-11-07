@@ -15,20 +15,16 @@ using System.Windows.Media.Effects;
 using System.Windows.Interop;
 
 using MemoryLib;
-using NS_Aion_Game;
-using _Threads;
-using NS_Windows_And_Process;
+using Aion_Process;
+using Aion_Game;
+using Windows_And_Process;
 
 namespace BobyMultitools
 {
     public partial class Win_Radar
     {
-        public static Image[] Img_Entity_Index_1 = new Image[300];
-        public static Image[] Img_Entity_Index_2 = new Image[300];
-        public static Image[] Img_Entity_Index_3 = new Image[300];
-        public static Image[] Img_Entity_Index_4 = new Image[300];
-        public static Image[] Img_Entity_Index_5 = new Image[300];
-        public static Image[] Img_Entity_Index_6 = new Image[300];
+        public static Image[,] Img_Entity_Index = new Image[9, 300];
+        public static int[] Last_Count_Index = new int[9];
         public static Image Player = new Image();
         public static Image Target = new Image();
         public static System.Windows.Shapes.Ellipse e1 = null;
@@ -46,9 +42,12 @@ namespace BobyMultitools
         public ImageSource Aggro = null;
         public ImageSource Signal_Aggro = null;
 
+        public static double sinr = 0;
+        public static double cosr = 0;
+
         public static bool Image_Focus = false;
-        public static int  ID_Focus = 0;
-        public static int  ID_Target_Player = 0;
+        public static long ID_Focus = 0;
+        public static long ID_Target_Player = 0;
 
         public static TimeSpan t150 = TimeSpan.Zero;
         public static TimeSpan t1 = TimeSpan.Zero;
@@ -85,18 +84,13 @@ namespace BobyMultitools
             Player.Source = Player_NotFly;
             Canvas_Radar.Children.Add(Player);
 
-            DeclareMultiImage(Img_Entity_Index_1);
-            DeclareMultiImage(Img_Entity_Index_2);
-            DeclareMultiImage(Img_Entity_Index_3);
-            DeclareMultiImage(Img_Entity_Index_4);
-            DeclareMultiImage(Img_Entity_Index_5);
-            DeclareMultiImage(Img_Entity_Index_6);
+            DeclareMultiImage(Img_Entity_Index);
 
             Target.Style = in_Win_Main.Style_Radar_Target;
             Canvas_Radar.Children.Add(Target);
 
             t150 = new TimeSpan(0, 0, 0, 0, 150);
-            t1 = new TimeSpan(0, 0, 0, 0, 1);
+            t1 = new TimeSpan(0, 0, 0, 0, 20);
 
             messageTimer = new DispatcherTimer();
             messageTimer.Tick += new EventHandler(messageTimer_Tick);
@@ -111,275 +105,228 @@ namespace BobyMultitools
             return (Brush)bc.ConvertFrom(argb);
         }
 
-        public void DeclareMultiImage(Image[] image)
+        public void DeclareMultiImage(Image[,] image)
         {
-            for (int i = 0; i < 300; i++)
+            for (int j = 0; j < 9; j++)
             {
-                image[i] = new Image();
-                Canvas_Radar.Children.Add(image[i]);
-                Canvas.SetLeft(image[i], -100);
-                Canvas.SetTop(image[i], -100);
+                for (int i = 0; i < 300; i++)
+                {
+                    image[j, i] = new Image();
+                    Canvas_Radar.Children.Add(image[j, i]);
+                    Canvas.SetLeft(image[j, i], -100);
+                    Canvas.SetTop(image[j, i], -100);
+                }
             }
         }
 
-        public void HideUntilImage(Image[] image, int compteur)
+        public void HideUntilImage(Image[,] image, int[] compteur, int[] last_compteur)
         {
-            for (int i = 300 - 1; i >= compteur; i--)
+            for (int j = 0; j < 9; j++)
             {
-                image[i].Source = null;
-                Canvas.SetLeft(image[i], -100);
-                Canvas.SetTop(image[i], -100);
+                if (last_compteur[j] > compteur[j])
+                {
+                    for (int i = last_compteur[j] - 1; i >= compteur[j]; i--)
+                    {
+                        image[j, i].Source = null;
+                        Canvas.SetLeft(image[j, i], -100);
+                        Canvas.SetTop(image[j, i], -100);
+                    }
+                }
             }
         }
 
         void messageTimer_Tick(object sender, EventArgs e)
         {
-            Radar_Image_To_Canvas_();      
+            Radar_Image_To_Canvas_();
         }
 
         private void Radar_Image_To_Canvas_()
         {
+            if (Game.Base == 0 || Game.Pid == 0)
+            {
+                Thread.Sleep(500);
+                return;
+            }
+            if (this.IsVisible == false)
+                return;
             try
             {
-                if (this.IsVisible == true)
+                int[] count_entity_index = new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+                Image_Focus = false;
+
+                string tWhere = SplMemory.ReadWchar(Game.Base + Offset.Game.Where, 60);
+
+                float PlayerX = SplMemory.ReadFloat(Game.Base + Offset.Player.X);
+                float PlayerY = SplMemory.ReadFloat(Game.Base + Offset.Player.Y);
+
+                bool Player_IsFly = SplMemory.ReadByte(Game.Base + Offset.Player.IsFly) == 1;
+
+                float PlayerRot = 0;
+
+                if (SplMemory.ReadInt(Game.Base + Offset.Player.FreeCamRot) != 0)
+                    PlayerRot = SplMemory.ReadFloat(Game.Base + Offset.Player.FreeCamRotH);
+                else
+                    PlayerRot = SplMemory.ReadFloat(Game.Base + Offset.Player.CamRotH);
+
+                if (PlayerRot > 180)
+                    PlayerRot = PlayerRot - 360;
+
+                float Angle_X = PlayerRot;
+                if (c_North.IsChecked)
+                    Angle_X = -90;
+
+                if (Angle_X > 0 && Angle_X < 180)
+                    Angle_X = Angle_X * -1;
+                else if (Angle_X < 0 && Angle_X > -180)
+                    Angle_X = (360 - Math.Abs(Angle_X)) * -1;
+
+                double radian = Angle_X * (3.14 / 180) * -1;
+
+                sinr = Math.Sin(radian);
+                cosr = Math.Cos(radian);
+
+                if (Player_IsFly)
+                    Player.Source = Player_Fly;
+                else
+                    Player.Source = Player_NotFly;
+
+                Canvas.SetLeft(Target, -100);
+                Canvas.SetTop(Target, -100);
+
+                e1.Width = 26 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+                e2.Width = 51 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+                e3.Width = 76 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+                e1.Height = 26 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+                e2.Height = 51 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+                e3.Height = 76 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+
+                Canvas.SetLeft(Player, Canvas_Radar.Width / 2 - Player.ActualWidth / 2);
+                Canvas.SetTop(Player, Canvas_Radar.Height / 2 - Player.ActualHeight / 2);
+                Canvas.SetLeft(e1, Canvas_Radar.Width / 2 - e1.Width / 2);
+                Canvas.SetTop(e1, Canvas_Radar.Height / 2 - e1.Height / 2);
+                Canvas.SetLeft(e2, Canvas_Radar.Width / 2 - e2.Width / 2);
+                Canvas.SetTop(e2, Canvas_Radar.Height / 2 - e2.Height / 2);
+                Canvas.SetLeft(e3, Canvas_Radar.Width / 2 - e3.Width / 2);
+                Canvas.SetTop(e3, Canvas_Radar.Height / 2 - e3.Height / 2);
+
+                North.RenderTransform = new RotateTransform(-Angle_X + 90, North.ActualWidth / 2d, North.ActualHeight / 2d);
+                View.RenderTransform = new RotateTransform(-Angle_X - PlayerRot, North.ActualWidth / 2d, North.ActualHeight / 2d);
+
+                foreach (var view in Entity_To_View.View.Values)
                 {
-                    int count_entity_index_1 = 0;
-                    int count_entity_index_2 = 0;
-                    int count_entity_index_3 = 0;
-                    int count_entity_index_4 = 0;
-                    int count_entity_index_5 = 0;
-                    int count_entity_index_6 = 0;
+                    if (view.img == null && view.entity.Type != eType.Player)
+                        continue;
 
-                    Image_Focus = false;
-
-                    string tWhere = SplMemory.ReadWchar(Aion_Game.Modules.Game + Offset.Game.Where, 60);
-
-                    float PlayerX = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.X);
-                    float PlayerY = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Y);
-
-                    bool Player_IsFly = SplMemory.ReadByte(Aion_Game.Modules.Game + Offset.Player.IsFly) == 1;
-
-                    float PlayerRot = 0;
-
-                    if (SplMemory.ReadInt(Aion_Game.Modules.Game + Offset.Player.FreeCamRot) != 0)
-                        PlayerRot = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.FreeCamRotH);
-                    else
-                        PlayerRot = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.CamRotH);
-
-                    if (PlayerRot > 180)
-                        PlayerRot = PlayerRot - 360;
-
-                    if (Player_IsFly)
-                        Player.Source = Player_Fly;
-                    else
-                        Player.Source = Player_NotFly;
-
-                    Canvas.SetLeft(Target, -100);
-                    Canvas.SetTop(Target, -100);
-
-                    e1.Width = 26 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                    e2.Width = 51 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                    e3.Width = 76 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                    e1.Height = 26 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                    e2.Height = 51 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                    e3.Height = 76 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-
-                    Canvas.SetLeft(Player, Canvas_Radar.Width / 2 - Player.ActualWidth / 2);
-                    Canvas.SetTop(Player, Canvas_Radar.Height / 2 - Player.ActualHeight / 2);
-                    Canvas.SetLeft(e1, Canvas_Radar.Width / 2 - e1.Width / 2);
-                    Canvas.SetTop(e1, Canvas_Radar.Height / 2 - e1.Height / 2);
-                    Canvas.SetLeft(e2, Canvas_Radar.Width / 2 - e2.Width / 2);
-                    Canvas.SetTop(e2, Canvas_Radar.Height / 2 - e2.Height / 2);
-                    Canvas.SetLeft(e3, Canvas_Radar.Width / 2 - e3.Width / 2);
-                    Canvas.SetTop(e3, Canvas_Radar.Height / 2 - e3.Height / 2);
-
-                    foreach (var entity in in_Win_Main.in_Thread_Entity.DicCopy.Values)
+                    try
                     {
-                        if ((entity._Image != null || entity._Image_Object != null || entity._Image_Where != null || entity._Icon != null || entity.Type == EnumAion.eType.Player))
+                        long ID = SplMemory.ReadLong(view.entity.NodeStatus + Offset.Status.ID);
+                        if (ID != view.entity.Id)
+                            continue;
+                    }
+                    catch
+                    { }
+
+                    //entity.Update();
+
+                    if (ID_Target_Player == view.entity.Id
+                        && ID_Target_Player != Aion_Game.Player.Id
+                        && ID_Target_Player != 0)
+                    {
+                        if (view.entity.Type == eType.Player || view.entity.Distance3D > 120)
                         {
-                            int ID = 0;
-
-                            try
+                            Canvas.SetLeft(Target, -100);
+                            Canvas.SetTop(Target, -100);
+                        }
+                        else
+                        {
+                            PosImage(Target, view.entity.X, view.entity.Y, PlayerRot, PlayerX, PlayerY);
+                            if (Target.IsMouseDirectlyOver)
                             {
-                                ID = SplMemory.ReadInt(SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Status) + Offset.Status.ID);
-                            }
-                            catch
-                            { }
-
-                            if (ID == entity.ID)
-                            {
-                                //entity.Update();
-
-                                if (ID_Target_Player == entity.ID
-                                    && ID_Target_Player != Thread_Entity.ePlayer.ID
-                                    && ID_Target_Player != 0)
-                                {
-                                    if (entity.Type == EnumAion.eType.Player || entity.DistanceReal > 120)
-                                    {
-                                        Canvas.SetLeft(Target, -100);
-                                        Canvas.SetTop(Target, -100);
-                                    }
-                                    else
-                                    {
-                                        PosImage(Target, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY);
-                                        if (Target.IsMouseDirectlyOver)
-                                        {
-                                            in_Win_Radar_Popup.PopupContent(entity);
-                                            in_Win_Radar_Popup.Opacity = 1d;
-                                            in_Win_Radar_Popup.Left = this.Left + Canvas.GetLeft(Target) - in_Win_Radar_Popup.Width;
-                                            in_Win_Radar_Popup.Top = this.Top + Canvas.GetTop(Target) - in_Win_Radar_Popup.Height;
-                                            Image_Focus = true;
-                                        }
-                                    }
-                                }
-                                else if (IsAggro(entity) &&
-                                 (c_NPC.IsChecked && entity.Type == EnumAion.eType.NPC ||
-                                  c_Ally.IsChecked && entity.Type == EnumAion.eType.User && entity.Race == EnumAion.eAttitude.Friendly ||
-                                  c_Ennemy.IsChecked && entity.Type == EnumAion.eType.User && entity.Race != EnumAion.eAttitude.Friendly
-                                 )
-                                 && entity.HP != 0 && entity.HP_Percent != 0
-                                 && count_entity_index_1 < 300)
-                                {
-                                    ImageOnRadar(Img_Entity_Index_1[count_entity_index_1], Aggro, entity, PlayerRot, PlayerX, PlayerY, 0.6f);
-                                    count_entity_index_1++;
-                                }
-
-                                if (entity.Type == EnumAion.eType.Player)
-                                {
-                                    float RotPlayer = 0;
-                                    try
-                                    {
-                                        if (entity.Link != 0)
-                                            RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(SplMemory.ReadLong(entity.Link + Offset.Status.Node) + Offset.Entity.Status) + Offset.Status.Rot);
-                                        else
-                                            RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Status) + Offset.Status.Rot);
-                                        ID_Target_Player = SplMemory.ReadInt(SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Status) + Offset.Status.TargetId);
-                                    }
-                                    catch { }
-
-                                    float Rot = PlayerRot;
-                                    if (c_North.IsChecked)
-                                        Rot = 270;
-
-                                    Player.RenderTransform = new RotateTransform((RotPlayer - Rot) * -1, Player.ActualWidth / 2, Player.ActualHeight / 2);
-                                }
-                                else if (entity._Icon != null && (entity.HP != 0 || entity.Type == EnumAion.eType.Gather) && entity.Stance != EnumAion.eStance.Dead)
-                                {
-                                    if (count_entity_index_6 < 300)
-                                    {
-                                        ImageOnRadar(Img_Entity_Index_6[count_entity_index_6], entity._Icon.IMG_SRC, entity, PlayerRot, PlayerX, PlayerY, entity._Icon.SCALE);
-                                        count_entity_index_6++;
-                                    }
-                                    if (entity._Icon.AGGRO_SCALE > 0 && count_entity_index_1 < 300)
-                                    {
-                                        float scale = entity._Icon.AGGRO_SCALE / 16 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value() / 2.65f;
-                                        ImageOnRadar(Img_Entity_Index_1[count_entity_index_1], Signal_Aggro, entity, PlayerRot, PlayerX, PlayerY, scale);
-                                        count_entity_index_1++;
-                                    }
-                                }
-                                else if (entity._Image_Where != null)
-                                {
-                                    if (count_entity_index_5 < 300)
-                                    {
-                                        ImageOnRadar(Img_Entity_Index_5[count_entity_index_5], entity._Image_Where, entity, PlayerRot, PlayerX, PlayerY);
-                                        count_entity_index_5++;
-                                    }
-                                }
-                                else if (c_Gather.IsChecked && entity.Type == EnumAion.eType.Gather)
-                                {
-                                    if (count_entity_index_1 < 300)
-                                    {
-                                        ImageOnRadar(Img_Entity_Index_1[count_entity_index_1], entity._Image, entity, PlayerRot, PlayerX, PlayerY);
-                                        count_entity_index_1++;
-                                    }
-                                }
-                                else if (c_NPC.IsChecked && (entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject))
-                                {
-                                    if (entity._Image_Object != null)
-                                    {
-                                        if (count_entity_index_3 < 300)
-                                        {
-                                            ImageOnRadar(Img_Entity_Index_3[count_entity_index_3], entity._Image_Object, entity, PlayerRot, PlayerX, PlayerY);
-                                            count_entity_index_3++;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (count_entity_index_1 < 300)
-                                        {
-                                            ImageOnRadar(Img_Entity_Index_1[count_entity_index_1], entity._Image, entity, PlayerRot, PlayerX, PlayerY);
-                                            count_entity_index_1++;
-                                        }
-                                    }
-                                }
-                                else if (entity.Type == EnumAion.eType.User && entity.Race == EnumAion.eAttitude.Friendly && (entity.Group || entity.Force))
-                                {
-                                    if (count_entity_index_5 < 300)
-                                    {
-                                        ImageOnRadar(Img_Entity_Index_5[count_entity_index_5], entity._Image, entity, PlayerRot, PlayerX, PlayerY);
-                                        count_entity_index_5++;
-                                    }
-                                }
-                                else if (c_Ally.IsChecked && entity.Type == EnumAion.eType.User && entity.Race == EnumAion.eAttitude.Friendly)
-                                {
-                                    if (count_entity_index_2 < 300)
-                                    {
-                                        ImageOnRadar(Img_Entity_Index_2[count_entity_index_2], entity._Image, entity, PlayerRot, PlayerX, PlayerY);
-                                        count_entity_index_2++;
-                                    }
-                                }
-                                else if (c_Ennemy.IsChecked && entity.Type == EnumAion.eType.User && entity.Race != EnumAion.eAttitude.Friendly)
-                                {
-                                    if (count_entity_index_4 < 300)
-                                    {
-                                        ImageOnRadar(Img_Entity_Index_4[count_entity_index_4], entity._Image, entity, PlayerRot, PlayerX, PlayerY);
-                                        count_entity_index_4++;
-                                    }
-                                }
+                                in_Win_Radar_Popup.PopupContent(view.entity);
+                                in_Win_Radar_Popup.Opacity = 1d;
+                                in_Win_Radar_Popup.Left = this.Left + Canvas.GetLeft(Target) - in_Win_Radar_Popup.Width;
+                                in_Win_Radar_Popup.Top = this.Top + Canvas.GetTop(Target) - in_Win_Radar_Popup.Height;
+                                Image_Focus = true;
                             }
                         }
                     }
-
-                    if (!Image_Focus)
+                    else if (IsAggro(view.entity.NodeStatus) &&
+                     (c_NPC.IsChecked && view.entity.Type == eType.NPC ||
+                      c_Ally.IsChecked && view.entity.Type == eType.User && view.entity.Attitude == fAttitude.Friendly ||
+                      c_Ennemy.IsChecked && view.entity.Type == eType.User && view.entity.Attitude != fAttitude.Friendly
+                     )
+                     && view.entity.Hp != 0 && view.entity.HpPercent != 0
+                     && count_entity_index[view.radar_img_index] < 300)
                     {
-                        in_Win_Radar_Popup.Topmost = false;
-                        in_Win_Radar_Popup.Opacity = 0d;
-                        ID_Focus = 0;
+                        ImageOnRadar(Img_Entity_Index[view.radar_img_index, count_entity_index[view.radar_img_index]], Aggro, view.entity, PlayerRot, PlayerX, PlayerY, 0.6f);
+                        count_entity_index[view.radar_img_index]++;
+                    }
+
+                    if (view.entity.Type == eType.Player)
+                    {
+                        float RotPlayer = 0;
+                        try
+                        {
+                            if (view.entity.VehicleNode != 0)
+                                RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(SplMemory.ReadLong(view.entity.VehicleNode + Offset.Status.Node) + Offset.Entity.Status) + Offset.Status.Rot);
+                            else
+                                RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(view.entity.Node + Offset.Entity.Status) + Offset.Status.Rot);
+                            ID_Target_Player = SplMemory.ReadLong(SplMemory.ReadLong(view.entity.Node + Offset.Entity.Status) + Offset.Status.TargetId);
+                        }
+                        catch { }
+
+                        float Rot = PlayerRot;
+                        if (c_North.IsChecked)
+                            Rot = 270;
+
+                        Player.RenderTransform = new RotateTransform((RotPlayer - Rot) * -1, Player.ActualWidth / 2, Player.ActualHeight / 2);
                     }
                     else
                     {
-                        in_Win_Radar_Popup.Topmost = true;
-                        in_Win_Radar_Popup.Opacity = 1d;
+                        if (count_entity_index[view.radar_img_index] < 300 && view.in_radar)
+                        {
+                            ImageOnRadar(Img_Entity_Index[view.radar_img_index, count_entity_index[view.radar_img_index]], view.img, view.entity, PlayerRot, PlayerX, PlayerY);
+                            count_entity_index[view.radar_img_index]++;
+                        }
                     }
-
-                    HideUntilImage(Img_Entity_Index_1, count_entity_index_1);
-                    HideUntilImage(Img_Entity_Index_2, count_entity_index_2);
-                    HideUntilImage(Img_Entity_Index_3, count_entity_index_3);
-                    HideUntilImage(Img_Entity_Index_4, count_entity_index_4);
-                    HideUntilImage(Img_Entity_Index_5, count_entity_index_5);
-                    HideUntilImage(Img_Entity_Index_6, count_entity_index_6);
-
-                    //if (Radar_Setting_Handle == IntPtr.Zero)
-                    //    Radar_Setting_Handle = new WindowInteropHelper(this.in_Win_Radar_Setting).Handle;
-
-                    //if (Radar_Popup_Handle == IntPtr.Zero)
-                    //    Radar_Popup_Handle = new WindowInteropHelper(this.in_Win_Radar_Popup).Handle;
-
-                    //if (Radar_Handle == IntPtr.Zero)
-                    //    Radar_Handle = new WindowInteropHelper(this).Handle;
-
-                    //if (!(Windows_And_Process.WindowsIsForeground(Aion_Game.whandle)
-                    //    || Windows_And_Process.WindowsIsForeground(Radar_Handle)
-                    //    || Windows_And_Process.WindowsIsForeground(Radar_Setting_Handle)
-                    //    || Windows_And_Process.WindowsIsForeground(Radar_Popup_Handle)))
-                    //{
-                    //    messageTimer.Interval = t150;
-                    //}
-                    //else
-                    //    messageTimer.Interval = t1;
                 }
+
+                if (!Image_Focus)
+                {
+                    in_Win_Radar_Popup.Topmost = false;
+                    in_Win_Radar_Popup.Opacity = 0d;
+                    ID_Focus = 0;
+                }
+                else
+                {
+                    in_Win_Radar_Popup.Topmost = true;
+                    in_Win_Radar_Popup.Opacity = 1d;
+                }
+
+                HideUntilImage(Img_Entity_Index, count_entity_index, Last_Count_Index);
+                Last_Count_Index = count_entity_index;
+
+                //if (Radar_Setting_Handle == IntPtr.Zero)
+                //    Radar_Setting_Handle = new WindowInteropHelper(this.in_Win_Radar_Setting).Handle;
+
+                //if (Radar_Popup_Handle == IntPtr.Zero)
+                //    Radar_Popup_Handle = new WindowInteropHelper(this.in_Win_Radar_Popup).Handle;
+
+                //if (Radar_Handle == IntPtr.Zero)
+                //    Radar_Handle = new WindowInteropHelper(this).Handle;
+
+                //if (!(Windows_And_Process.WindowsIsForeground(Aion_Game.whandle)
+                //    || Windows_And_Process.WindowsIsForeground(Radar_Handle)
+                //    || Windows_And_Process.WindowsIsForeground(Radar_Setting_Handle)
+                //    || Windows_And_Process.WindowsIsForeground(Radar_Popup_Handle)))
+                //{
+                //    messageTimer.Interval = t150;
+                //}
+                //else
+                //    messageTimer.Interval = t1;
             }
-            catch { }
+            catch { Console.WriteLine("CanvasImg: Entity"); }
         }
 
         void ImageOnRadar(Image image, ImageSource source, Entity entity, float PlayerRot, float PlayerX, float PlayerY)
@@ -391,19 +338,24 @@ namespace BobyMultitools
 
             try
             {
-                long EntityLoc = SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Loc);
-                float entity_X = SplMemory.ReadFloat(EntityLoc + Offset.Loc.X);
-                float entity_Y = SplMemory.ReadFloat(EntityLoc + Offset.Loc.Y);
-                float entity_Z = SplMemory.ReadFloat(EntityLoc + Offset.Loc.Z);
+                long NodeLoc = SplMemory.ReadLong(entity.Node + Offset.Entity.Loc);
 
-                entity.X = entity_X;
-                entity.Y = entity_Y;
-                entity.Z = entity_Z;
+                if (NodeLoc == 0 || NodeLoc == 0xCDCDCDCD)
+                    PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY);
+                else
+                {
+                    float entity_X = SplMemory.ReadFloat(NodeLoc + Offset.Loc.X);
+                    float entity_Y = SplMemory.ReadFloat(NodeLoc + Offset.Loc.Y);
 
-                PosImage(image, entity_X, entity_Y, PlayerRot, PlayerX, PlayerY);
+                    if (entity_X == float.NaN || entity_X == 0 || entity_Y == float.NaN || entity_Y == 0)
+                        PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY);
+                    else
+                        PosImage(image, entity_X, entity_Y, PlayerRot, PlayerX, PlayerY);
+                }
             }
             catch
             {
+                Console.WriteLine("Problem PosImage.");
                 PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY);
             }
             try
@@ -413,7 +365,7 @@ namespace BobyMultitools
                     in_Win_Radar_Popup.PopupContent(entity);
                     in_Win_Radar_Popup.Left = this.Left + Canvas.GetLeft(image) - in_Win_Radar_Popup.Width;
                     in_Win_Radar_Popup.Top = this.Top + Canvas.GetTop(image) - in_Win_Radar_Popup.Height;
-                    ID_Focus = entity.ID;
+                    ID_Focus = entity.Id;
                     Image_Focus = true;
                 }
             }
@@ -424,16 +376,18 @@ namespace BobyMultitools
         void ImageOnRadar(Image image, ImageSource source, Entity entity, float PlayerRot, float PlayerX, float PlayerY, float Scale)
         {
             if (source == null)
+            {
+                Console.WriteLine("Problem PosImage.");
                 return;
-            
+            }
+
             image.Source = source;
 
             try
             {
-                long EntityLoc = SplMemory.ReadLong(entity.PtrEntity + Offset.Entity.Loc);
-                float entity_X = SplMemory.ReadFloat(EntityLoc + Offset.Loc.X);
-                float entity_Y = SplMemory.ReadFloat(EntityLoc + Offset.Loc.Y);
-                float entity_Z = SplMemory.ReadFloat(EntityLoc + Offset.Loc.Z);
+                float entity_X = SplMemory.ReadFloat(entity.NodeLocation + Offset.Loc.X);
+                float entity_Y = SplMemory.ReadFloat(entity.NodeLocation + Offset.Loc.Y);
+                float entity_Z = SplMemory.ReadFloat(entity.NodeLocation + Offset.Loc.Z);
 
                 entity.X = entity_X;
                 entity.Y = entity_Y;
@@ -447,14 +401,14 @@ namespace BobyMultitools
             }
             try
             {
-                if (image.IsMouseDirectlyOver)
+                /*if (image.IsMouseDirectlyOver)
                 {
                     in_Win_Radar_Popup.PopupContent(entity);
                     in_Win_Radar_Popup.Left = this.Left + Canvas.GetLeft(image) - in_Win_Radar_Popup.Width;
                     in_Win_Radar_Popup.Top = this.Top + Canvas.GetTop(image) - in_Win_Radar_Popup.Height;
                     ID_Focus = entity.ID;
                     Image_Focus = true;
-                }
+                }*/
             }
             catch
             { }
@@ -462,97 +416,62 @@ namespace BobyMultitools
 
         private void PosImage(Image image, float PosX, float PosY, float PlayerRot, float PlayerX, float PlayerY)
         {
-            if (image != null && image.Source != null)
-            {
-                double Diff_X;
-                double Diff_Y;
-                float Angle_X = PlayerRot;
-                if (c_North.IsChecked) Angle_X = -90;
+            if (image == null || image.Source == null)
+                return;
 
-                if (Angle_X > 0 && Angle_X < 180)
-                    Angle_X = Angle_X * -1;
-                else if (Angle_X < 0 && Angle_X > -180)
-                    Angle_X = (360 - Math.Abs(Angle_X)) * -1;
+            double Diff_X;
+            double Diff_Y;
 
-                double Diff_X2 = PosX - PlayerX;
-                double Diff_Y2 = PosY - PlayerY;
+            double cx = (PosX - PlayerX) / -2;
+            double cy = (PosY - PlayerY) / -2;
 
-                double radian = Angle_X * (3.14 / 180) * -1;
+            float zoom = in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+            float size = in_Win_Main.in_Setting.in_Radar.Size.Get_Value();
 
-                double cx = (PosX - PlayerX) / 2 + PlayerX;
-                double cy = (PosY - PlayerY) / 2 + PlayerY;
+            Diff_X = ((cx * cosr) + (cy * sinr)) * zoom;
+            Diff_Y = ((cx * sinr) - (cy * cosr)) * zoom;
 
-                double sinr = Math.Sin(radian);
-                double cosr = Math.Cos(radian);
+            image.Width = image.Source.Width * size;
+            image.Height = image.Source.Height * size;
 
-                cx = PlayerX - cx;
-                cy = PlayerY - cy;
+            Diff_X = Diff_X + Canvas_Radar.Width / 2 - image.Width / 2;
+            Diff_Y = Diff_Y + Canvas_Radar.Height / 2 - image.Height / 2;
 
-                Diff_X = ((cx * cosr) + (cy * sinr));
-                Diff_X *= in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                Diff_Y = ((cx * sinr) - (cy * cosr));
-                Diff_Y *= in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-
-                image.Width = image.Source.Width * in_Win_Main.in_Setting.in_Radar.Size.Get_Value();
-                image.Height = image.Source.Height * in_Win_Main.in_Setting.in_Radar.Size.Get_Value();
-
-                Diff_X = Diff_X + Canvas_Radar.Width / 2 - image.Width / 2;
-                Diff_Y = Diff_Y + Canvas_Radar.Height / 2 - image.Height / 2;
-
-                Canvas.SetLeft(image, Diff_X);
-                Canvas.SetTop(image, Diff_Y);
-            }
+            Canvas.SetLeft(image, Diff_X);
+            Canvas.SetTop(image, Diff_Y);
         }
 
         private void PosImage(Image image, float PosX, float PosY, float PlayerRot, float PlayerX, float PlayerY, float Scale)
         {
-            if (image != null && image.Source != null)
-            {
-                double Diff_X;
-                double Diff_Y;
-                float Angle_X = PlayerRot;
-                if (c_North.IsChecked) Angle_X = -90;
+            if (image == null || image.Source == null)
+                return;
 
-                if (Angle_X > 0 && Angle_X < 180)
-                    Angle_X = Angle_X * -1;
-                else if (Angle_X < 0 && Angle_X > -180)
-                    Angle_X = (360 - Math.Abs(Angle_X)) * -1;
+            double Diff_X;
+            double Diff_Y;
 
-                double Diff_X2 = PosX - PlayerX;
-                double Diff_Y2 = PosY - PlayerY;
+            double cx = (PosX - PlayerX) / -2;
+            double cy = (PosY - PlayerY) / -2;
 
-                double radian = Angle_X * (3.14 / 180) * -1;
+            float zoom = in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
 
-                double cx = (PosX - PlayerX) / 2 + PlayerX;
-                double cy = (PosY - PlayerY) / 2 + PlayerY;
+            Diff_X = ((cx * cosr) + (cy * sinr)) * zoom;
+            Diff_Y = ((cx * sinr) - (cy * cosr)) * zoom;
 
-                double sinr = Math.Sin(radian);
-                double cosr = Math.Cos(radian);
+            image.Width = image.Source.Width * Scale;
+            image.Height = image.Source.Height * Scale;
 
-                cx = PlayerX - cx;
-                cy = PlayerY - cy;
+            Diff_X = Diff_X + Canvas_Radar.Width / 2 - image.Width / 2;
+            Diff_Y = Diff_Y + Canvas_Radar.Height / 2 - image.Height / 2;
 
-                Diff_X = ((cx * cosr) + (cy * sinr));
-                Diff_X *= in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                Diff_Y = ((cx * sinr) - (cy * cosr));
-                Diff_Y *= in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-
-                image.Width = image.Source.Width * Scale;
-                image.Height = image.Source.Height * Scale;
-
-                Diff_X = Diff_X + Canvas_Radar.Width / 2 - image.Width / 2;
-                Diff_Y = Diff_Y + Canvas_Radar.Height / 2 - image.Height / 2;
-
-                Canvas.SetLeft(image, Diff_X);
-                Canvas.SetTop(image, Diff_Y);
-            }
+            Canvas.SetLeft(image, Diff_X);
+            Canvas.SetTop(image, Diff_Y);
         }
 
-        private bool IsAggro(Entity entity)
+        private bool IsAggro(long nodeStatus)
         {
             try
             {
-                if (SplMemory.ReadInt(entity._PtrEntity + Offset.Status.TargetId) == Thread_Entity.ePlayer.ID)
+                if (SplMemory.ReadInt(nodeStatus + Offset.Status.TargetId) == Aion_Game.Player.Id)
                     return true;
                 else
                     return false;

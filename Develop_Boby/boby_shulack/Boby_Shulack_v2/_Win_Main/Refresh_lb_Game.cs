@@ -12,6 +12,7 @@ using System.Windows.Media.Animation;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
+using NS_Aion_Game;
 using MemoryLib;
 
 namespace Boby_Shulack
@@ -102,7 +103,8 @@ namespace Boby_Shulack
                 db[i] = pid[i].Id + ": ";
                 IntPtr hanble = Memory.OpenProcess(pid[i].Id);
                 SplMemory.SetHanble(hanble);
-                int Aion_DLL_Game = GetModuleBase("Game.dll", pid[i].Id);
+                NS_Aion_Game.Aion_Game.Open(pid[i].Id);
+                int Aion_DLL_Game = Aion_Game.memGame;// GetModuleBase("Game.dll", pid[i].Id);
                 if (Aion_DLL_Game != 0)
                 {
                     Offset.Loading(Aion_DLL_Game);

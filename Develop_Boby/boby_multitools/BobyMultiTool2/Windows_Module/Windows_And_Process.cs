@@ -3,16 +3,16 @@ using System.Windows;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace NS_Windows_And_Process
+namespace Windows_And_Process
 {
-    class Windows_And_Process
+    class Win
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow();
         [DllImport("user32.dll")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        public static bool WindowsIsForeground(IntPtr whandle)
+        public static bool IsForeground(IntPtr whandle)
         {
             bool isactive = false;
             if (whandle != IntPtr.Zero)
@@ -23,8 +23,11 @@ namespace NS_Windows_And_Process
             }
             return isactive;
         }
+    }
 
-        public static bool ProcessIdOn(int id, string search)
+    class Procs
+    {
+        public static bool IdOn(int id, string search)
         {
             Process[] pid = Process.GetProcessesByName(search);
             for (int i = 0; i < pid.Length; i++)
@@ -34,8 +37,11 @@ namespace NS_Windows_And_Process
             }
             return false;
         }
+    }
 
-        public static bool IsApplicationActive()
+    class App
+    {
+        public static bool IsActive()
         {
             foreach (Window wnd in Application.Current.Windows)
                 if (wnd.IsActive) return true;

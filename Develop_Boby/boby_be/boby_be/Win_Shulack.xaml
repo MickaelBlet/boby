@@ -8,7 +8,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        Title="BOBY_BE" Height="195" Width="200"
+        Title="BOBY_BE" Height="295" Width="200"
         LocationChanged="Window_LocationChanged">
 	<Grid>
 		<!--	Windows images	-->
@@ -235,23 +235,64 @@
 					Color="#55000000" />
 			</Control.Background>
 		</TextBox>
-		<CheckBox
+        <TextBox
+			Name="Kinas_eval"
+			Text="0"
+			Cursor="Arrow"
+			TextWrapping="WrapWithOverflow"
+			FontSize="13"
+			IsReadOnly="True"
+			TextAlignment="Center"
+			Foreground="#FFFFFFFF"
+			BorderThickness="0"
+			Grid.Column="0"
+			Grid.Row="0"
+			FontFamily="Arial"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			Margin="0,113,0,0"
+			Width="180"
+			Height="18">
+            <Control.Background>
+                <SolidColorBrush
+					Color="#55000000" />
+            </Control.Background>
+        </TextBox>
+        <CheckBox
 			Name="checkBox_deloot"
 			IsChecked="True"
 			Content="Auto Recycle Loot"
 			FontFamily="Arial"
 			FontSize="13"
-			Margin="8,112,0,0"
-			VerticalAlignment="Top"
+			Margin="8,0,0,60"
+			VerticalAlignment="Bottom"
 			HorizontalAlignment="Left"></CheckBox>
 		<Button
 			Name="Button_Recycle_List"
 			Style="{StaticResource Style_Left_Arrow_Button}"
 			HorizontalAlignment="Right"
-			VerticalAlignment="Top"
-			Margin="0,112,10,0"
+			VerticalAlignment="Bottom"
+			Margin="0,112,10,60"
 			Click="Button_Recycle_List_Click"/>
-		<Button
+        <ListBox
+			Name="historique"
+			FontSize="13"
+			Foreground="#FFFFFFFF"
+			BorderThickness="0"
+			Grid.Column="0"
+			Grid.Row="0"
+			FontFamily="Arial"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			Margin="0,133,0,0"
+			Width="180"
+			Height="78">
+            <Control.Background>
+                <SolidColorBrush
+					Color="#55000000" />
+            </Control.Background>
+        </ListBox>
+        <Button
 			IsEnabled="False"
 			Name="Button_Start"
 			HorizontalAlignment="Left"
@@ -267,7 +308,7 @@
 			Margin="0,0,10,35"
 			Width="90"
 			Style="{StaticResource Style_Aion_Button}"
-			Click="Button_Skills_List_Click">Skills List</Button>
+			Click="Button_Skills_List_Click">Friend List</Button>
 		<Button
 			Name="Button_Hide"
 			HorizontalAlignment="Left"

@@ -45,6 +45,27 @@ namespace boby_checker
         void CheckUpdate()
         {
             string origin_path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string check_version_web = "";
+
+            using (WebClient Client = new WebClient())
+            {
+                Client.Proxy = null;
+                try
+                {
+                    check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_update.exe");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Connection server.", "Error");
+                    Environment.Exit(0);
+                }
+            }
+
+            if (check_version_web == "..." || check_version_web == "" || check_version_web.Length > 50)
+            {
+                MessageBox.Show("Connection server.", "Error");
+                Environment.Exit(0);
+            }
 
             /*
             if file exist
@@ -52,27 +73,6 @@ namespace boby_checker
             if (File.Exists(origin_path + @"\boby_update.exe"))
             {
                 string fileVersion = AssemblyName.GetAssemblyName(origin_path + @"\boby_update.exe").Version.ToString();
-                string check_version_web = "";
-
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    try
-                    {
-                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_update.exe");
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Connection server.", "Error");
-                        Environment.Exit(0);
-                    }
-                }
-
-                if (check_version_web == "..." || check_version_web == "")
-                {
-                    MessageBox.Show("Connection server.", "Error");
-                    Environment.Exit(0);
-                }
 
                 if (fileVersion != check_version_web)
                 {
@@ -99,13 +99,15 @@ namespace boby_checker
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = origin_path + @"\";
                 process.StartInfo.Verb = "runas";
-                process.StartInfo.Arguments = save_exe_name + " nolaunch";
+                process.StartInfo.Arguments = "boby_checker" + " " + save_exe_name;
                 process.StartInfo.FileName = origin_path + @"\boby_update.exe";
                 process.Start();
                 process.WaitForExit();
             }
             catch
             {
+                try { File.Delete(origin_path + @"\boby_update.exe"); }
+                catch { }
                 MessageBox.Show("Launch boby_update.exe", "Error");
                 Environment.Exit(0);
             }
@@ -114,68 +116,27 @@ namespace boby_checker
         {
             string origin_path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            /*
-            if file exist
-            */
-            if (File.Exists(origin_path + @"\boby_update.exe"))
+            if (!File.Exists(save_exe_name + ".vshost.exe"))
             {
-                string fileVersion = AssemblyName.GetAssemblyName(origin_path + @"\boby_update.exe").Version.ToString();
-                string check_version_web = "";
-
-                using (WebClient Client = new WebClient())
+                try
                 {
-                    Client.Proxy = null;
-                    try
-                    {
-                        check_version_web = Client.DownloadString("http://boby.pe.hu/files/get_version.php?file=" + "boby_update.exe");
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Connection server.", "Error");
-                        Environment.Exit(0);
-                    }
+                    Process process = new Process();
+                    process.StartInfo.CreateNoWindow = false;
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.WorkingDirectory = origin_path + @"\";
+                    process.StartInfo.Verb = "runas";
+                    process.StartInfo.Arguments = save_exe_name + " nolaunch";
+                    process.StartInfo.FileName = origin_path + @"\boby_update.exe";
+                    process.Start();
+                    process.WaitForExit();
                 }
-
-                if (check_version_web == "..." || check_version_web == "")
+                catch
                 {
-                    MessageBox.Show("Connection server.", "Error");
+                    try { File.Delete(origin_path + @"\boby_update.exe"); }
+                    catch { }
+                    MessageBox.Show("Launch boby_update.exe", "Error");
                     Environment.Exit(0);
                 }
-
-                if (fileVersion != check_version_web)
-                {
-                    using (WebClient Client = new WebClient())
-                    {
-                        Client.Proxy = null;
-                        Client.DownloadFile(new Uri("http://boby.pe.hu/files/download.php?file=" + "boby_update.exe"), origin_path + @"\boby_update.exe");
-                    }
-                }
-            }
-            else
-            {
-                using (WebClient Client = new WebClient())
-                {
-                    Client.Proxy = null;
-                    Client.DownloadFile(new Uri("http://boby.pe.hu/files/download.php?file=" + "boby_update.exe"), origin_path + @"\boby_update.exe");
-                }
-            }
-
-            try
-            {
-                Process process = new Process();
-                process.StartInfo.CreateNoWindow = false;
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.WorkingDirectory = origin_path + @"\";
-                process.StartInfo.Verb = "runas";
-                process.StartInfo.Arguments = save_exe_name + " nolaunch";
-                process.StartInfo.FileName = origin_path + @"\boby_update.exe";
-                process.Start();
-                process.WaitForExit();
-            }
-            catch
-            {
-                MessageBox.Show("Launch boby_update.exe", "Error");
-                Environment.Exit(0);
             }
         }
 
@@ -203,7 +164,8 @@ namespace boby_checker
             save_exe_name = exe_name;
 
             CheckUpdate();
-            CheckUpdateChild();
+
+            bt_login.Content = "START\n" + save_exe_name.ToUpper();
 
             tb_username.Focus();
 		}
@@ -257,9 +219,9 @@ namespace boby_checker
                     values["u"] = tb_username.Text;
                     values["w"] = hashedPwd;
 
-                    MessageBox.Show(values["p"].ToString() + " " + values["u"].ToString() + " " + values["w"].ToString());
+                    //MessageBox.Show(values["p"].ToString() + " " + values["u"].ToString() + " " + values["w"].ToString());
 
-                    var response = client.UploadValues(@"http://boby.pe.hu/getkey.php", values);
+                    var response = client.UploadValues(@"http://boby.pe.hu/app/getkey.php", values);
                     r_key = Encoding.Default.GetString(response);
                 }
 			}
@@ -274,9 +236,12 @@ namespace boby_checker
                 MessageBox.Show(r_key, "Error");
                 return;
             }
-			
+
+            Hide();
+            CheckUpdateChild();
+
             // launch other program
-			try
+            try
 			{
                 Process process = new Process();
                 process.StartInfo.CreateNoWindow = false;
@@ -324,9 +289,14 @@ namespace boby_checker
 				Bt_login_Click(null, null);
 		}
 
-        private void rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void link_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://bobytools.com");
         }
     }
 }

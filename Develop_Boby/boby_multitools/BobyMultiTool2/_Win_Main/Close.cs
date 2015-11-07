@@ -23,7 +23,7 @@ namespace BobyMultitools
             if (In_Close == false)
             {
                 In_Close = true;
-                if (in_Win_Radar != null)
+                /*if (in_Win_Radar != null)
                 {
                     in_Win_Radar.Dispatcher.Invoke((Action)(() =>
                     {
@@ -44,6 +44,13 @@ namespace BobyMultitools
                         in_Win_Cheat.Hide();
                     }));
                 }
+                if (in_Win_Script != null)
+                {
+                    in_Win_Script.Dispatcher.Invoke((Action)(() =>
+                    {
+                        in_Win_Script.Hide();
+                    }));
+                }*/
                 in_Setting.Save();
                 Environment.Exit(0);
             }

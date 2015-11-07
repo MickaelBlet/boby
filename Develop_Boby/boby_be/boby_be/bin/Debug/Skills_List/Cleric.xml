@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<ArrayOfSkills xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Skills>
+    <Name>Seau sans fond</Name>
+    <HP>32</HP>
+    <MP>32</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de mana excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de mana excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Panacée de vie excellente</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Elixir de vie excellent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>Item</Type>
+  </Skills>
+  <Skills>
+    <Name>Eclat de récupération</Name>
+    <HP>40</HP>
+    <MP>0</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Halo de soins</Name>
+    <HP>50</HP>
+    <MP>0</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Grâce curative</Name>
+    <HP>60</HP>
+    <MP>0</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Voile de vie</Name>
+    <HP>70</HP>
+    <MP>80</MP>
+    <Type>AllTime</Type>
+  </Skills>
+  <Skills>
+    <Name>Grâce de Seigneur Empyréen</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Vent tranchant</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tempête d'Aion</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Terre vengeresse</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Tourment</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Invocation : Serviteur soigneur</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Invocation  : Serviteur soigneur</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Invocation : Energie de soins</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Promesse du vent</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Pénitence</Name>
+    <HP>0</HP>
+    <MP>60</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Bénédiction rocheuse</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Bénédiction de vitalité</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Lumière de rajeunissement</Name>
+    <HP>99</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+</ArrayOfSkills>

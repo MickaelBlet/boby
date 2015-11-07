@@ -7,7 +7,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        Title="BOBY_Shulack" Height="195" Width="200"
+        Title="BOBY_Shulack" Height="175" Width="200"
         LocationChanged="Window_LocationChanged">
 	<Grid>
 		<!--	Windows images	-->
@@ -212,36 +212,13 @@
 					Color="#55000000" />
             </Control.Background>
         </TextBox>
-        <TextBox
-			Name="Kinas_Count"
-			Text="0"
-			Cursor="Arrow"
-			TextWrapping="WrapWithOverflow"
-			FontSize="13"
-			IsReadOnly="True"
-			TextAlignment="Center"
-			Foreground="#FFFFFFFF"
-			BorderThickness="0"
-			Grid.Column="0"
-			Grid.Row="0"
-			FontFamily="Arial"
-			HorizontalAlignment="Center"
-			VerticalAlignment="Top"
-			Margin="0,93,0,0"
-			Width="180"
-			Height="18">
-            <Control.Background>
-                <SolidColorBrush
-					Color="#55000000" />
-            </Control.Background>
-        </TextBox>
         <CheckBox
 			Name="checkBox_deloot"
 			IsChecked="True"
 			Content="Auto Recycle Loot"
 			FontFamily="Arial"
 			FontSize="13"
-			Margin="8,112,0,0"
+			Margin="8,92,0,0"
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"></CheckBox>
 		<Button
@@ -249,7 +226,7 @@
 			Style="{StaticResource Style_Left_Arrow_Button}"
 			HorizontalAlignment="Right"
 			VerticalAlignment="Top"
-			Margin="0,112,10,0"
+			Margin="0,92,10,0"
 			Click="Button_Recycle_List_Click"/>
 		<Button
 			IsEnabled="False"

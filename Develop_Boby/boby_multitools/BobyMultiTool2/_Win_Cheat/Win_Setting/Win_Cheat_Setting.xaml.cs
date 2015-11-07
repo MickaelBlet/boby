@@ -18,7 +18,6 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 
-using NS_Aion_Game;
 using MemoryLib;
 using _Threads;
 

@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices; // DllImport
 
 using MemoryLib;
-using NS_Aion_Game;
-using _Threads;
-using NS_Windows_And_Process;
+using Aion_Process;
+using Aion_Game;
+using Windows_And_Process;
 
 namespace BobyMultitools
 {
@@ -39,7 +39,7 @@ namespace BobyMultitools
 
         private void Cheat_Sequence()
         {
-            Thread T_Stats = new Thread(Sequence_1);
+            /*Thread T_Stats = new Thread(Sequence_1);
             T_Stats.SetApartmentState(ApartmentState.STA);
             T_Stats.Start();
             Thread T_Keys = new Thread(Sequence_2);
@@ -47,25 +47,28 @@ namespace BobyMultitools
             T_Keys.Start();
             Thread T_Boss = new Thread(Sequence_3);
             T_Boss.SetApartmentState(ApartmentState.STA);
-            T_Boss.Start();
+            T_Boss.Start();*/
+            Sequence_1();
+            Sequence_2();
+            Sequence_3();
         }
 
         private void Sequence_1()
         {
             messageTimer_1 = new DispatcherTimer();
             messageTimer_1.Tick += new EventHandler(_Sequence_1);
-            messageTimer_1.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            messageTimer_1.Interval = new TimeSpan(0, 0, 0, 0, 20);
             messageTimer_1.Start();
-            System.Windows.Threading.Dispatcher.Run();
+            //System.Windows.Threading.Dispatcher.Run();
         }
 
         private void Sequence_2()
         {
             messageTimer_2 = new DispatcherTimer();
             messageTimer_2.Tick += new EventHandler(_Sequence_2);
-            messageTimer_2.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            messageTimer_2.Interval = new TimeSpan(0, 0, 0, 0, 20);
             messageTimer_2.Start();
-            System.Windows.Threading.Dispatcher.Run();
+            //System.Windows.Threading.Dispatcher.Run();
         }
 
         private void Sequence_3()
@@ -74,7 +77,7 @@ namespace BobyMultitools
             messageTimer_3.Tick += new EventHandler(_Sequence_3);
             messageTimer_3.Interval = new TimeSpan(0, 0, 0, 0, 900);
             messageTimer_3.Start();
-            System.Windows.Threading.Dispatcher.Run();
+            //System.Windows.Threading.Dispatcher.Run();
         }
 
         static long s_PlayerPtr = 0;
@@ -98,7 +101,7 @@ namespace BobyMultitools
         static byte Get_Target_type(long addr)
         {
             long ID_Target_Player = SplMemory.ReadLong(addr + Offset.Status.TargetId);
-            long PTR_Target = SplMemory.ReadLong(Aion_Game.Modules.Game + Offset.Entity.To_Target);
+            long PTR_Target = SplMemory.ReadLong(Game.Base + Offset.Entity.To_Target);
             if (PTR_Target != 0 && ID_Target_Player != 0)
             {
                 long ID_Target = SplMemory.ReadLong(SplMemory.ReadLong(PTR_Target + Offset.Entity.Status) + Offset.Status.ID);
@@ -111,22 +114,22 @@ namespace BobyMultitools
 
         static bool If_User()
         {
-            return SplMemory.ReadInt(SplMemory.ReadLong(Aion_Game.Modules.Game + Offset.EntityList.Pointer) + Offset.EntityList.User) > 1;
+            return SplMemory.ReadInt(SplMemory.ReadLong(Game.Base + Offset.EntityList.Pointer) + Offset.EntityList.User) > 1;
         }
 
         static bool Is_Player(long addr)
         {
-            return SplMemory.ReadByte(addr + Offset.Entity.Type) == EnumAion.eType.Player;
+            return (Aion_Game.eType)SplMemory.ReadByte(addr + Offset.Entity.Type) == Aion_Game.eType.Player;
         }
 
         static long FindPlayerPtr()
         {
             try
             {
-                foreach (var entity in in_Win_Main.in_Thread_Entity.DicCopy.Values)
+                foreach (var entity in Aion_Game.EntityList.uList.Values)
                 {
-                    if (entity.Type == (int)EnumAion.eType.Player)
-                        return entity.PtrEntity;
+                    if (entity.Type == Aion_Game.eType.Player)
+                        return entity.Node;
                 }
             }
             catch (Exception)
@@ -150,15 +153,12 @@ namespace BobyMultitools
             {
                 try
                 {
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        s_Safety = (cb_Safety.IsChecked == true) && If_User();
-                        s_Key = cb_Key.IsChecked == true;
-                        s_No_Grav = cb_NoGrav.IsChecked == true;
-                        s_ZLock = cb_ZLock.IsChecked == true;
+                    s_Safety = (cb_Safety.IsChecked == true) && If_User();
+                    s_Key = cb_Key.IsChecked == true;
+                    s_No_Grav = cb_NoGrav.IsChecked == true;
+                    s_ZLock = cb_ZLock.IsChecked == true;
 
-                        v_Atk_Sspeed = (int)sl_Atk.Value;
-                    }));
+                    v_Atk_Sspeed = (int)sl_Atk.Value;
 
                     if (!Is_Player(s_PlayerPtr))
                     {
@@ -174,15 +174,17 @@ namespace BobyMultitools
                     long    PlayerEntity   = SplMemory.ReadLong(s_PlayerPtr + Offset.Entity.Status);
                     long    PtrPlayerLoc   = SplMemory.ReadLong(s_Link_PlayerPtr + Offset.Entity.Loc);
                     double  ModPosZ        = (double)SplMemory.ReadFloat(PtrPlayerLoc + Offset.Loc.Z);
-                    int     AtkSpeedBase   = SplMemory.ReadInt(Aion_Game.Modules.Game + Offset.Player.AtkSpeed);
+                    int     AtkSpeedBase   = SplMemory.ReadInt(Game.Base + Offset.Player.AtkSpeed);
                     int     AtkSpeed       = AtkSpeedBase - AtkSpeedBase * v_Atk_Sspeed / 100;
-                    float   MoveSpeedBase  = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.MoveSpeed);
+                    float   MoveSpeedBase  = SplMemory.ReadFloat(Game.Base + Offset.Player.MoveSpeed);
                     float   MoveSpeed      = MoveSpeedBase + MoveSpeedBase * 1 / 100; // add 1% run
+
+                    //SplMemory.WriteWchar(PlayerEntity + Offset.Status.Info, Aion_Game.Player.entity.X.ToString("0.00") + " " + Aion_Game.Player.Y.ToString("0.00") + " " + Aion_Game.Player.Z.ToString("0.00"), 30);
 
                     if (AtkSpeed == 0)
                         AtkSpeed = 1;
 
-                    if ((s_Safety || Get_Target_type(PlayerEntity) == EnumAion.eType.User) && Environment.GetCommandLineArgs().Length == 1 && AtkSpeed < (AtkSpeedBase - AtkSpeedBase * 25 / 100))
+                    if ((s_Safety || Get_Target_type(PlayerEntity) == eType.User) && Environment.GetCommandLineArgs().Length == 1 && AtkSpeed < (AtkSpeedBase - AtkSpeedBase * 25 / 100))
                     {
                         this.Dispatcher.Invoke((Action)(() =>
                         {
@@ -210,7 +212,7 @@ namespace BobyMultitools
                     if (SplMemory.ReadByte(PlayerEntity + Offset.Status.No_Grav) != 7)
                     {
                         tmp_ZLock = -1;
-                        if (SplMemory.ReadByte(Aion_Game.Modules.Game + Offset.Player.IsFly) == 0)
+                        if (SplMemory.ReadByte(Game.Base + Offset.Player.IsFly) == 0)
                         {
                             if (s_No_Grav)
                             {
@@ -225,7 +227,7 @@ namespace BobyMultitools
                                     SplMemory.WriteMemory(SplMemory.ReadLong(s_PlayerPtr + Offset.Entity.Status) + Offset.Status.No_Skill, 0);
                                 }
                             }
-                            else if (SplMemory.ReadByte(Aion_Game.Modules.Game + Offset.Player.IsFly) == 0 && SplMemory.ReadByte(PlayerEntity + Offset.Status.No_Grav) != 7)
+                            else if (SplMemory.ReadByte(Game.Base + Offset.Player.IsFly) == 0 && SplMemory.ReadByte(PlayerEntity + Offset.Status.No_Grav) != 7)
                                 SplMemory.WriteMemory(PlayerEntity + Offset.Status.No_Grav, 0);
                         }
                     }
@@ -317,9 +319,9 @@ namespace BobyMultitools
         bool WindowsIs()
         {
             bool isactive = false;
-            if (Aion_Game.whandle != IntPtr.Zero)
+            if (Game.Whandle != IntPtr.Zero)
             {
-                IntPtr MWhandle = Aion_Game.whandle;
+                IntPtr MWhandle = Game.Whandle;
                 IntPtr CWhandle = GetForegroundWindow();
                 if (MWhandle == CWhandle)
                     isactive = true;
@@ -331,18 +333,15 @@ namespace BobyMultitools
         {
             try
             {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    s_Safety = (cb_Safety.IsChecked == true) && If_User();
-                    s_Key = cb_Key.IsChecked == true;
-                    s_No_Grav = cb_NoGrav.IsChecked == true;
-                    s_ZLock = cb_ZLock.IsChecked == true;
+                s_Safety = (cb_Safety.IsChecked == true) && If_User();
+                s_Key = cb_Key.IsChecked == true;
+                s_No_Grav = cb_NoGrav.IsChecked == true;
+                s_ZLock = cb_ZLock.IsChecked == true;
 
-                    s_Acc_dst = in_Win_Cheat_Setting.sl_acc_dist.Value;
-                    s_Sup_dst = in_Win_Cheat_Setting.sl_Sup_dist.Value;
+                s_Acc_dst = in_Win_Cheat_Setting.sl_acc_dist.Value;
+                s_Sup_dst = in_Win_Cheat_Setting.sl_Sup_dist.Value;
 
-                    v_Atk_Sspeed = (int)sl_Atk.Value;
-                }));
+                v_Atk_Sspeed = (int)sl_Atk.Value;
 
                 if (s_Link_PlayerPtr != 0 && !s_Safety)
                 {
@@ -350,11 +349,11 @@ namespace BobyMultitools
                     double ModPosX 		= (double)SplMemory.ReadFloat(PtrPlayerLoc + (long)Offset.Loc.X);
                     double ModPosY 		= (double)SplMemory.ReadFloat(PtrPlayerLoc + (long)Offset.Loc.Y);
                     double ModPosZ 		= (double)SplMemory.ReadFloat(PtrPlayerLoc + (long)Offset.Loc.Z);
-                    double CamRotH 		= (double)SplMemory.ReadFloat(Aion_Game.Modules.Game + (long)Offset.Player.CamRotH) / 180d;
+                    double CamRotH 		= (double)SplMemory.ReadFloat(Game.Base + (long)Offset.Player.CamRotH) / 180d;
                     float PosX;
                     float PosY;
                     float PosZ;
-
+                    
                     switch (Move)
                     {
                         case "ACCFOR":
@@ -400,19 +399,11 @@ namespace BobyMultitools
             if (in_Win_Main.in_Setting.in_Cheat.Show.Get_Value() && WindowsIs())
             {
                 bool cb_Key_IsChecked = false;
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    cb_Key_IsChecked = (bool)in_Win_Main.in_Win_Cheat.cb_Key.IsChecked;
-                }
-                ));
+                cb_Key_IsChecked = (bool)cb_Key.IsChecked;
                 if (KeyIsPress(in_Win_Main.in_Setting.in_CheatKey.modifierToKey.Get_Value(),
                                in_Win_Main.in_Setting.in_CheatKey.keyToKey.Get_Value()))
                 {
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        in_Win_Main.in_Win_Cheat.cb_Key.IsChecked = !in_Win_Main.in_Win_Cheat.cb_Key.IsChecked;
-                    }
-                    ));
+                    cb_Key.IsChecked = !cb_Key.IsChecked;
                     while (KeyIsPress(in_Win_Main.in_Setting.in_CheatKey.modifierToKey.Get_Value(),
                                       in_Win_Main.in_Setting.in_CheatKey.keyToKey.Get_Value()))
                     {
@@ -424,11 +415,7 @@ namespace BobyMultitools
                     if (KeyIsPress(in_Win_Main.in_Setting.in_CheatKey.modifierNoGrav.Get_Value(),
                                    in_Win_Main.in_Setting.in_CheatKey.keyNoGrav.Get_Value()))
                     {
-                        this.Dispatcher.Invoke((Action)(() =>
-                        {
-                            in_Win_Main.in_Win_Cheat.cb_NoGrav.IsChecked = !in_Win_Main.in_Win_Cheat.cb_NoGrav.IsChecked;
-                        }
-                        ));
+                        cb_NoGrav.IsChecked = !cb_NoGrav.IsChecked;
                         while (KeyIsPress(in_Win_Main.in_Setting.in_CheatKey.modifierNoGrav.Get_Value(),
                                           in_Win_Main.in_Setting.in_CheatKey.keyNoGrav.Get_Value()))
                         {
@@ -438,11 +425,7 @@ namespace BobyMultitools
                     else if (KeyIsPress(in_Win_Main.in_Setting.in_CheatKey.modifierZLock.Get_Value(),
                                    in_Win_Main.in_Setting.in_CheatKey.keyZLock.Get_Value()))
                     {
-                        this.Dispatcher.Invoke((Action)(() =>
-                        {
-                            in_Win_Main.in_Win_Cheat.cb_ZLock.IsChecked = !in_Win_Main.in_Win_Cheat.cb_ZLock.IsChecked;
-                        }
-                        ));
+                        cb_ZLock.IsChecked = !cb_ZLock.IsChecked;
                         while (KeyIsPress(in_Win_Main.in_Setting.in_CheatKey.modifierZLock.Get_Value(),
                                           in_Win_Main.in_Setting.in_CheatKey.keyZLock.Get_Value()))
                         {

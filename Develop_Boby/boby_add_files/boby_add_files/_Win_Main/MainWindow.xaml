@@ -1,0 +1,170 @@
+﻿<Window x:Class="boby_add_files.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:boby_multitools.Resources.Global_Resources"
+        Title="BOBY_Add_Files"
+	    Height="351"
+	    Width="260"
+	    WindowStartupLocation="CenterScreen"
+	    Topmost="True"
+	    WindowStyle="None"
+	    Background="Transparent"
+	    AllowsTransparency="True"
+	    ResizeMode="NoResize"
+	    Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="ProgressBar">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Grid x:Name="PART_Track" >
+                            <Rectangle Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" HorizontalAlignment="Left" RadiusX="2" RadiusY="2">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                        <GradientStop Color="#44000000" Offset="0"/>
+                                        <GradientStop Color="#00000000" Offset="0.5"/>
+                                        <GradientStop Color="#44000000" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle x:Name="PART_Indicator" HorizontalAlignment="Left" RadiusX="2" RadiusY="2">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#5500A599" Offset="0"/>
+                                        <GradientStop Color="#5500A599" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <!--WINDOW-->
+        <Controls:Windows Title="boby add files" />
+        <!--TITLE BARRE-->
+        <Grid Margin="0,0,5,0"
+              HorizontalAlignment="Right"
+			  VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <Button
+				    Name="bt_Minimise"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Minimise}"
+                    Width="27"
+				    Margin="-1,0,0,0"
+				    Click="Bt_Minimise_Click">
+                </Button>
+                <Button
+				    Name="bt_Close"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Close}"
+                    Width="35"
+				    Margin="-1,0,0,0"
+				    Click="Bt_Close_Click">
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="3,31,3,2">
+            <Grid
+                VerticalAlignment="Top"
+                HorizontalAlignment="Stretch"
+                Margin="0,0,0,0">
+                <StackPanel Name="OptionPanel" VerticalAlignment="Top"
+		    	                HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    <TextBlock Margin="1,0,1,0" TextAlignment="Center" Foreground="white">aion.bin path:</TextBlock>
+                    <TextBox Name="tb_aion_dir"
+                                    Height="24"
+                                    Margin="0,0,0,0"
+                                    TextAlignment="Center"
+                                    IsReadOnlyCaretVisible="False"
+                                    IsReadOnly="True"
+                                    Cursor="Hand"
+                                    PreviewMouseLeftButtonUp="TextBox_PreviewMouseLeftButtonUp">
+                        Select aion.bin file
+                    </TextBox>
+                    <CheckBox Name="cb_fly" Margin="0,2,0,0" IsEnabled="False"
+                                    Checked="cb_fly_Checked"
+                                    Unchecked="cb_fly_Unchecked">
+                        Instant Fly
+                    </CheckBox>
+                    <CheckBox Name="cb_voice" Margin="0,1,0,0" IsEnabled="False"
+                                    Checked="cb_voice_Checked"
+                                    Unchecked="cb_voice_Unchecked">
+                        KOR Voice
+                    </CheckBox>
+                    <CheckBox Name="cb_rank" Margin="0,1,0,0" IsEnabled="False"
+                                    Checked="cb_rank_Checked"
+                                    Unchecked="cb_rank_Unchecked">
+                        Rank and Macro
+                    </CheckBox>
+                    <CheckBox Name="cb_anim" Margin="0,1,0,0" IsEnabled="False"
+                                    Checked="cb_anim_Checked"
+                                    Unchecked="cb_anim_Unchecked">
+                        Speed Crafts and Animations
+                    </CheckBox>
+                    <CheckBox Name="cb_color" Margin="0,1,0,0" IsEnabled="False"
+                                    Checked="cb_color_Checked"
+                                    Unchecked="cb_color_Unchecked">
+                        Radar Ennemy Color
+                    </CheckBox>
+                    <Rectangle Height="1" Margin="0,2,0,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                <GradientStop Color="#00FFFFFF" Offset="0.1"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="0.4"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="0.6"/>
+                                <GradientStop Color="#00FFFFFF" Offset="0.9"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Height="1" Margin="0,0,0,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                <GradientStop Color="#00000000" Offset="0.1"/>
+                                <GradientStop Color="#FF000000" Offset="0.4"/>
+                                <GradientStop Color="#FF000000" Offset="0.6"/>
+                                <GradientStop Color="#00000000" Offset="0.9"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <UniformGrid Columns="2" Margin="0,2,0,0">
+                        <RadioButton Name="rb_GF" GroupName="Seller" Checked="rb_GF_Checked">Gameforge</RadioButton>
+                        <RadioButton Name="rb_NC" GroupName="Seller" Checked="rb_NC_Checked">NC Soft</RadioButton>
+                    </UniformGrid>
+                    <Rectangle Height="1" Margin="0,2,0,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                <GradientStop Color="#00FFFFFF" Offset="0.1"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="0.4"/>
+                                <GradientStop Color="#FFFFFFFF" Offset="0.6"/>
+                                <GradientStop Color="#00FFFFFF" Offset="0.9"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <Rectangle Height="1" Margin="0,0,0,0">
+                        <Rectangle.Fill>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                <GradientStop Color="#00000000" Offset="0.1"/>
+                                <GradientStop Color="#FF000000" Offset="0.4"/>
+                                <GradientStop Color="#FF000000" Offset="0.6"/>
+                                <GradientStop Color="#00000000" Offset="0.9"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <UniformGrid Columns="2" Margin="0,2,0,2">
+                        <TextBlock Margin="1,0,1,0" Foreground="white">Other parameters:</TextBlock>
+                        <ComboBox Name="cb_lang" Margin="0,-1,0,0" SelectionChanged="cb_lang_SelectionChanged"></ComboBox>
+                    </UniformGrid>
+                    <TextBox Name="tb_other" FontSize="12" Height="70" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextChanged="tb_other_TextChanged"></TextBox>
+                    <UniformGrid Columns="2" Margin="0,2,0,0">
+                        <Button Name="bt_bin32" Margin="0,0,1,0" Content="AION 32 BITS" Click="bt_bin32_Click"></Button>
+                        <Button Name="bt_bin64" Margin="1,0,0,0" Content="AION 64 BITS" Click="bt_bin64_Click"></Button>
+                    </UniformGrid>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -16,10 +16,10 @@ using System.Windows.Media.Effects;
 using System.ComponentModel;
 using System.Reflection;
 using System.IO;
+using System.Globalization;
 
 using MemoryLib;
-using NS_Aion_Game;
-using _Threads;
+using Aion_Game;
 
 namespace BobyMultitools
 {
@@ -31,42 +31,9 @@ namespace BobyMultitools
 
         public void Entity_List_View()
         {
-            File_img = new Hashtable();
-
-            try
-            {
-                string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\RadarIcon\";
-
-                string[] files = Directory.GetFiles(appPath, "*.png");
-
-                if (files.Length > 0)
-                {
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        string filesreal = files[i];
-                        BitmapImage source = new BitmapImage();
-                        source.BeginInit();
-                        source.UriSource = new Uri(filesreal);
-                        source.EndInit();
-                        if (source.Width > 16 || source.Height > 16)
-                        {
-                            source = new BitmapImage();
-                            source.BeginInit();
-                            source.UriSource = new Uri(filesreal);
-                            source.DecodePixelHeight = 16;
-                            source.DecodePixelWidth = 16;
-                            source.EndInit();
-                        }
-                        File_img.Add(source.ToString(), source);
-                    }
-                }
-            }
-            catch (Exception)
-            { }
-
             messageTimer = new DispatcherTimer();
             messageTimer.Tick += new EventHandler(messageTimer_Tick);
-            messageTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            messageTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             messageTimer.Start();
         }
 
@@ -79,78 +46,61 @@ namespace BobyMultitools
         {
             try
             {
-                if (date != Thread_Entity.date)
-                    date = Thread_Entity.date;
-                else
-                    return;
-
                 int Count_Ally = 0;
                 int Count_Ennemy = 0;
                 int index = 0;
 
-                IOrderedEnumerable<KeyValuePair<long, Entity>> sortedDict = null;
+                IOrderedEnumerable<KeyValuePair<long, View_Entity>> sortedDict = null;
                 if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Dst")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.DistanceReal ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Distance ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Dst")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.DistanceReal descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Distance descending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Rnk")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Rank ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Rank ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Rnk")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Rank descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Rank descending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Name")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Name ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Name_To_Lower ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Name")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Name descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Name_To_Lower descending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Guild")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Guild ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Guild ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Guild")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Guild descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Guild descending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Class")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Class ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Class ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Class")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Class descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.Class descending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Lvl")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Lvl ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Lvl ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Lvl")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.Lvl descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Lvl descending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Hp")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.HP_Percent ascending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.HpPercent ascending select entry;
                 else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Hp")
-                    sortedDict = (from entry in in_Win_Main.in_Thread_Entity.DicCopy orderby entry.Value.HP_Percent descending select entry);
+                    sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.HpPercent descending select entry;
 
                 if (this.IsVisible == true)
                 {
                     string ttbox = tb_where.Text.ToLower();
 
-                    foreach (var entity in sortedDict)
+                    foreach (var entry in sortedDict)
                     {
-                        Entity cust = entity.Value;
-                        if (cust.Name != string.Empty)
+                        Entity entity = entry.Value.entity;
+                        if (entity.Name != string.Empty && entity.Distance3D > -1 && entity.Distance3D < 113)
                         {
-                            if (cust.DistanceReal > -1 && cust.DistanceReal < 113 || cust._Image_Where != null)
+                            if (entity.Type == eType.User)
                             {
-                                if (cust.Type == EnumAion.eType.User && cust.Race == EnumAion.eAttitude.Friendly)
+                                if (entity.Attitude == fAttitude.Friendly)
                                     Count_Ally++;
-                                else if (cust.Type == EnumAion.eType.User && cust.Race != EnumAion.eAttitude.Friendly)
+                                else
                                     Count_Ennemy++;
-                                if (cust.Aggro && cust.Type != EnumAion.eType.Player && cust.HP > 0
-                                    || cust.Type == EnumAion.eType.Gather && in_Win_Main.in_Setting.in_Entity.Gather.Get_Value()
-                                    || cust.Type == EnumAion.eType.Pet && in_Win_Main.in_Setting.in_Entity.NPC.Get_Value()
-                                    || cust.Type == EnumAion.eType.NPC && in_Win_Main.in_Setting.in_Entity.NPC.Get_Value()
-                                    || cust.Type == EnumAion.eType.User && cust.Race == EnumAion.eAttitude.Friendly && in_Win_Main.in_Setting.in_Entity.Ally.Get_Value()
-                                    || cust.Type == EnumAion.eType.User && cust.Race != EnumAion.eAttitude.Friendly && in_Win_Main.in_Setting.in_Entity.Hostile.Get_Value()
-                                    || cust.Type == EnumAion.eType.PlaceableObject && in_Win_Main.in_Setting.in_Entity.NPC.Get_Value()
-                                    || cust._Image_Where != null
-                                    && cust.Type != EnumAion.eType.Player
-                                    && (cust.Type == EnumAion.eType.Gather
-                                    || cust.Type == EnumAion.eType.Pet
-                                    || cust.Type == EnumAion.eType.NPC
-                                    || cust.Type == EnumAion.eType.User
-                                    || cust.Type == EnumAion.eType.PlaceableObject))
-                                {
-                                    EntityCollectionAdd(cust, index);
-                                    index++;
-                                }
+                            }
+                            if (entity.Aggro && entity.Type != eType.Player && entity.HpPercent > 0
+                                || entry.Value.in_entity)
+                            {
+                                EntityCollectionAdd(entry.Value, index);
+                                index++;
                             }
                         }
                     }
@@ -164,65 +114,67 @@ namespace BobyMultitools
                     lv_Entity.Items.Refresh();
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 lv_Entity.Items.Clear();
                 lv_Entity.Items.Refresh();
+                Console.WriteLine(ex.ToString());
             }
         }
 
-        public void EntityCollectionAdd(Entity entity, int index)
+        public void EntityCollectionAdd(View_Entity entry, int index)
         {
+            Entity entity = entry.entity;
             Entity_View entity_view_tmp = new Entity_View();
 
-            if (entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject)
+            if (entity.Type == eType.Pet || entity.Type == eType.NPC || entity.Type == eType.PlaceableObject)
             {
-                entity_view_tmp.Node = entity.PtrEntity.ToString();
+                entity_view_tmp.Node = entity.Node.ToString();
                 entity_view_tmp.Name = entity.Name.ToString();
                 entity_view_tmp.Lvl = entity.Lvl.ToString();
-                entity_view_tmp.HP = entity.HP_Percent.ToString() + "%";
-                entity_view_tmp.Distance = entity.DistanceReal.ToString() + "m";
+                entity_view_tmp.HP = entity.HpPercent.ToString() + "%";
+                entity_view_tmp.Distance = ((int)entity.Distance2D).ToString() + "m";
             }
-            else if (entity.Type == EnumAion.eType.User)
+            else if (entity.Type == eType.User)
             {
                 if (entity.Rank == 100 || entity.Rank == 0)
                     return;
-                entity_view_tmp.Node = entity.PtrEntity.ToString();
+                entity_view_tmp.Node = entity.Node.ToString();
                 if (entity.Rank > 100)
                 {
-                    int irank = entity.Rank - 100;
+                    long irank = entity.Rank - 100;
                     entity_view_tmp.Rank = (EnumAion.eRank)irank + "";
                 }
                 else
                     entity_view_tmp.Rank = ((EnumAion.eRank)entity.Rank) + "";
-                if (entity.Buff == 1)
-                    entity_view_tmp.Name = "#" + entity.Name.ToString();
-                else
-                    entity_view_tmp.Name = entity.Name.ToString();
+                //if (entity.Buff == 1)
+                //    entity_view_tmp.Name = "#" + entity.Name.ToString();
+                //else
+                entity_view_tmp.Name = entity.Name.ToString();
                 entity_view_tmp.Guild = entity.Guild.ToString();
                 entity_view_tmp.Lvl = entity.Lvl.ToString();
-                entity_view_tmp.Class = ((EnumAion.AionClasses)entity.Class).ToString();
-                entity_view_tmp.HP = entity.HP_Percent.ToString() + "%";
-                entity_view_tmp.Distance = entity.DistanceReal.ToString() + "m";
+                entity_view_tmp.Class = ((eClass)entity.Class).ToString();
+                entity_view_tmp.HP = entity.HpPercent.ToString() + "%";
+                entity_view_tmp.Distance = ((int)entity.Distance2D).ToString() + "m";
             }
-            else if (entity.Type == EnumAion.eType.Gather)
+            else if (entity.Type == eType.Gather)
             {
-                entity_view_tmp.Node = entity.PtrEntity.ToString();
+                entity_view_tmp.Node = entity.Node.ToString();
                 entity_view_tmp.Name = entity.Name.ToString();
                 entity_view_tmp.Lvl = entity.Lvl.ToString();
-                entity_view_tmp.Distance = entity.DistanceReal.ToString() + "m";
+                entity_view_tmp.Distance = ((int)entity.Distance2D).ToString() + "m";
             }
 
-            entity_view_tmp = Entity_View_Grap(entity, entity_view_tmp);
+            entity_view_tmp = Entity_View_Graph(entry, entity_view_tmp);
             entity_view_tmp.Entity_Save = entity;
 
-            if (entity._Image_Where != null && tb_where.Text != "" && entity.Nametolower.Contains(tb_where.Text.ToLower()))
+            if (entry.radar_img_index == 8)
             {
-                if (entity.DistanceReal < 0)
-                    entity_view_tmp.Distance = (-entity.DistanceReal).ToString() + "m";
+                if (entry.Distance < 0)
+                    entity_view_tmp.Distance = (-entry.Distance).ToString() + "m";
                 lv_Entity.Items.Insert(0, entity_view_tmp);
             }
-            else if (entity.Aggro && entity.HP > 0 && entity.Type != EnumAion.eType.Gather)
+            else if (entity.Aggro && entity.Hp > 0 && entity.Type != eType.Gather)
             {
                 lv_Entity.Items.Insert(0, entity_view_tmp);
             }
@@ -237,65 +189,42 @@ namespace BobyMultitools
             }
         }
 
-        public Entity_View Entity_View_Grap(Entity entity, Entity_View entity_view_tmp)
+        public Entity_View Entity_View_Graph(View_Entity entry, Entity_View entity_view_tmp)
         {
+            Entity entity = entry.entity;
             entity_view_tmp.graph_HP_Meter_inv = ((int)lv_Entity.Width - 10) - ((int)lv_Entity.Width - 10) * 100 / 100;
             entity_view_tmp.graph_HP_Meter = ((int)lv_Entity.Width - 10) * 100 / 100;
             entity_view_tmp.graph_border = ToBrush("#00000000");
-            if (entity.Aggro && entity.HP > 0)
+            if (entity.Aggro && entity.Hp > 0)
             {
                 entity_view_tmp.graph_border = ToBrush("#FFFED700");
             }
-            if (entity.Type == EnumAion.eType.Gather)
+            if (entity.Type == eType.Gather)
             {
-                if (entity._Icon != null && File_img.Contains(entity._Icon.IMG_PATH))
-                {
-                    entity_view_tmp.graph_img = (ImageSource)File_img[entity._Icon.IMG_PATH];
-                }
-                else if (entity._Image_Where != null)
-                {
-                    entity_view_tmp.graph_img = entity._Image_Where;
-                }
-                else if (entity._Image_Object != null)
-                {
-                    entity_view_tmp.graph_img = entity._Image_Object;
-                }
-                else if (entity._Image != null)
-                {
-                    entity_view_tmp.graph_img = entity._Image;
-                }
+                if (entry.img != null)
+                    entity_view_tmp.graph_img = entry.img;
 
                 entity_view_tmp.graph_background.Color = ToColor(0x8F858585);
                 entity_view_tmp.graph_forground = ToBrush("#FFDDDD00");
             }
-            else if (entity.Type == EnumAion.eType.Pet || entity.Type == EnumAion.eType.NPC || entity.Type == EnumAion.eType.PlaceableObject)
+            else if (entity.Type != eType.User && entity.Type != eType.Player)
             {
-                entity_view_tmp.graph_HP_Meter_inv = ((int)lv_Entity.Width - 10) - ((int)lv_Entity.Width - 10) * entity.HP_Percent / 100;
-                entity_view_tmp.graph_HP_Meter = ((int)lv_Entity.Width - 10) * entity.HP_Percent / 100;
+                entity_view_tmp.graph_HP_Meter_inv = ((int)lv_Entity.Width - 10) - ((int)lv_Entity.Width - 10) * entity.HpPercent / 100;
+                entity_view_tmp.graph_HP_Meter = ((int)lv_Entity.Width - 10) * entity.HpPercent / 100;
 
-                if (entity._Icon != null && File_img.Contains(entity._Icon.IMG_PATH))
+                /*if (entity._Icon != null && File_img.Contains(entity._Icon.IMG_PATH))
                 {
                     entity_view_tmp.graph_img = (ImageSource)File_img[entity._Icon.IMG_PATH];
-                }
-                else if (entity._Image_Where != null)
-                {
-                    entity_view_tmp.graph_img = entity._Image_Where;
-                }
-                else if (entity._Image_Object != null)
-                {
-                    entity_view_tmp.graph_img = entity._Image_Object;
-                }
-                else if (entity._Image != null)
-                {
-                    entity_view_tmp.graph_img = entity._Image;
-                }
+                }*/
+                if (entry.img != null)
+                    entity_view_tmp.graph_img = entry.img;
 
-                if (entity.Race == EnumAion.eAttitude.Friendly)
+                if (entity.Attitude == fAttitude.Friendly)
                 {
                     entity_view_tmp.graph_background.Color = ToColor(0x8F858585);
                     entity_view_tmp.graph_forground = ToBrush("#FF22FFFF");
                 }
-                else if (entity.Race == EnumAion.eAttitude.Hostile)
+                else if (entity.Attitude == fAttitude.Hostile)
                 {
                     entity_view_tmp.graph_background.Color = ToColor(0x8F858585);
                     entity_view_tmp.graph_forground = ToBrush("#FFFFAAAA");
@@ -306,11 +235,11 @@ namespace BobyMultitools
                     entity_view_tmp.graph_forground = ToBrush("#FF22FF22");
                 }
             }
-            else if (entity.Type == EnumAion.eType.User)
+            else if (entity.Type == eType.User)
             {
-                entity_view_tmp.graph_HP_Meter_inv = ((int)lv_Entity.Width - 10) - ((int)lv_Entity.Width - 10) * entity.HP_Percent / 100;
-                entity_view_tmp.graph_HP_Meter = ((int)lv_Entity.Width - 10) * entity.HP_Percent / 100;
-                entity_view_tmp.graph_class = (ImageSource)Application.Current.FindResource("Class_Icon." + entity.Class);
+                entity_view_tmp.graph_HP_Meter_inv = ((int)lv_Entity.Width - 10) - ((int)lv_Entity.Width - 10) * entity.HpPercent / 100;
+                entity_view_tmp.graph_HP_Meter = ((int)lv_Entity.Width - 10) * entity.HpPercent / 100;
+                entity_view_tmp.graph_class = (ImageSource)Application.Current.FindResource("Class_Icon." + (int)entity.Class);
                 if (entity.Group)
                 {
                     entity_view_tmp.graph_background.Color = ToColor(0x8C006688);
@@ -321,12 +250,12 @@ namespace BobyMultitools
                     entity_view_tmp.graph_background.Color = ToColor(0x4C00FFFF);
                     entity_view_tmp.graph_forground = ToBrush("#FFFFFFFF");
                 }
-                else if (entity.Race == EnumAion.eAttitude.Friendly)
+                else if (entity.Attitude == fAttitude.Friendly)
                 {
                     entity_view_tmp.graph_background.Color = ToColor(0x2500FF41);
                     entity_view_tmp.graph_forground = ToBrush("#FFFFFFFF");
                 }
-                else if (entity.Is_Attackable == 0)
+                else if (entity.IsAttackable == 0)
                 {
                     entity_view_tmp.graph_background.Color = ToColor(0x8CFE0071);
                     entity_view_tmp.graph_forground = ToBrush("#FFFFAAAA");

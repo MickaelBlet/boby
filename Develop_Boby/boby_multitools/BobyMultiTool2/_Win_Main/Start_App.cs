@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Threading;
 
-using NS_Aion_Game;
 using _Threads;
 using MemoryLib;
 
@@ -22,9 +21,8 @@ namespace BobyMultitools
             {
                 this.cb_hide.IsChecked = true;
 
-                string content = lb_Game.SelectedItem.ToString();
-                string[] words = content.Split(':');
-                int id = Convert.ToInt32(words[0]);
+                Game_View content = (Game_View)lb_Game.SelectedItem;
+                int id = int.Parse(content.Pid);
 
                 Open_ID(id);
             }
@@ -32,31 +30,49 @@ namespace BobyMultitools
 
         private void Open_ID(int id)
         {
-            if (id > 0 && Aion_Game.Open(id))
+            if (id > 0 && Aion_Process.Game.Open(id))
             {
                 do
                 {
-                    Offset.Loading(Aion_Game.Modules.Game);
+                    Offset.Loading(Aion_Process.Game.Base);
                     if (!Offset.Base_windows.newbase.ContainsKey("chat_input_dialog"))
                         break;
                     System.Windows.Forms.Application.DoEvents();
                     Thread.Sleep(100);
                 } while (!Offset.Base_windows.newbase.ContainsKey("chat_input_dialog"));
 
-                Send_Chat.IniChat();
+                Aion_Game.Chat.Ini();
 
-                Start_Scan_Entity();
+                //Start_Scan_Entity();
+                New_Start_Scan_Entity();
 
                 Start_Radar();
                 Start_Entity();
                 Start_Cheat();
-                Start_Buff();
-                Start_Quick();
+                Start_Script();
+                //Start_Quick();
                 
 				this.WindowState = System.Windows.WindowState.Minimized;
             }
             else
                 Refresh_lb_Game();
+        }
+
+        public void New_Start_Scan_Entity()
+        {
+            if (in_Entity_List == null)
+            {
+                Thread T_Scan_Entity = new Thread(New_Scan_Entity_);
+                T_Scan_Entity.SetApartmentState(ApartmentState.STA);
+                T_Scan_Entity.Start();
+            }
+        }
+
+        public void New_Scan_Entity_()
+        {
+            in_Entity_List = new Aion_Game.EntityList(0);
+            Aion_Game.Entity_To_View.Start();
+            System.Windows.Threading.Dispatcher.Run();
         }
 
         public void Start_Scan_Entity()
@@ -71,7 +87,7 @@ namespace BobyMultitools
 
         public void Scan_Entity_()
         {
-            Thread_Entity in_Thread_Entity = new Thread_Entity(in_Win_Main);
+            in_Thread_Entity = new Thread_Entity(in_Win_Main);
             System.Windows.Threading.Dispatcher.Run();
         }
 
@@ -168,63 +184,32 @@ namespace BobyMultitools
             catch { }
         }
 
-        public void Start_Buff()
+        public void Start_Script()
         {
-            if (in_Win_Buff == null)
+            if (in_Win_Script == null)
             {
-                Thread T_Buff = new Thread(Buff_);
-                T_Buff.SetApartmentState(ApartmentState.STA);
-                T_Buff.Start();
+                Thread T_Script = new Thread(Script_);
+                T_Script.SetApartmentState(ApartmentState.STA);
+                T_Script.Start();
             }
             else
             {
-                in_Win_Buff.Dispatcher.Invoke((Action)(() =>
+                in_Win_Script.Dispatcher.Invoke((Action)(() =>
                 {
-                    in_Win_Buff.Topmost = false;
-                    in_Win_Buff.Topmost = true;
+                    in_Win_Script.Topmost = false;
+                    in_Win_Script.Topmost = true;
                 }));
             }
         }
 
-        public void Buff_()
+        public void Script_()
         {
             try
             {
-                Win_Buff in_Win_Buff = new Win_Buff(in_Win_Main);
-                if (in_Setting.in_Buff.Show.Get_Value())
-                    in_Win_Buff.Show();
-                in_Win_Buff.Closed += (sender2, e2) => in_Win_Buff.Dispatcher.InvokeShutdown();
-                System.Windows.Threading.Dispatcher.Run();
-            }
-            catch { }
-        }
-
-        public void Start_Quick()
-        {
-            if (in_Win_Quick == null)
-            {
-                Thread T_Quick = new Thread(Quick_);
-                T_Quick.SetApartmentState(ApartmentState.STA);
-                T_Quick.Start();
-            }
-            else
-            {
-                in_Win_Quick.Dispatcher.Invoke((Action)(() =>
-                {
-                    in_Win_Quick.Topmost = false;
-                    in_Win_Quick.Topmost = true;
-                }));
-            }
-        }
-
-        public void Quick_()
-        {
-            try
-            {
-                Win_Quick in_Win_Quick = new Win_Quick(in_Win_Main);
-                if (in_Setting.in_Quick.Show.Get_Value())
-                    in_Win_Quick.Show();
-                in_Win_Quick.Closed += (sender2, e2) => in_Win_Quick.Dispatcher.InvokeShutdown();
+                Win_Script in_Win_Script = new Win_Script(in_Win_Main);
+                if (in_Setting.in_Scripts.Show.Get_Value())
+                    in_Win_Script.Show();
+                in_Win_Script.Closed += (sender2, e2) => in_Win_Script.Dispatcher.InvokeShutdown();
                 System.Windows.Threading.Dispatcher.Run();
             }
             catch { }

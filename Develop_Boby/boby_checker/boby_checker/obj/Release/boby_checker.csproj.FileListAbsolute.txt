@@ -31,3 +31,16 @@ D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\MainWindow.g.cs
 D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\App.g.cs
 D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker_MarkupCompile.cache
 D:\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker.g.resources
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\App.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\MainWindow.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\App.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker_MarkupCompile.cache
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker_MarkupCompile.lref
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\bin\Release\boby_checker.exe.config
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\bin\Release\boby_checker.exe
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\Resources\Global_Resources\Windows.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\MainWindow.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\Resources\Global_Resources\Windows.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker.g.resources
+C:\Users\mickael\Documents\Develop_Boby\boby_checker\boby_checker\obj\Release\boby_checker.exe

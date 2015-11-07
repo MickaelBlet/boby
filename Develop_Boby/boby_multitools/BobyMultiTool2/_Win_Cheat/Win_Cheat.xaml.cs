@@ -15,7 +15,6 @@ using System.Windows.Interop;
 
 using System.Runtime.InteropServices;
 
-using NS_Aion_Game;
 using MemoryLib;
 
 namespace BobyMultitools
@@ -24,6 +23,7 @@ namespace BobyMultitools
     {
         public static Win_Main in_Win_Main = null;
         public Win_Cheat_Setting in_Win_Cheat_Setting = null;
+        public Win_Cheat_Move in_Win_Cheat_Move = null;
 
         public Style style_List_Header = null;
         public Style style_List_Header_Green = null;
@@ -39,6 +39,7 @@ namespace BobyMultitools
             in_Win_Main.in_Win_Cheat = this;
          
             in_Win_Cheat_Setting = new Win_Cheat_Setting(in_Win_Main);
+            in_Win_Cheat_Move = new Win_Cheat_Move(in_Win_Main);
 
             this.sl_Atk.Value = in_Win_Main.in_Setting.in_Cheat.Attack_Speed.Get_Value();
             sl_Atk_ValueChanged(null, null);
@@ -72,6 +73,14 @@ namespace BobyMultitools
                 in_Win_Cheat_Setting.Hide();
             else
                 in_Win_Cheat_Setting.Show();
+        }
+
+        private void bt_Move_Click(object sender, RoutedEventArgs e)
+        {
+            if (in_Win_Cheat_Move.IsVisible)
+                in_Win_Cheat_Move.Hide();
+            else
+                in_Win_Cheat_Move.Show();
         }
 
         private void Rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

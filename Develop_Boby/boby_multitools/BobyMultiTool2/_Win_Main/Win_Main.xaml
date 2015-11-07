@@ -1,9 +1,10 @@
 ﻿<Window
+    x:Class="BobyMultitools.Win_Main"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="BobyMultitools.Win_Main"
+    xmlns:Controls="clr-namespace:MyControl"
 	Title="BOBY_Multitools"
-	Height="198"
+	Height="185"
 	Width="318"
 	WindowStartupLocation="CenterScreen"
 	Topmost="True"
@@ -12,7 +13,8 @@
 	AllowsTransparency="True"
 	ResizeMode="NoResize"
 	FocusManager.FocusedElement="{Binding ElementName=lb_Game}"
-	Closing="Window_Closing">
+	Closing="Window_Closing"
+    LocationChanged="Window_LocationChanged">
     <Window.Resources>
         <Style TargetType="ProgressBar">
             <Setter Property="Template">
@@ -41,82 +43,259 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style
+			x:Key="myHeaderStyle"
+			TargetType="{x:Type GridViewColumnHeader}">
+            <Setter
+				Property="Visibility"
+				Value="Collapsed" />
+        </Style>
+        <Style x:Key="ItemContStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter	Property="Padding" Value="0" />
+            <Setter	Property="Margin" Value="0" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter	Property="BorderThickness" Value="0" />
+            <Setter	Property="Template">
+                <Setter.Value>
+                    <ControlTemplate
+						TargetType="{x:Type ListViewItem}">
+                        <Grid Name="g_st" Background="Transparent">
+                            <Rectangle
+							Name="r_top_select"
+							Visibility="Hidden"
+							VerticalAlignment="Top"
+							Margin="0,0,0,0"
+							Height="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="1,1">
+                                        <GradientStop
+										Offset="0"
+										Color="#FF84AF7E" />
+                                        <GradientStop
+										Offset="0.5"
+										Color="#FF84AF7E" />
+                                        <GradientStop
+										Offset="1"
+										Color="#8884AF7E" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect
+									ShadowDepth="4"
+									Color="Black"
+									Opacity="1"
+									BlurRadius="3" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <Rectangle
+							Name="r_bottom_select"
+							Visibility="Hidden"
+							VerticalAlignment="Bottom"
+							Margin="0,0,0,0"
+							Height="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="1,1">
+                                        <GradientStop
+										Offset="0"
+										Color="#8884AF7E" />
+                                        <GradientStop
+										Offset="0.5"
+										Color="#FF84AF7E" />
+                                        <GradientStop
+										Offset="1"
+										Color="#FF84AF7E" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle
+							Name="r_left_select"
+							Visibility="Hidden"
+							HorizontalAlignment="Left"
+							Margin="0,0,0,0"
+							Width="1"
+							Height="20">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="1,1">
+                                        <GradientStop
+										Offset="0"
+										Color="#FF84AF7E" />
+                                        <GradientStop
+										Offset="0.5"
+										Color="#FF84AF7E" />
+                                        <GradientStop
+										Offset="1"
+										Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect
+									ShadowDepth="4"
+									Color="Black"
+									Opacity="1"
+									BlurRadius="3" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <Rectangle
+							Name="r_right_select"
+							Visibility="Hidden"
+							HorizontalAlignment="Right"
+							Margin="0,0,0,0"
+							Width="1"
+							Height="20">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="1,1">
+                                        <GradientStop
+										Offset="0"
+										Color="Transparent" />
+                                        <GradientStop
+										Offset="0.5"
+										Color="#FF84AF7E" />
+                                        <GradientStop
+										Offset="1"
+										Color="#FF84AF7E" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle
+							Name="r_top"
+							Visibility="Hidden"
+							VerticalAlignment="Top"
+							Margin="0,0,0,0"
+							Height="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="1,1">
+                                        <GradientStop
+										Offset="0"
+										Color="Transparent" />
+                                        <GradientStop
+										Offset="0.5"
+										Color="#FFA4A75E" />
+                                        <GradientStop
+										Offset="1"
+										Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle
+							Name="r_bottom"
+							Visibility="Hidden"
+							VerticalAlignment="Bottom"
+							Margin="0,0,0,0"
+							Height="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush
+									StartPoint="0,0"
+									EndPoint="1,1">
+                                        <GradientStop
+										Offset="0"
+										Color="Transparent" />
+                                        <GradientStop
+										Offset="0.5"
+										Color="#FFA4A75E" />
+                                        <GradientStop
+										Offset="1"
+										Color="Transparent" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Image
+								Name="image_class"
+                                Source="{Binding graph_class}"
+								HorizontalAlignment="right"
+								Width="18"
+								Height="18"
+								Margin="0,0,4,0"></Image>
+                            <GridViewRowPresenter
+                                Name="content"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								Width="Auto"
+								Margin="0"
+								Content="{TemplateBinding Content}">
+                            </GridViewRowPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver"	Value="True">
+                                <Setter Property="Visibility" TargetName="r_top" Value="Visible" />
+                                <Setter Property="Visibility" TargetName="r_bottom" Value="Visible" />
+                                <Setter Property="Foreground" Value="#FFCBA85B" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Visibility" TargetName="r_top" Value="Hidden" />
+                                <Setter Property="Visibility" TargetName="r_bottom" Value="Hidden" />
+                                <Setter Property="Visibility" TargetName="r_top_select" Value="Visible" />
+                                <Setter Property="Visibility" TargetName="r_bottom_select" Value="Visible" />
+                                <Setter Property="Visibility" TargetName="r_left_select" Value="Visible" />
+                                <Setter Property="Visibility" TargetName="r_right_select" Value="Visible" />
+                                <Setter Property="Foreground" Value="#FFCBA85B" />
+                                <Setter Property="Background" TargetName="g_st" Value="#2255FFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
-        <ContentControl IsTabStop="False" Template="{StaticResource Style_Aion_Grid}" />
-        <Grid Margin="9,9,9,9">
-            <Label
-                VerticalAlignment="Top"
-				HorizontalAlignment="Left" 
-                Height="24"
-                Padding="5,1,0,0"
-				Content="BOBY Multitools v2.0"
-				Foreground="#FF000000"
-				FontWeight="Bold"
-				FontSize="16"
-                HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Top">
-                <Label.Effect>
-                    <DropShadowEffect
-						ShadowDepth="0"
-						Color="#FFFFFFFF"
-						Opacity="1"
-						BlurRadius="3" />
-                </Label.Effect>
-            </Label>
-            <Rectangle
-				MouseLeftButtonDown="Rt_Title_MouseLeftButtonDown"
-				Height="24"
-				Stretch="UniformToFill"
-				Margin="0,0,0,0"
-				VerticalAlignment="Top"
-				HorizontalAlignment="Left"
-				Name="rt_Title"
-				Cursor="SizeAll">
-                <Rectangle.Fill>
-                    <SolidColorBrush
-						Color="Transparent" />
-                </Rectangle.Fill>
-            </Rectangle>
-            <!--Style="{StaticResource Style_Check_Win_Button}"-->
-            <CheckBox
-				Name="cb_hide"
-				IsTabStop="False"
-                IsChecked="True"
-                Content=""
-				HorizontalAlignment="Right"
-				VerticalAlignment="Top"
-				Margin="0,0,64,0"
-				Checked="cb_hide_Checked"
-                Unchecked="cb_hide_Unchecked" />
-            <Button
-				Name="bt_Close"
-				IsTabStop="False"
-				Style="{StaticResource Style_Close_Button}"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Top"
-				Margin="0,0,4,0"
-				Click="Bt_Close_Click" />
-            <Button
-				Name="bt_Minimise"
-				IsTabStop="False"
-				Style="{StaticResource Style_Minimise_Button}"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Top"
-				Margin="0,0,37,0"
-				Click="Bt_Minimise_Click" />
-        </Grid>
-        <StackPanel Margin="9,32,9,9">
+        <!--WINDOW-->
+        <Controls:Windows Title="boby multitools" />
+        <!--TITLE BARRE-->
+        <Grid Margin="0,0,5,0"
+              HorizontalAlignment="Right"
+			  VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <Grid Width="200" VerticalAlignment="Top"
-				HorizontalAlignment="Left" Margin="3,5,0,0">
+                <CheckBox
+                    Width="27"
+				    Name="cb_hide"
+                    Style="{StaticResource WindowButton.Checkbox}"
+				    IsTabStop="False"
+                    IsChecked="True"
+                    Content=""
+				    Margin="-1,0,0,0"
+				    Checked="cb_hide_Checked"
+                    Unchecked="cb_hide_Unchecked" />
+                <Button
+				    Name="bt_Minimise"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Minimise}"
+                    Width="27"
+				    Margin="-1,0,0,0"
+				    Click="Bt_Minimise_Click">
+                </Button>
+                <Button
+				    Name="bt_Close"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Close}"
+                    Width="35"
+				    Margin="-1,0,0,0"
+				    Click="Bt_Close_Click">
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="3,28,3,3">
+            <StackPanel Orientation="Horizontal">
+                <Grid Width="218" VerticalAlignment="Stretch"
+				HorizontalAlignment="Left" Margin="0,0,0,0">
                     <StackPanel VerticalAlignment="Top"
-		    	HorizontalAlignment="Left" Margin="0,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Name="bt_Start" Click="Start_Button_Click" Width="100" Margin="0,0,0,0">Start</Button>
-                            <Button Name="bt_Refresh" Click="bt_Refresh_Click"  Width="100" Margin="0,0,0,0">Refresh</Button>
-                        </StackPanel>
-                        <Grid Background="#55000000">
+		    	HorizontalAlignment="Stretch"  Margin="0,0,0,0">
+                        <UniformGrid Columns="2"  Margin="0,2,0,2">
+                            <Button Name="bt_Start" Click="Start_Button_Click" Margin="0,0,1,0">START</Button>
+                            <Button Name="bt_Refresh" Click="bt_Refresh_Click"  Margin="1,0,0,0">REFRESH</Button>
+                        </UniformGrid>
+                        <Grid Background="#00555555">
                             <ProgressBar Name="pg_ShugoLoading"
 			                             x:FieldModifier="public"                                         
                                          HorizontalAlignment="Center"
@@ -130,7 +309,7 @@
 							    HorizontalAlignment="Center"
 							    VerticalAlignment="Center"
                                 Opacity="1"
-                                Height="122">
+                                Height="135">
                                 <Image.Effect>
                                     <DropShadowEffect
 						                ShadowDepth="0"
@@ -139,48 +318,107 @@
 						                BlurRadius="10" />
                                 </Image.Effect>
                             </Image>
-                            <ListBox
+                            <ListView
 							    HorizontalAlignment="Left"
 							    VerticalAlignment="Top"
 							    Margin="0,0,0,0"
-							    Width="200"
-							    Height="100"
-							    Background="Transparent"
-							    BorderBrush="#00FFFFFF"
+							    Width="218"
+							    Height="122"
+                                BorderThickness="0"
+							    BorderBrush="#22FFFFFF"
 							    Name="lb_Game"
 							    MouseDoubleClick="Lb_Game_MouseDoubleClick"
 							    PreviewKeyDown="Lb_Game_PreviewKeyDown"
                                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                SelectionMode="Single"
+                                ItemContainerStyle="{StaticResource ItemContStyle}"
 							    FontSize="13">
-                            </ListBox>
+                                <ListView.Style>
+                                    <Style TargetType="{x:Type ListView}">
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                    </Style>
+                                </ListView.Style>
+                                <ListView.Background>
+                                    <DrawingBrush TileMode="Tile"  Stretch="Fill" Viewport="0,1,1,40" ViewportUnits="Absolute">
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <GeometryDrawing Brush="#55000000">
+                                                    <GeometryDrawing.Geometry>
+                                                        <RectangleGeometry Rect="0,0,1,20" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                                <GeometryDrawing Brush="#55555555">
+                                                    <GeometryDrawing.Geometry>
+                                                        <RectangleGeometry Rect="0,20,1,20" />
+                                                    </GeometryDrawing.Geometry>
+                                                </GeometryDrawing>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </ListView.Background>
+                                <ListView.View>
+                                    <GridView
+                                        ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}"
+					                    AllowsColumnReorder="False">
+                                        <GridViewColumn
+						                    Width="157"
+						                    Header="Name">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+									                    Margin="-3,0,0,0"
+									                    TextTrimming="CharacterEllipsis"
+									                    Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn
+                                            Width="55"
+						                    Header="Lvl">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+									                    Margin="-13,0,-13,0"
+									                    HorizontalAlignment="Left"
+									                    Text="{Binding Lvl}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </Grid>
                     </StackPanel>
                 </Grid>
                 <Grid VerticalAlignment="Top"
 				      HorizontalAlignment="Left"
-				      Width="90" Margin="3,5,0,0" Background="#55000000">
+				      Width="93" Margin="2,3,0,0" Background="#00555555" Height="162">
                     <StackPanel VerticalAlignment="Top"
-				HorizontalAlignment="Left" Margin="0,5,0,5" Width="90">
+				HorizontalAlignment="Stretch" Margin="0,0,0,0">
                         <CheckBox Name="cb_Radar"
                                   Checked="cb_Radar_Checked"
-                                  Unchecked="cb_Radar_Unchecked">
+                                  Unchecked="cb_Radar_Unchecked"
+                                  Margin="0,1,0,1">
                             Radar
                         </CheckBox>
                         <CheckBox Name="cb_Entity"
                                   Checked="cb_Entity_Checked"
-                                  Unchecked="cb_Entity_Unchecked">
+                                  Unchecked="cb_Entity_Unchecked"
+                                  Margin="0,1,0,1">
                             Entity
                         </CheckBox>
-                        <CheckBox Name="cb_Buff"
-                                  Checked="cb_Buff_Checked"
-                                  Unchecked="cb_Buff_Unchecked">Buff</CheckBox>
                         <CheckBox Name="cb_Cheat"
                                   Checked="cb_Cheat_Checked"
-                                  Unchecked="cb_Cheat_Unchecked">Cheat</CheckBox>
+                                  Unchecked="cb_Cheat_Unchecked"
+                                  Margin="0,1,0,1">Cheat</CheckBox>
+                        <CheckBox Name="cb_Script"
+                                  Checked="cb_Script_Checked"
+                                  Unchecked="cb_Script_Unchecked"
+                                  Margin="0,1,0,1">Script</CheckBox>
                         <CheckBox Name="cb_Quick"
-                                  Checked="cb_Quick_Checked"
-                                  Unchecked="cb_Quick_Unchecked">Quick</CheckBox>
-                        <CheckBox IsEnabled="False"  Name="cb_Trad">Trad</CheckBox>
+                                  IsEnabled="False"
+                                  Margin="0,1,0,1">????????</CheckBox>
+                        <CheckBox IsEnabled="False" Name="cb_Bot">????????</CheckBox>
                     </StackPanel>
                 </Grid>
             </StackPanel>

@@ -78,8 +78,11 @@ namespace BOBY_Shulack
                 float player_x = SplMemory.ReadFloat(AionProcess.Modules.Game + (long)Offset.Player.X);
                 float player_y = SplMemory.ReadFloat(AionProcess.Modules.Game + (long)Offset.Player.Y);
 
-                if (long.Parse(kinas.Replace(" ", "")) <= 0 && SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50) != "")
-                    kinas = SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50);
+                Console.WriteLine(player_x.ToString());
+                Console.WriteLine(player_y.ToString());
+
+                //if (long.Parse(kinas.Replace(" ", "")) <= 0 && SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50) != "")
+                //    kinas = SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50);
 
                 ini_Win_Shulack.Dispatcher.Invoke(
                     new SetString(ini_Win_Shulack.Set_Title),
@@ -142,14 +145,14 @@ namespace BOBY_Shulack
 			                    	+ (long)Offset.Cube.Curent)).ToString() }
                 );
 
-                ini_Win_Shulack.Dispatcher.Invoke(
+                /*ini_Win_Shulack.Dispatcher.Invoke(
                     new SetString(ini_Win_Shulack.Set_Count),
                     new object[] {
                         ini_Win_Choose.ini_Boucle_Skills.count_shulack.ToString()
                     }
-               );
+               );*/
 
-                if (SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50) != "0")
+                /*if (SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50) != "0")
                 {
                     ini_Win_Shulack.Dispatcher.Invoke(
                         new SetString(ini_Win_Shulack.Set_Kinas),
@@ -157,7 +160,7 @@ namespace BOBY_Shulack
                         (long.Parse(SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50).Replace(" ", "")) - long.Parse(kinas.Replace(" ", ""))).ToString()
                     }
                    );
-                }
+                }*/
 
                 Thread.Sleep(1000);
             }
@@ -167,8 +170,9 @@ namespace BOBY_Shulack
         {
             while (true)
             {
-                ReleaseUnusedMemory();
-                Thread.Sleep(60000);
+                ini_Win_Choose.SendEnter2();
+                //ReleaseUnusedMemory();
+                Thread.Sleep(300000);
             }
         }
 

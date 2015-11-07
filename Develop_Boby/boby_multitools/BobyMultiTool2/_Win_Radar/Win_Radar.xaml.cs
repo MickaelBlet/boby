@@ -12,7 +12,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using NS_Aion_Game;
 using MemoryLib;
 
 namespace BobyMultitools
@@ -65,11 +64,10 @@ namespace BobyMultitools
                 this.BG.Opacity = 0;
                 this.View.Opacity = 0;
                 this.North.Source = null;
-                //this.BG_Setting.Source = null;
+                this.button_Setting.Visibility = Visibility.Hidden;
                 this.bt_Setting.Opacity = 0;
             }
 
-            Radar_View();
             Radar_Image_To_Canvas();
         }
 
@@ -98,7 +96,7 @@ namespace BobyMultitools
 
         void SlashSelect(long entityPtr)
         {
-            Character.Select(entityPtr);
+            //Character.Select(entityPtr);
             select_is_ready = true;
         }
 
@@ -177,7 +175,7 @@ namespace BobyMultitools
             this.BG.Opacity = 0;
             this.View.Opacity = 0;
             this.North.Source = null;
-            //this.BG_Setting.Source = null;
+            this.button_Setting.Visibility = Visibility.Hidden;
             this.bt_Setting.Opacity = 0;
             in_Win_Main.in_Setting.in_Radar.BGon.Set_Value(true);
         }
@@ -187,7 +185,7 @@ namespace BobyMultitools
             this.BG.Opacity = 1;
             this.View.Opacity = 1;
             this.North.Source = s_North;
-           // this.BG_Setting.Source = s_BG_Setting;
+            this.button_Setting.Visibility = Visibility.Visible;
             this.bt_Setting.Opacity = 1;
             in_Win_Main.in_Setting.in_Radar.BGon.Set_Value(false);
         }

@@ -19,7 +19,7 @@ namespace MemoryLib
         {
             st_hanble = ptr;
         }
-		
+
 		#region _ReadMemory
 		public static byte ReadByte(long address)
 		{
@@ -35,8 +35,11 @@ namespace MemoryLib
 		{
             return Memory.ReadInt(st_hanble, address);
 		}
-		
-		public static long ReadLong(long address)
+        public static uint ReadUIint(long address)
+        {
+            return Memory.ReadUInt(st_hanble, address);
+        }
+        public static long ReadLong(long address)
 		{
             return Memory.ReadLong(st_hanble, address);
 		}

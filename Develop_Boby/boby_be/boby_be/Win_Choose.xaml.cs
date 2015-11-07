@@ -95,14 +95,20 @@ namespace BOBY_Shulack
         public Boucle_Delete ini_Boucle_Delete = null;
         public Boucle_Bateau ini_Boucle_Bateau = null;
 
+        public List<string> bl_list = null;
+
+        public string checkckck = "";
+
         public Thread_Entity in_threadentity = null;
+        public Thread_Entity2 in_threadentity2 = null;
 
         DispatcherTimer messageTimer;
 
         public int Pid = 0;
+        public int Pid2 = 0;
 
         public bool hide = false;
-        
+
         void CheckUpdate()
         {
             if (File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_update.exe"))
@@ -123,11 +129,11 @@ namespace BOBY_Shulack
                 }
 
                 if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
+                {
+                    MessageBox.Show("Connection server.", "Error");
+                    Environment.Exit(0);
                 }
-                
+
                 if (fileVersion != check_version_web)
                 {
                     using (WebClient Client = new WebClient())
@@ -139,9 +145,9 @@ namespace BOBY_Shulack
             }
             if (!File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_update.exe"))
             {
-            	string check_version_web = "";
-            	
-            	using (WebClient Client = new WebClient())
+                string check_version_web = "";
+
+                using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
                     try
@@ -154,11 +160,11 @@ namespace BOBY_Shulack
                 }
 
                 if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
+                {
+                    MessageBox.Show("Connection server.", "Error");
+                    Environment.Exit(0);
                 }
-            	
+
                 using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
@@ -188,7 +194,7 @@ namespace BOBY_Shulack
                 //Environment.Exit(0);
             }
         }
-        
+
         void CheckChecker()
         {
             if (File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_checker.exe"))
@@ -209,11 +215,11 @@ namespace BOBY_Shulack
                 }
 
                 if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
+                {
+                    MessageBox.Show("Connection server.", "Error");
+                    Environment.Exit(0);
                 }
-                
+
                 if (fileVersion != check_version_web)
                 {
                     using (WebClient Client = new WebClient())
@@ -225,9 +231,9 @@ namespace BOBY_Shulack
             }
             if (!File.Exists(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_checker.exe"))
             {
-            	string check_version_web = "";
-            	
-            	using (WebClient Client = new WebClient())
+                string check_version_web = "";
+
+                using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
                     try
@@ -240,11 +246,11 @@ namespace BOBY_Shulack
                 }
 
                 if (check_version_web == "..." || check_version_web == "")
-				{
-					MessageBox.Show("Connection server.", "Error");
-            		Environment.Exit(0);
+                {
+                    MessageBox.Show("Connection server.", "Error");
+                    Environment.Exit(0);
                 }
-            	
+
                 using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
@@ -270,30 +276,64 @@ namespace BOBY_Shulack
                 //Environment.Exit(0);
             }
         }
-        
+
         void CheckValidKey(string _key)
         {
-        	string r_key = "";
-	        
-	        try
+            string r_key = "";
+
+            try
             {
                 using (WebClient Client = new WebClient())
                 {
                     Client.Proxy = null;
-                    r_key = Client.DownloadString(@"http://boby.pe.hu/checkkey.php?k="+_key);
+                    r_key = Client.DownloadString(@"http://boby.pe.hu/checkkey.php?k=" + _key);
                 }
-	        }
-	        catch
-	        {
-	        	MessageBox.Show("Connection server.", "Error");
-            	Environment.Exit(0);
-	        }
-	        
-	        for (int i = 0; i < 32; i++)
-	        {
-	        	if (r_key[i] != '&')
-            		Environment.Exit(0);	        		
-	        }
+            }
+            catch
+            {
+                MessageBox.Show("Connection server.", "Error");
+                Environment.Exit(0);
+            }
+
+            for (int i = 0; i < 32; i++)
+            {
+                checkckck += r_key[i];
+                if (r_key[i] != '&')
+                    Environment.Exit(0);
+            }
+
+            try
+            {
+                using (WebClient Client = new WebClient())
+                {
+                    Client.Proxy = null;
+
+                    string l = Client.DownloadString(@"http://boby.pe.hu/checkkey.php?k=" + "fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe");
+
+                    var s = l.ToCharArray();
+
+                    string t = "";
+
+                    foreach (var c in s)
+                    {
+                        if (c - 31 < 0)
+                            t += (char)(126 + c - 31);
+                        else
+                            t += (char)(c - 31);
+                    }
+
+                    string[] words = t.Split(';');
+                    bl_list = new List<string>();
+
+                    foreach (var n in words)
+                        bl_list.Add(n);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Connection server.", "Error");
+                Environment.Exit(0);
+            }
         }
 
         public Win_Choose()
@@ -304,22 +344,18 @@ namespace BOBY_Shulack
             {
                 CheckUpdate();
             }
-        	Listing.List();
-			if (Environment.GetCommandLineArgs().Length == 1)
-			{
-				CheckChecker();
-				Environment.Exit(0);
-			}
-			CheckValidKey(Environment.GetCommandLineArgs()[1]);
-			this.Show();
-			
-			Online_Users_Sequence();
+            Listing.List();
+            if (Environment.GetCommandLineArgs().Length == 1)
+            {
+                CheckChecker();
+                Environment.Exit(0);
+            }
+            CheckValidKey(Environment.GetCommandLineArgs()[1]);
 
-            if (!Directory.Exists("Skills_List"))
-                Directory.CreateDirectory("Skills_List");
+            this.Show();
 
-            UpdateText("YOLLLOOOOOO");
-            
+            UpdateText("BOOUUUMMMM 600M en 24h !!!\nClass distance et Clerc en Mode Speed !\n(il y a des cannaux sur le serveur débutant)");
+
             ini_Settings = new Settings();
 
             ini_Win_Loot = new Win_Loot();
@@ -414,8 +450,12 @@ namespace BOBY_Shulack
 
         public void SearchGame()
         {
+            if (!Directory.Exists("Skills_List"))
+                Directory.CreateDirectory("Skills_List");
+
             this.Pid = 0;
             listBox_Game.Items.Clear();
+            listBox_Game2.Items.Clear();
             string Name = "";
             Process[] pid = Process.GetProcessesByName("aion.bin");
 
@@ -444,12 +484,19 @@ namespace BOBY_Shulack
                     }
 
                     listBox_Game.Items.Add(pid[i].Id + ": " + Name);
+                    listBox_Game2.Items.Add(pid[i].Id + ": " + Name);
                 }
                 catch { }
                 Name = "";
             }
 
             listBox_Game.SelectedItem = listBox_Game.Items[0];
+            listBox_Game2.SelectedItem = listBox_Game2.Items[0];
+
+            if (checkckck.Length != 32)
+                Environment.Exit(0);
+            if (Environment.GetCommandLineArgs()[1].Length != 128)
+                Environment.Exit(0);
 
             //if (pid.Length == 1)
             //{
@@ -506,6 +553,7 @@ namespace BOBY_Shulack
 
         void StartAll()
         {
+            AionProcess.Open2(Pid2);
             if (Pid != 0 && AionProcess.Open(Pid))
             {
                 Offset.Loading(AionProcess.Modules.Game);
@@ -514,13 +562,15 @@ namespace BOBY_Shulack
                 ini_Win_Skills = new Win_Skills();
                 ini_Win_Shulack.Show();
                 //AbyTest();
-                ini_Ability_List.UpdateAbilities();
-                Find_Best_Skill();
+                //ini_Ability_List.UpdateAbilities();
+                Online_Users_Sequence();
+                //Find_Best_Skill();
                 ini_Boucle_Status = new Boucle_Status();
-                ini_Boucle_Skills = new Boucle_Skills();
+                //ini_Boucle_Skills = new Boucle_Skills();
                 ini_Boucle_Delete = new Boucle_Delete();
                 ini_Boucle_Bateau = new Boucle_Bateau();
                 in_threadentity = new Thread_Entity();
+                in_threadentity2 = new Thread_Entity2();
                 /*if (ini_Settings.inMain.shoCheat)
                 {
                     ini_Win_Cheat.Show();
@@ -614,6 +664,11 @@ namespace BOBY_Shulack
                         string[] words = pid.Split(':');
                         pid = words[0];
                         this.Pid = Convert.ToInt32(pid);
+
+                        string pid2 = listBox_Game2.SelectedItem.ToString();
+                        string[] words2 = pid2.Split(':');
+                        pid2 = words2[0];
+                        this.Pid2 = Convert.ToInt32(pid2);
                         StartAll();
                     }
                     catch { }
@@ -635,6 +690,11 @@ namespace BOBY_Shulack
                 string[] words = pid.Split(':');
                 pid = words[0];
                 this.Pid = Convert.ToInt32(pid);
+
+                string pid2 = listBox_Game2.SelectedItem.ToString();
+                string[] words2 = pid2.Split(':');
+                pid2 = words2[0];
+                this.Pid2 = Convert.ToInt32(pid2);
                 StartAll();
             }
         }
@@ -647,6 +707,11 @@ namespace BOBY_Shulack
                 string[] words = pid.Split(':');
                 pid = words[0];
                 this.Pid = Convert.ToInt32(pid);
+
+                string pid2 = listBox_Game2.SelectedItem.ToString();
+                string[] words2 = pid2.Split(':');
+                pid2 = words2[0];
+                this.Pid2 = Convert.ToInt32(pid2);
                 StartAll();
             }
         }
@@ -686,6 +751,17 @@ namespace BOBY_Shulack
             ).Start();
         }
 
+        public void SendEnter2()
+        {
+            (
+                new Thread(() =>
+                {
+                    SendMessage(AionProcess.whandle2, 0x0100, (IntPtr)0x08, IntPtr.Zero);
+                }
+                          )
+            ).Start();
+        }
+
         public void SendEscape()
         {
             (
@@ -693,6 +769,17 @@ namespace BOBY_Shulack
                            {
                                SendMessage(AionProcess.whandle, 0x0100, (IntPtr)0x1B, IntPtr.Zero);
                            }
+                          )
+            ).Start();
+        }
+
+        public void SendSpace()
+        {
+            (
+                new Thread(() =>
+                {
+                    SendMessage(AionProcess.whandle, 0x0100, (IntPtr)0x20, IntPtr.Zero);
+                }
                           )
             ).Start();
         }
@@ -726,12 +813,16 @@ namespace BOBY_Shulack
 
         public void SendCtrlV()
         {
-            for (int i = 0; i < 256; i++){
-             	SendMessage(AionProcess.whandle, 0x0102, (IntPtr)0x42, IntPtr.Zero);
-        	}
+            for (int i = 0; i < 64; i++)
+            {
+                PostMessage(AionProcess.whandle, 0x0102, (IntPtr)0x42, IntPtr.Zero); // B
+                PostMessage(AionProcess.whandle, 0x0102, (IntPtr)0x4F, IntPtr.Zero); // O
+                PostMessage(AionProcess.whandle, 0x0102, (IntPtr)0x42, IntPtr.Zero); // B
+                PostMessage(AionProcess.whandle, 0x0102, (IntPtr)0x59, IntPtr.Zero); // Y
+            }
         }
 
-        void SendReturn()
+        public void SendReturn()
         {
             SendMessage(AionProcess.whandle, 0x100, (IntPtr)0x08, IntPtr.Zero);
         }
@@ -742,30 +833,28 @@ namespace BOBY_Shulack
             {
                 if (GetValue_Chat_Input_Ini() < 255)
                 {
-                	if (GetValue_Chat_Is_Open() == 7)
-                	{
-                    	SendCtrlV();
-                    }
+                    if (GetValue_Chat_Is_Open() == 7)
+                        SendCtrlV();
                     if (GetValue_Chat_Is_Open() == 6)
-                    {
-                    	SendEnter();
-                    }
+                        SendEnter();
                 }
                 else
                 {
-                	if (GetValue_Chat_Is_Open() == 7)
-                	{
-                		long adressChat = GetAddress_Chat_For_Text();
-	                    if (adressChat != 0)
-	                    {
-		                    SplMemory.WriteWchar(adressChat, "", 255);
-                        	SendEnter();
-	                    }
-                	}
-                	if (GetValue_Chat_Is_Open() == 6)
-                	{
-                		return ;
-                	}
+                    if (GetValue_Chat_Is_Open() == 7)
+                    {
+                        long adressChat = GetAddress_Chat_For_Text();
+                        if (adressChat != 0)
+                        {
+                            SplMemory.WriteWchar(adressChat, "", 255);
+                            SendEnter();
+                            SendEnter();
+                            Thread.Sleep(50);
+                            SendReturn();
+                            SendEnter();
+                        }
+                    }
+                    if (GetValue_Chat_Is_Open() == 6)
+                        return;
                 }
             }
             catch { }

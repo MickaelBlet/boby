@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.IO.Compression;
 using System.Reflection;
 
+using NS_Aion_Game;
 
 namespace Boby_Shulack
 {
@@ -105,6 +106,8 @@ namespace Boby_Shulack
             if (!File.Exists(Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location) + ".vshost.exe"))
                 CheckUpdate();
             Listing.List();
+
+            Offset.Download(this);
 
             in_Setting = new Setting(in_Win_Main);
 

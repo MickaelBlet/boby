@@ -39,7 +39,7 @@
                                     </GeometryGroup>
                                 </GeometryDrawing.Geometry>
                             </GeometryDrawing>
-                            <GeometryDrawing Brush="#FFFFFFFF">
+                            <GeometryDrawing Brush="#555">
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
                                         <EllipseGeometry RadiusX="157" RadiusY="157" Center="199,199" />
@@ -49,44 +49,39 @@
                             </GeometryDrawing>
                             <GeometryDrawing>
                                 <GeometryDrawing.Brush>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#77FFFFFF" Offset="0.5"/>
-                                        <GradientStop Color="#33FFFFFF" Offset="0"/>
-                                        <GradientStop Color="#33FFFFFF" Offset="1"/>
+                                    <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,1">
+                                        <GradientStop Color="#55FFFFFF" Offset="0.4"/>
+                                        <GradientStop Color="#55FFFFFF" Offset="0.6"/>
+                                        <GradientStop Color="#33000000" Offset="0"/>
+                                        <GradientStop Color="#33000000" Offset="1"/>
                                     </LinearGradientBrush>
                                 </GeometryDrawing.Brush>
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
-                                        <EllipseGeometry RadiusX="177" RadiusY="177" Center="199,199" />
+                                        <EllipseGeometry RadiusX="173" RadiusY="173" Center="199,199" />
                                         <EllipseGeometry RadiusX="158" RadiusY="158" Center="199,199" />
                                     </GeometryGroup>
                                 </GeometryDrawing.Geometry>
                             </GeometryDrawing>
-                            <GeometryDrawing Brush="#FFFFFFFF">
+                            <GeometryDrawing Brush="#555">
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
-                                        <EllipseGeometry RadiusX="179" RadiusY="179" Center="199,199" />
-                                        <EllipseGeometry RadiusX="177" RadiusY="177" Center="199,199" />
+                                        <EllipseGeometry RadiusX="175" RadiusY="175" Center="199,199" />
+                                        <EllipseGeometry RadiusX="173" RadiusY="173" Center="199,199" />
                                     </GeometryGroup>
                                 </GeometryDrawing.Geometry>
                             </GeometryDrawing>
                             <GeometryDrawing Brush="#55000000">
                                 <GeometryDrawing.Geometry>
                                     <GeometryGroup>
-                                        <EllipseGeometry RadiusX="181" RadiusY="181" Center="199,199" />
-                                        <EllipseGeometry RadiusX="179" RadiusY="179" Center="199,199" />
+                                        <EllipseGeometry RadiusX="177" RadiusY="177" Center="199,199" />
+                                        <EllipseGeometry RadiusX="175" RadiusY="175" Center="199,199" />
                                     </GeometryGroup>
                                 </GeometryDrawing.Geometry>
                             </GeometryDrawing>
                         </DrawingGroup>
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
-                <!--ImageBrush
-					x:Name="BG_Mask"
-                    Viewport="0,0,199,199"
-					ViewportUnits="Absolute"
-					TileMode="None"
-					ImageSource="{StaticResource BG.Masque}" />-->
             </Canvas.Background>
         </Canvas>
         <Image Name="View" Source="{StaticResource BG.View}" />
@@ -192,30 +187,30 @@
                 </ContextMenu>
             </Canvas.ContextMenu>
         </Canvas>
-        <Grid Name="button_Setting" VerticalAlignment="Bottom" Width="28" Height="28" HorizontalAlignment="Right" Margin="30,10">
+        <Grid Name="button_Setting" VerticalAlignment="Bottom" Width="24" Height="24" HorizontalAlignment="Right" Margin="30,20">
             <Ellipse Name="BG_Setting">
                 <Ellipse.Fill>
                     <DrawingBrush
-                    Viewport="0,0,28,28"
+                    Viewport="0,0,24,24"
 					ViewportUnits="Absolute"
 					TileMode="None">
                         <DrawingBrush.Drawing>
                             <DrawingGroup>
                                 <GeometryDrawing Brush="Transparent">
                                     <GeometryDrawing.Geometry>
-                                        <EllipseGeometry RadiusX="28" RadiusY="28" Center="28,28" />
+                                        <EllipseGeometry RadiusX="24" RadiusY="24" Center="24,24" />
                                     </GeometryDrawing.Geometry>
                                 </GeometryDrawing>
-                                <GeometryDrawing Brush="#99000000">
+                                <GeometryDrawing Brush="#33000000">
                                     <GeometryDrawing.Geometry>
-                                        <EllipseGeometry RadiusX="27" RadiusY="27" Center="28,28" />
+                                        <EllipseGeometry RadiusX="23" RadiusY="23" Center="24,24" />
                                     </GeometryDrawing.Geometry>
                                 </GeometryDrawing>
-                                <GeometryDrawing Brush="White">
+                                <GeometryDrawing Brush="#555">
                                     <GeometryDrawing.Geometry>
                                         <GeometryGroup>
-                                            <EllipseGeometry RadiusX="28" RadiusY="28" Center="28,28" />
-                                            <EllipseGeometry RadiusX="26" RadiusY="26" Center="28,28" />
+                                            <EllipseGeometry RadiusX="24" RadiusY="24" Center="24,24" />
+                                            <EllipseGeometry RadiusX="22" RadiusY="22" Center="24,24" />
                                         </GeometryGroup>
                                     </GeometryDrawing.Geometry>
                                 </GeometryDrawing>
@@ -225,7 +220,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <!--<Image Name="BG_Setting" Source="{StaticResource BG.Setting}" />-->
-            <Button Name="bt_Setting" Margin="4,4" Style="{StaticResource Style_Radar_Setting_Button}"
+            <Button Name="bt_Setting" Margin="2,2" Style="{StaticResource Style_Radar_Setting_Button}"
                     Click="bt_Setting_Click" />
         </Grid>
     </Grid>

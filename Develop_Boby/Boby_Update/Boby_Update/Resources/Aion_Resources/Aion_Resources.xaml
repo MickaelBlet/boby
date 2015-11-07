@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Controls\Loading\Loading.xaml" />
+        <ResourceDictionary Source="Controls\Win_Button\Win_Button.xaml" />
+        <ResourceDictionary Source="Windows\Windows.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

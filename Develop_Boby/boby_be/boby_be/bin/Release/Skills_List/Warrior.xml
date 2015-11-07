@@ -1,33 +1,75 @@
 <?xml version="1.0"?>
 <ArrayOfSkills xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Skills>
-    <Name>Seau sans fond</Name>
-    <HP>32</HP>
-    <MP>32</MP>
-    <Type>Item</Type>
-  </Skills>
-  <Skills>
-    <Name>Panacée de mana excellente</Name>
+    <Name>Yaaaaaaaaaayyyyy-Urtem</Name>
     <HP>0</HP>
     <MP>0</MP>
-    <Type>Item</Type>
+    <Type>OffFight</Type>
   </Skills>
   <Skills>
-    <Name>Elixir de mana excellent</Name>
+    <Name>Hallowed-Nexus</Name>
     <HP>0</HP>
     <MP>0</MP>
-    <Type>Item</Type>
+    <Type>OffFight</Type>
   </Skills>
   <Skills>
-    <Name>Panacée de vie excellente</Name>
+    <Name>Besansha-Krome</Name>
     <HP>0</HP>
     <MP>0</MP>
-    <Type>Item</Type>
+    <Type>OffFight</Type>
   </Skills>
   <Skills>
-    <Name>Elixir de vie excellent</Name>
+    <Name>Sukysuky-Urtem</Name>
     <HP>0</HP>
     <MP>0</MP>
-    <Type>Item</Type>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Crintruck-Nexus</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Datashe-Krome</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Asemas-Telem</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OnFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Sequa-Urtem</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Huedo-Urtem</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Gwoinchan-Urtem</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Shulackse-Suthr</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
+  </Skills>
+  <Skills>
+    <Name>Torlaye-Urtem</Name>
+    <HP>0</HP>
+    <MP>0</MP>
+    <Type>OffFight</Type>
   </Skills>
 </ArrayOfSkills>

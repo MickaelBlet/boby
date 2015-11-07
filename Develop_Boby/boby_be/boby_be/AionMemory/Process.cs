@@ -86,14 +86,18 @@ namespace AddProcess
 
 		/// <summary>Handle of current AION process.</summary>
 		public static IntPtr handle;
-		/// <summary>Contains base addresses for AION's essential modules.</summary>
-		public static ModuleBase Modules;
-		/// <summary>Handle of current AION window.</summary>
-		public static IntPtr whandle;
-		/// <summary>Handle of current AION window.</summary>
-		public static int pid;
-		
-		public static List<IntPtr> listhandle;
+		public static IntPtr handle2;
+        /// <summary>Contains base addresses for AION's essential modules.</summary>
+        public static ModuleBase Modules;
+        public static ModuleBase Modules2;
+        /// <summary>Handle of current AION window.</summary>
+        public static IntPtr whandle;
+		public static IntPtr whandle2;
+        /// <summary>Handle of current AION window.</summary>
+        public static int pid;
+        public static int pid2;
+
+        public static List<IntPtr> listhandle;
 
 		/// <summary>
 		/// Open current AION process for reading/writing.
@@ -124,12 +128,25 @@ namespace AddProcess
             }
 			return (handle != IntPtr.Zero);
 		}
-		/// <summary>
-		/// Find whandle from pid
-		/// </summary>
-		/// <param name="pid"></param>
-		/// <returns></returns>
-		private static IntPtr WHandleFromPid(int pid)
+
+        public static bool Open2(int Pid)
+        {
+            handle2 = Memory.OpenProcess(Pid);
+            whandle2 = WHandleFromPid(Pid);
+            pid2 = Pid;
+            if (handle2 != IntPtr.Zero)
+            {
+                Modules2 = new ModuleBase(true, Pid);
+                SplMemory2.SetHanble(handle2);
+            }
+            return (handle2 != IntPtr.Zero);
+        }
+        /// <summary>
+        /// Find whandle from pid
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        private static IntPtr WHandleFromPid(int pid)
 		{
 			IntPtr wHandle = IntPtr.Zero;
 			Process[] procs = Process.GetProcesses();

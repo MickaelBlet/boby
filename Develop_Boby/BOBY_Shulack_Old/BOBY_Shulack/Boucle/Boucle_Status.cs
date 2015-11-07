@@ -71,15 +71,10 @@ namespace BOBY_Shulack
         void ft_status()
         {
 
-            string kinas = "0";
-
             while (true)
             {
                 float player_x = SplMemory.ReadFloat(AionProcess.Modules.Game + (long)Offset.Player.X);
                 float player_y = SplMemory.ReadFloat(AionProcess.Modules.Game + (long)Offset.Player.Y);
-
-                if (long.Parse(kinas.Replace(" ", "")) <= 0)
-                    kinas = SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50);
 
                 ini_Win_Shulack.Dispatcher.Invoke(
                     new SetString(ini_Win_Shulack.Set_Title),
@@ -150,16 +145,6 @@ namespace BOBY_Shulack
                         ini_Win_Choose.ini_Boucle_Skills.count_shulack.ToString()
                     }
                );
-
-                if (SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50) != "0")
-                {
-                    ini_Win_Shulack.Dispatcher.Invoke(
-                        new SetString(ini_Win_Shulack.Set_Kinas),
-                        new object[] {
-                        (long.Parse(SplMemory.ReadWchar(AionProcess.Modules.Game + 0xED4458, 50).Replace(" ", "")) - long.Parse(kinas.Replace(" ", ""))).ToString()
-                    }
-                   );
-                }
 
                 Thread.Sleep(1000);
             }

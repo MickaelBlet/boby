@@ -28,4 +28,32 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <CroppedBitmap x:Key="CLear.Target.Entity"           Source="Button.png" SourceRect="0,22,22,22"/>
+    <CroppedBitmap x:Key="CLear.Target.Entity.Hover"     Source="Button.png" SourceRect="22,22,22,22"/>
+    <CroppedBitmap x:Key="CLear.Target.Entity.Pressed"   Source="Button.png" SourceRect="44,22,22,22"/>
+
+    <Style x:Key="bt_Clear" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Transparent" />
+        <Setter Property="Width" Value="22" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Image Name="image"	Source="{StaticResource CLear.Target.Entity}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"	Value="True">
+                            <Setter Property="Source" TargetName="image"
+							        Value="{StaticResource CLear.Target.Entity.Hover}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter	Property="Source" TargetName="image"
+							        Value="{StaticResource CLear.Target.Entity.Pressed}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

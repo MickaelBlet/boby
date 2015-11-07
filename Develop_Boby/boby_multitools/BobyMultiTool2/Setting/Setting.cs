@@ -23,8 +23,7 @@ namespace BobyMultitools
 		public CheatKey	in_CheatKey	= null;
 		public Entity	in_Entity	= null;
 		public Radar	in_Radar	= null;
-        public Buff		in_Buff		= null;
-        public Quick	in_Quick	= null;
+        public Scripts	in_Scripts	= null;
 
 		private 		string		sConfigFile	= null;
 		public static	XmlDocument	xmlDoc		= null;
@@ -34,14 +33,13 @@ namespace BobyMultitools
         public Setting(Win_Main tmp_Win_Main)
 		{
             in_Win_Main = tmp_Win_Main;
-			sConfigFile	= Convert.ToString(Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(this.GetType()).Location)) + "\\Boby_Multitools_Setting.xml";
+			sConfigFile	= Convert.ToString(Path.GetDirectoryName(System.Reflection.Assembly.GetAssembly(this.GetType()).Location)) + "\\boby_multitools_setting.xml";
 			xmlDoc		= new XmlDocument();
 			in_Cheat	= new Cheat();
 			in_CheatKey = new CheatKey();
 			in_Entity	= new Entity();
 			in_Radar	= new Radar();
-            in_Buff     = new Buff();
-            in_Quick    = new Quick();
+            in_Scripts   = new Scripts();
 			in_Setting	= this;
 			Load();
 		}
@@ -294,8 +292,9 @@ namespace BobyMultitools
 				}
 			}
 		}
-		
-		public class Entity
+        #endregion
+
+        public class Entity
 		{
             public string           Where = "";
 
@@ -554,135 +553,27 @@ namespace BobyMultitools
 				}
 			}
 		}
-		
-		public class Buff
-		{
-			public Bool_To_XML		Show;
-			public Int_To_XML		Left;
-			public Int_To_XML		Top;
-			
-			public String_To_XML	File;
-			
-			public Buff()
-			{
-				string Where	= "/Boby/Buff/";
-				
-				Show	= new Bool_To_XML(xmlDoc, Where, "Show", true);
-				Left	= new Int_To_XML(xmlDoc, Where, "Left", 0);
-				Top		= new Int_To_XML(xmlDoc, Where, "Top", 300);
-				
-				File	= new String_To_XML(xmlDoc, Where, "File", "");
-			}
 
-			public void Reset()
-			{
-				foreach (FieldInfo field in typeof(Buff).GetFields())
-				{
-					object value_type = typeof(Buff).GetField(field.Name).GetValue(in_Setting.in_Buff);
-					if (value_type.GetType() == typeof(Bool_To_XML))
-					{
-						var tmp = (Bool_To_XML)value_type;
-						tmp.Reset();
-					}
-					if (value_type.GetType() == typeof(Int_To_XML))
-					{
-						var tmp = (Int_To_XML)value_type;
-						tmp.Reset();
-					}
-					if (value_type.GetType() == typeof(Float_To_XML))
-					{
-						var tmp = (Float_To_XML)value_type;
-						tmp.Reset();
-					}
-					if (value_type.GetType() == typeof(String_To_XML))
-					{
-						var tmp = (String_To_XML)value_type;
-						tmp.Reset();
-					}
-				}
-			}
-			
-			public void Load()
-			{
-				foreach (FieldInfo field in typeof(Buff).GetFields())
-				{
-					object value_type = typeof(Buff).GetField(field.Name).GetValue(in_Setting.in_Buff);
-					if (value_type.GetType() == typeof(Bool_To_XML))
-					{
-						var tmp = (Bool_To_XML)value_type;
-						tmp.Load();
-					}
-					if (value_type.GetType() == typeof(Int_To_XML))
-					{
-						var tmp = (Int_To_XML)value_type;
-						tmp.Load();
-					}
-					if (value_type.GetType() == typeof(Float_To_XML))
-					{
-						var tmp = (Float_To_XML)value_type;
-						tmp.Load();
-					}
-					if (value_type.GetType() == typeof(String_To_XML))
-					{
-						var tmp = (String_To_XML)value_type;
-						tmp.Load();
-					}
-				}
-			}
-
-			public void Save()
-			{
-				foreach (FieldInfo field in typeof(Buff).GetFields())
-				{
-					object value_type = typeof(Buff).GetField(field.Name).GetValue(in_Setting.in_Buff);
-					if (value_type.GetType() == typeof(Bool_To_XML))
-					{
-						var tmp = (Bool_To_XML)value_type;
-						tmp.Save();
-					}
-					if (value_type.GetType() == typeof(Int_To_XML))
-					{
-						var tmp = (Int_To_XML)value_type;
-						tmp.Save();
-					}
-					if (value_type.GetType() == typeof(Float_To_XML))
-					{
-						var tmp = (Float_To_XML)value_type;
-						tmp.Save();
-					}
-					if (value_type.GetType() == typeof(String_To_XML))
-					{
-						var tmp = (String_To_XML)value_type;
-						tmp.Save();
-					}
-				}
-			}
-		}
-
-        public class Quick
+        public class Scripts
         {
-            public Bool_To_XML		Show;
-            public Int_To_XML		Left;
-            public Int_To_XML		Top;
+            public Bool_To_XML Show;
+            public Int_To_XML Left;
+            public Int_To_XML Top;
 
-            public String_To_XML	File;
-
-            public Quick()
+            public Scripts()
             {
-                string Where	= "/Boby/Quick/";
+                string Where = "/Boby/Scripts/";
 
                 Show = new Bool_To_XML(xmlDoc, Where, "Show", true);
                 Left = new Int_To_XML(xmlDoc, Where, "Left", 0);
-                Top = new Int_To_XML(xmlDoc, Where, "Top", 370);
-
-                File = new String_To_XML(xmlDoc, Where, "File", "");
+                Top = new Int_To_XML(xmlDoc, Where, "Top", 300);
             }
 
             public void Reset()
             {
-                foreach (FieldInfo field in typeof(Quick).GetFields())
+                foreach (FieldInfo field in typeof(Scripts).GetFields())
                 {
-                    object value_type = typeof(Quick).GetField(field.Name).GetValue(in_Setting.in_Quick);
+                    object value_type = typeof(Scripts).GetField(field.Name).GetValue(in_Setting.in_Scripts);
                     if (value_type.GetType() == typeof(Bool_To_XML))
                     {
                         var tmp = (Bool_To_XML)value_type;
@@ -708,9 +599,9 @@ namespace BobyMultitools
 
             public void Load()
             {
-                foreach (FieldInfo field in typeof(Quick).GetFields())
+                foreach (FieldInfo field in typeof(Scripts).GetFields())
                 {
-                    object value_type = typeof(Quick).GetField(field.Name).GetValue(in_Setting.in_Quick);
+                    object value_type = typeof(Scripts).GetField(field.Name).GetValue(in_Setting.in_Scripts);
                     if (value_type.GetType() == typeof(Bool_To_XML))
                     {
                         var tmp = (Bool_To_XML)value_type;
@@ -736,9 +627,9 @@ namespace BobyMultitools
 
             public void Save()
             {
-                foreach (FieldInfo field in typeof(Quick).GetFields())
+                foreach (FieldInfo field in typeof(Scripts).GetFields())
                 {
-                    object value_type = typeof(Quick).GetField(field.Name).GetValue(in_Setting.in_Quick);
+                    object value_type = typeof(Scripts).GetField(field.Name).GetValue(in_Setting.in_Scripts);
                     if (value_type.GetType() == typeof(Bool_To_XML))
                     {
                         var tmp = (Bool_To_XML)value_type;
@@ -762,7 +653,6 @@ namespace BobyMultitools
                 }
             }
         }
-		#endregion
 
 		private void OpenXML()
 		{
@@ -770,7 +660,7 @@ namespace BobyMultitools
             {
                 this.MakeXML();
 
-                client_DownloadBase();
+                //client_DownloadBase();
             }
             else
                 xmlDoc.Load(sConfigFile);
@@ -879,37 +769,21 @@ namespace BobyMultitools
                 catch { }
 			}
 			
-			New = xmlDoc.CreateElement("Buff");
+			New = xmlDoc.CreateElement("Scripts");
 			Root.AppendChild(New);
 			
-			foreach (FieldInfo field in typeof(Buff).GetFields())
+			foreach (FieldInfo field in typeof(Scripts).GetFields())
 			{
                 try
                 {
                     New = xmlDoc.CreateElement(field.Name);
-                    object value_type = typeof(Buff).GetField(field.Name).GetValue(in_Buff);
+                    object value_type = typeof(Scripts).GetField(field.Name).GetValue(in_Scripts);
                     value = Check_Type_To_XmlText(value_type);
                     Root.LastChild.AppendChild(New);
                     Root.LastChild.LastChild.AppendChild(value);
                 }
                 catch { }
 			}
-
-            New = xmlDoc.CreateElement("Quick");
-            Root.AppendChild(New);
-
-            foreach (FieldInfo field in typeof(Quick).GetFields())
-            {
-                try
-                {
-                    New = xmlDoc.CreateElement(field.Name);
-                    object value_type = typeof(Quick).GetField(field.Name).GetValue(in_Quick);
-                    value = Check_Type_To_XmlText(value_type);
-                    Root.LastChild.AppendChild(New);
-                    Root.LastChild.LastChild.AppendChild(value);
-                }
-                catch { }
-            }
 
 			this.CloseXML();
 		}
@@ -925,8 +799,7 @@ namespace BobyMultitools
 			this.in_CheatKey.Reset();
 			this.in_Entity.Reset();
 			this.in_Radar.Reset();
-			this.in_Buff.Reset();
-            this.in_Quick.Reset();
+			this.in_Scripts.Reset();
         }
 
 		public void Load()
@@ -938,8 +811,7 @@ namespace BobyMultitools
 				this.in_CheatKey.Load();
 				this.in_Entity.Load();
 				this.in_Radar.Load();
-				this.in_Buff.Load();
-                this.in_Quick.Load();
+				this.in_Scripts.Load();
             }
 			catch (Exception)
 			{
@@ -948,7 +820,7 @@ namespace BobyMultitools
                 this.OpenXML();
 				this.Load();
 
-                client_DownloadBase();
+                //client_DownloadBase();
 
 			}
 		}
@@ -960,8 +832,7 @@ namespace BobyMultitools
 			this.in_CheatKey.Save();
 			this.in_Entity.Save();
 			this.in_Radar.Save();
-            this.in_Buff.Save();
-            this.in_Quick.Save();
+            this.in_Scripts.Save();
 			this.CloseXML();
 		}
 
