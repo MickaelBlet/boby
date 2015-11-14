@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<ArrayOfIcon_Save xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Icon_Save>
-    <IMG_PATH>file:///C:/Users/mickael/Documents/Develop_Boby/boby_multitools/BobyMultiTool2/bin/Release/RadarIcon/Class_12.png</IMG_PATH>
-    <Name>Coffre au trésor</Name>
-    <SCALE>1</SCALE>
+<Icons>
+  <Icon>
+    <ID>0</ID>
+    <NAME>Harmone</NAME>
+    <SCALE>1.00000024</SCALE>
     <AGGRO_SCALE>0</AGGRO_SCALE>
-  </Icon_Save>
-</ArrayOfIcon_Save>
+  </Icon>
+</Icons>

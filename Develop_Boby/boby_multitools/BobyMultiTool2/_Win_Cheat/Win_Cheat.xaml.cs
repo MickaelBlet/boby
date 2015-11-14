@@ -41,11 +41,11 @@ namespace BobyMultitools
             in_Win_Cheat_Setting = new Win_Cheat_Setting(in_Win_Main);
             in_Win_Cheat_Move = new Win_Cheat_Move(in_Win_Main);
 
-            this.sl_Atk.Value = in_Win_Main.in_Setting.in_Cheat.Attack_Speed.Get_Value();
+            this.sl_Atk.Value = Setting.Boby.Cheat.Attack_Speed;
             sl_Atk_ValueChanged(null, null);
 
-            this.Left = in_Win_Main.in_Setting.in_Cheat.Left.Get_Value();
-            this.Top = in_Win_Main.in_Setting.in_Cheat.Top.Get_Value();
+            this.Left = Setting.Boby.Cheat.Left;
+            this.Top = Setting.Boby.Cheat.Top;
 
             Cheat_Sequence();
         }
@@ -83,17 +83,9 @@ namespace BobyMultitools
                 in_Win_Cheat_Move.Show();
         }
 
-        private void Rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-            in_Win_Main.in_Setting.in_Cheat.Left.Set_Value((int)this.Left);
-            in_Win_Main.in_Setting.in_Cheat.Top.Set_Value((int)this.Top);
-        }
-
-
         private void sl_Atk_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            in_Win_Main.in_Setting.in_Cheat.Attack_Speed.Set_Value((int)sl_Atk.Value);
+            Setting.Boby.Cheat.Attack_Speed = (int)sl_Atk.Value;
             lb_val_atk_speed.Content = sl_Atk.Value.ToString() + " %";
         }
 
@@ -109,14 +101,16 @@ namespace BobyMultitools
 
         private void Window_LocationChanged(object sender, EventArgs e)
         {
-            if (this.Top < 0)
+            if (this.Top < 1)
                 this.Top = 0;
-            if (this.Left < -8)
-                this.Left = -8;
-            if (this.Top + this.Height - 8 > SystemParameters.VirtualScreenHeight)
-                this.Top = SystemParameters.VirtualScreenHeight - this.Height + 8;
-            if (this.Left + this.Width - 9 > SystemParameters.VirtualScreenWidth)
-                this.Left = SystemParameters.VirtualScreenWidth - this.Width + 9;
+            if (this.Left < 1)
+                this.Left = 0;
+            if (this.Top + this.Height + 1 > SystemParameters.VirtualScreenHeight)
+                this.Top = SystemParameters.VirtualScreenHeight - this.Height;
+            if (this.Left + this.Width + 1 > SystemParameters.VirtualScreenWidth)
+                this.Left = SystemParameters.VirtualScreenWidth - this.Width;
+            Setting.Boby.Cheat.Left = this.Left;
+            Setting.Boby.Cheat.Top = this.Top;
         }
 
         private void Window_PreviewMouseMove(object sender, MouseEventArgs e)

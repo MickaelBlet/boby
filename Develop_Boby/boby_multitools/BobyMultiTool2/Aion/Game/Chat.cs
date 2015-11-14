@@ -13,186 +13,16 @@ using Aion_Process;
 using Windows_And_Process;
 
 namespace Aion_Game
-{
-    class Character
+{ 
+    public class Chat
     {
-        public static long GetLink(long entity_ptr)
-        {
-            long result = 0;
-
-            result = SplMemory.ReadLong(entity_ptr + Offset.Entity.Status);
-            result = SplMemory.ReadLong(result + Offset.Status.Link);
-            return (result);
-        }
-
-        public static long GetLinkNode(long entity_ptr)
-        {
-            long result = 0;
-
-            result = SplMemory.ReadLong(entity_ptr + Offset.Entity.Status);
-            result = SplMemory.ReadLong(result + Offset.Status.Link);
-            result = SplMemory.ReadLong(result + Offset.Status.Node);
-            return (result);
-        }
-
-        public static string GetName(long entity_ptr)
-        {
-            string result = "";
-            long tmp = 0;
-
-            tmp = SplMemory.ReadLong(entity_ptr + Offset.Entity.Status);
-            result = SplMemory.ReadWchar(tmp + Offset.Status.Name, 60);
-            return (result);
-        }
-
-        public static float GetPosX(long entity_ptr)
-        {
-            float result = 0;
-            long tmp = 0;
-
-            tmp = SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc);
-            result = SplMemory.ReadFloat(tmp + Offset.Loc.X);
-            return (result);
-        }
-
-        public static float GetPosY(long entity_ptr)
-        {
-            float result = 0;
-            long tmp = 0;
-
-            tmp = SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc);
-            result = SplMemory.ReadFloat(tmp + Offset.Loc.Y);
-            return (result);
-        }
-
-        public static float GetPosZ(long entity_ptr)
-        {
-            float result = 0;
-            long tmp = 0;
-
-            tmp = SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc);
-            result = SplMemory.ReadFloat(tmp + Offset.Loc.Z);
-            return (result);
-        }
-
-        /*public static void Select(long entity_ptr)
-		{
-            Win.SetForegroundWindow(Aion_Game.Whandle);
-
-            Send_Key.keybd_event(0x10, 0, 0, 0);
-            Send_Key.keybd_event(0x10, 0, 2, 0);
-
-			try
-			{
-                string name = GetName(entity_ptr);
-
-                if (GetLink(entity_ptr) != 0)
-                    entity_ptr = GetLinkNode(entity_ptr);
-
-				int debug = 0;
-
-                float EntityX = GetPosX(entity_ptr);
-                float EntityY = GetPosY(entity_ptr);
-                float EntityZ = GetPosZ(entity_ptr);
-
-                long test_address_chat = Send_Chat.GetAddressChatForText();
-
-				SplMemory.WriteWchar(test_address_chat, "/Select "+ name, 255);
-
-                while (debug < 20)
-				{
-					Thread.Sleep(10);
-
-                    float PlayerX = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.X);
-                    float PlayerY = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Y);
-                    float PlayerZ = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Z);
-
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.X, PlayerX);
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Y, PlayerY);
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Z, PlayerZ);
-                    
-                    debug++;
-				}
-
-                debug = 0;
-
-                Send_Chat.SendToChat("/Select " + name);
-                Send_Chat.SendToChat("/Select " + name);
-                Send_Chat.SendToChat("/Select " + name);
-                Send_Chat.SendToChat("/Select " + name);
-
-                while (debug < 20)
-				{
-					Thread.Sleep(5);
-
-                    float PlayerX = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.X);
-                    float PlayerY = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Y);
-                    float PlayerZ = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Z);
-
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.X, PlayerX);
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Y, PlayerY);
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Z, PlayerZ);
-                    
-                    debug++;
-				}
-
-                debug = 0;
-
-                while (SplMemory.ReadInt(Aion_Game.Modules.Game + Offset.Entity.Is_Target) != 1 && debug < 20)
-				{
-                    float PlayerX = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.X);
-                    float PlayerY = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Y);
-                    float PlayerZ = SplMemory.ReadFloat(Aion_Game.Modules.Game + Offset.Player.Z);
-
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.X, PlayerX);
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Y, PlayerY);
-                    SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Z, PlayerZ);
-					Thread.Sleep(10);
-                    debug++;
-				}
-
-                debug = 0;
-
-                if (SplMemory.ReadInt(Aion_Game.Modules.Game + Offset.Entity.Is_Target) != 0)
-				{
-					try
-					{
-						while (SplMemory.ReadWchar(
-							SplMemory.ReadLong(
-                                SplMemory.ReadLong(Aion_Game.Modules.Game + Offset.Entity.To_Target)
-								+ Offset.Entity.Status)
-                            + Offset.Status.Name, 60) != name && debug < 20)
-						{
-                            debug++;
-							Thread.Sleep(10);
-						}
-					}
-					catch { }
-				}
-
-                SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.X, EntityX);
-                SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Y, EntityY);
-                SplMemory.WriteMemory(SplMemory.ReadLong(entity_ptr + Offset.Entity.Loc) + Offset.Loc.Z, EntityZ);
-
-                if (Send_Chat.GetValueChatIsOpen() == 7)
-                {
-                    (new Thread(() =>
-                    {
-                        Send_Key.Send_Enter_Key(Aion_Game.whandle);
-                    })).Start();
-                }
-			}
-			catch { }
-		}*/
-    }
-
-    class Chat
-    {
+        private static Window main;
         public const byte CHAT_ISCLOSE = 6;
         public const byte CHAT_ISOPEN = 7;
 
-        public static void Ini()
+        public static void Ini(Window in_Main)
         {
+            main = in_Main;
             Thread T_inichat = new Thread(_Ini);
             T_inichat.SetApartmentState(ApartmentState.STA);
             T_inichat.Start();
@@ -204,26 +34,43 @@ namespace Aion_Game
             {
                 try
                 {
+                    if (GetValueChatInputIni() == 0)
+                    {
+                        Thread.Sleep(100);
+                        continue;
+                    }
                     if (GetValueChatInputIni() < 255)
                     {
-                        if (GetValueChatIsOpen() == CHAT_ISOPEN)
+                        if (GetValueChatIsOpen())
                         {
-                            for (int i = 0; i < 64; i++)
+                            for (int i = 0; i < 16; i++)
                             {
-                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_B);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_I);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_N);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_I);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_T);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_I);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_A);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_L);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_I);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_S);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_A);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_T);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_I);
                                 Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_O);
-                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_B);
-                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_Y);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_N);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_0);
+                                Send_Key.Send2(Game.Whandle, eWindowsVirtualKey.K_0);
                             }
                             Thread.Sleep(1000);
                         }
-                        if (GetValueChatIsOpen() == CHAT_ISCLOSE)
+                        if (!GetValueChatIsOpen())
                             Send_Key.Send(Game.Whandle, eWindowsVirtualKey.VK_RETURN);
                     }
-                    else
+                    else if (GetValueChatInputIni() < 257)
                     {
-                    	if (GetValueChatIsOpen() == CHAT_ISOPEN)
-                    	{
+                        if (GetValueChatIsOpen())
+                        {
                     		long adressChat = GetAddressChatForText();
 		                    if (adressChat != 0)
 		                    {
@@ -237,9 +84,12 @@ namespace Aion_Game
                                 Send_Key.Send(Game.Whandle, eWindowsVirtualKey.VK_RETURN);
 		                    }
                     	}
-                    	if (GetValueChatIsOpen() == CHAT_ISCLOSE)
-                    	{
-                    		return ;
+                        if (!GetValueChatIsOpen())
+                        {
+                            main.Dispatcher.Invoke(() => { 
+                                main.WindowState = WindowState.Minimized;
+                            });
+                            return ;
                     	}
                     }
                 }
@@ -258,7 +108,7 @@ namespace Aion_Game
                     if (adressChat == 0)
                         return;
                     SplMemory.WriteWchar(adressChat, text, 255);
-                    if (GetValueChatIsOpen() == CHAT_ISOPEN)
+                    if (GetValueChatIsOpen())
                     {
                         (new Thread(() =>
                         {
@@ -285,26 +135,10 @@ namespace Aion_Game
         {
             try
             {
-                long tmp = 0;
-                long chat_input_dialog = (long)Offset.Base_windows.newbase["chat_input_dialog"];
-                tmp = SplMemory.ReadLong(chat_input_dialog);
-                tmp = SplMemory.ReadLong(tmp + Offset.ChatDlg.Jump);
-                return (SplMemory.ReadShort(tmp + Offset.ChatDlg.Length));
-            }
-            catch
-            {
-                return 1000;
-            }
-        }
-
-        public static byte GetValueChatIsOpen()
-        {
-            try
-            {
-                long tmp = 0;
-                long chat_input_dialog = (long)Offset.Base_windows.newbase["chat_input_dialog"];
-                tmp = SplMemory.ReadLong(chat_input_dialog);
-                return (SplMemory.ReadByte(tmp + Offset.ChatDlg.IsOpen));
+                long chat_emoticon = DialogList.GetDialog("chat_input_dialog>chat_emoticon").Node;
+                if (chat_emoticon != 0)
+                    return(SplMemory.ReadShort(chat_emoticon + Offset.Chat.Length));
+                return 0;
             }
             catch
             {
@@ -312,15 +146,24 @@ namespace Aion_Game
             }
         }
 
+        public static bool GetValueChatIsOpen()
+        {
+            try
+            {
+                return DialogList.GetDialog("chat_input_dialog").Open;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static long GetAddressChatForText()
         {
             try
             {
-                long tmp = 0;
-                long chat_input_dialog = (long)Offset.Base_windows.newbase["chat_input_dialog"];
-                tmp = SplMemory.ReadLong(chat_input_dialog);
-                tmp = SplMemory.ReadLong(tmp + Offset.ChatDlg.Jump);
-                return (SplMemory.ReadLong(tmp + Offset.ChatDlg.Input));
+                long chat_emoticon = DialogList.GetDialog("chat_input_dialog>chat_emoticon").Node;
+                return (SplMemory.ReadLong(chat_emoticon + Offset.Chat.Input));
             }
             catch
             {

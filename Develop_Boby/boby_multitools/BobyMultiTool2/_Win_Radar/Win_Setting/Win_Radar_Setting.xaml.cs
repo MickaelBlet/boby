@@ -26,12 +26,11 @@ namespace BobyMultitools
     public partial class Win_Radar_Setting : Window
     {
         public Win_Main in_Win_Main = null;
-        public Hashtable Image_File_Mini = null;
-        public Hashtable Image_File_Real = null;
 
-        public IconCollection icon_collect;
-        public IconSaveCollection icon_save_collect;
+        public static IconCollection icon_collect;
         public BuffCollection buff_collect;
+        public CroppedBitmap[] FileImg;
+        public static Hashtable Img_to_id = null;
 
         public Win_Radar_Setting(Win_Main tmp_in_Win_Main)
         {
@@ -39,67 +38,58 @@ namespace BobyMultitools
 
             in_Win_Main = tmp_in_Win_Main;
 
-            Image img = new Image();
+            ImageSource GraphicChar = (ImageSource)Application.Current.FindResource("GraphicChar");
 
-            ImageSource[] Image_File = null;
+            int maxImage = 234;
+            FileImg = new CroppedBitmap[maxImage];
 
-            Image_File_Mini = new Hashtable();
-            Image_File_Real = new Hashtable();
-            try
+            for (int y = 0; y < 17; y++)
             {
-                string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\RadarIcon\";
-
-                string[] files = Directory.GetFiles(appPath, "*.png");
-
-                if (files.Length > 0)
+                for (int x = 0; x < 14; x++)
                 {
-                    Image_File = new ImageSource[files.Length];
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        string filesreal = files[i];
-                        BitmapImage source = new BitmapImage();
-                        source.BeginInit();
-                        source.UriSource = new Uri(filesreal);
-                        source.EndInit();
-                        if (source.Width > 20 || source.Height > 20)
-                        {
-                            source = new BitmapImage();
-                            source.BeginInit();
-                            source.UriSource = new Uri(filesreal);
-                            source.DecodePixelHeight = 20;
-                            source.DecodePixelWidth = 20;
-                            source.EndInit();
-                        }
-                        Image_File[i] = source;
-                        Image_File_Mini.Add(source.ToString(), source);
-                        Image_File_Real.Add(source.ToString(), new BitmapImage(new Uri(filesreal)));
-                    }
+                    if (y * 14 + x >= maxImage)
+                        break;
+                    CroppedBitmap img = new CroppedBitmap((BitmapSource)GraphicChar, new Int32Rect(x*16+x+1, y*16+y+1, 16, 16));
+                    FileImg[y * 14 + x] = img;
                 }
             }
-            catch (Exception)
-            { }
 
-            lb_Items.ItemsSource = Image_File;
+            Img_to_id = new Hashtable();
+
+            lb_Items.ItemsSource = FileImg;
+
+            int id = 0;
+            foreach (var img in FileImg)
+            {
+                //MessageBox.Show(img);
+                if (Img_to_id.ContainsKey(img))
+                {
+                    id++;
+                    continue;
+                }
+                Img_to_id.Add(img, id);
+                id++;
+            }
 
             icon_collect = (IconCollection)Resources["PersonCollection"];
 
             try
             {
-                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\Icon_list.xml";
+                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_multitools_icons.xml";
 
                 if (File.Exists(filePath))
                 {
                     icon_collect.Clear();
 
-                    XmlSerializer serializer = new XmlSerializer(typeof(IconSaveCollection));
+                    XmlSerializer serializer = new XmlSerializer(typeof(IconCollection));
 
                     using (FileStream stream = new FileStream(filePath, FileMode.Open))
                     {
-                        IEnumerable<Icon_Save> personData = (IEnumerable<Icon_Save>)serializer.Deserialize(stream);
+                        IEnumerable<Icon> personData = (IEnumerable<Icon>)serializer.Deserialize(stream);
 
-                        foreach (Icon_Save p in personData)
+                        foreach (var p in personData)
                         {
-                            icon_collect.Add(new Icon { IMG_PATH = p.IMG_PATH, Name = p.Name, SCALE = p.SCALE, AGGRO_SCALE = p.AGGRO_SCALE });
+                            icon_collect.Add(new Icon { ID = p.ID, NAME = p.NAME, SCALE = p.SCALE, AGGRO_SCALE = p.AGGRO_SCALE });
                         }
                     }
 
@@ -107,9 +97,7 @@ namespace BobyMultitools
                     {
                         try
                         {
-                            string r = p.IMG_PATH;
-                            p.IMG_SRC_MINI = (ImageSource)Image_File_Mini[r];
-                            p.IMG_SRC = (ImageSource)Image_File_Real[r];
+                            p.IMG_SRC = FileImg[p.ID];
                         }
                         catch (Exception)
                         { }
@@ -119,14 +107,9 @@ namespace BobyMultitools
             catch (Exception)
             { }
 
-            sl_zoom.Value = (int)((in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value() * 100 - 150) / 2f);
-            lb_zoom.Content = sl_zoom.Value.ToString() + " %";
-
-            sl_icon_size.Value = (int)((in_Win_Main.in_Setting.in_Radar.Size.Get_Value() * 100 - 91));
-            lb_icon_size.Content = sl_icon_size.Value.ToString() + " %";
-
-            sl_size.Value = (int)((in_Win_Main.in_Setting.in_Radar.Radar_Width.Get_Value() - 199) / 2f);
-            lb_size.Content = sl_size.Value.ToString() + " %";
+            tZoom.Text = Setting.Boby.Radar.Zoom.ToString("F2");
+            tSize.Text = Setting.Boby.Radar.Size.ToString("F2");
+            tIcon.Text = Setting.Boby.Radar.IconSize.ToString("F2");
         }
 
         private void Bt_Close_Click(object sender, RoutedEventArgs e)
@@ -134,17 +117,13 @@ namespace BobyMultitools
             dataGrid.CancelEdit();
             try
             {
-                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\Icon_list.xml";
-
-                icon_save_collect = new IconSaveCollection();
-
-                foreach (Icon p in icon_collect)
-                    icon_save_collect.Add(new Icon_Save { IMG_PATH = p.IMG_PATH, Name = p.Name, SCALE = p.SCALE, AGGRO_SCALE = p.AGGRO_SCALE });
-
-                XmlSerializer serializer = new XmlSerializer(typeof(IconSaveCollection));
+                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_multitools_icons.xml";
+                XmlSerializer serializer = new XmlSerializer(typeof(IconCollection));
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
                 using (FileStream stream = new FileStream(filePath, FileMode.Create))
                 {
-                    serializer.Serialize(stream, icon_save_collect);
+                    serializer.Serialize(stream, icon_collect, ns);
                 }
             }
             catch
@@ -164,41 +143,52 @@ namespace BobyMultitools
             if (dataGrid.SelectedItem != null)
             {
                 Icon tmp = dataGrid.SelectedItem as Icon;
-                tmp.IMG_SRC = Image_File_Real[btn.Content.ToString()] as ImageSource;
-                tmp.IMG_SRC_MINI = Image_File_Mini[btn.Content.ToString()] as ImageSource;
-                tmp.IMG_PATH = btn.Content.ToString();
+                tmp.ID = (int)Img_to_id[btn.Content];
+                tmp.IMG_SRC = FileImg[tmp.ID];
             }
         }
 
         private void scale_plus_Click(object sender, RoutedEventArgs e)
         {
-            Icon tmp = dataGrid.SelectedItem as Icon;
-            tmp.SCALE = tmp.SCALE + 0.1f;
+            if (dataGrid.SelectedItem != null)
+            {
+                Icon tmp = dataGrid.CurrentItem as Icon;
+                tmp.SCALE = tmp.SCALE + 0.1f;
+            }
         }
 
         private void scale_moin_Click(object sender, RoutedEventArgs e)
         {
-            Icon tmp = dataGrid.SelectedItem as Icon;
-            if (tmp.SCALE > 0)
-                tmp.SCALE = tmp.SCALE - 0.1f;
+            if (dataGrid.SelectedItem != null)
+            {
+                Icon tmp = dataGrid.CurrentItem as Icon;
+                if (tmp.SCALE > 0)
+                    tmp.SCALE = tmp.SCALE - 0.1f;
+            }
         }
 
         private void aggro_scale_plus_Click(object sender, RoutedEventArgs e)
         {
-            Icon tmp = dataGrid.SelectedItem as Icon;
-            tmp.AGGRO_SCALE = tmp.AGGRO_SCALE + 1f;
+            if (dataGrid.SelectedItem != null)
+            {
+                Icon tmp = dataGrid.CurrentItem as Icon;
+                tmp.AGGRO_SCALE = tmp.AGGRO_SCALE + 1f;
+            }
         }
 
         private void aggro_scale_moin_Click(object sender, RoutedEventArgs e)
         {
-            Icon tmp = dataGrid.SelectedItem as Icon;
-            if (tmp.AGGRO_SCALE > 0)
-                tmp.AGGRO_SCALE = tmp.AGGRO_SCALE - 1f;
+            if (dataGrid.SelectedItem != null)
+            {
+                Icon tmp = dataGrid.CurrentItem as Icon;
+                if (tmp.AGGRO_SCALE > 0)
+                    tmp.AGGRO_SCALE = tmp.AGGRO_SCALE - 1f;
+            }
         }
 
         private void plus_Click(object sender, RoutedEventArgs e)
         {
-            icon_collect.Add(new Icon { IMG_SRC = null, IMG_PATH = "", Name = "", SCALE = 1, AGGRO_SCALE = 0 });
+            icon_collect.Add(new Icon { IMG_SRC = FileImg[0], ID = 0, NAME = "", SCALE = 1, AGGRO_SCALE = 0 });
             Select_Last();
         }
 
@@ -234,8 +224,8 @@ namespace BobyMultitools
 
         private void target_Click(object sender, RoutedEventArgs e)
         {
-            Icon icon = new Icon { IMG_SRC = null, Name = "", SCALE = 1, AGGRO_SCALE = 0 };
-            icon.Name = Get_Target_Name();
+            Icon icon = new Icon { IMG_SRC = FileImg[0], ID = 0, NAME = "", SCALE = 1, AGGRO_SCALE = 0 };
+            icon.NAME = Get_Target_Name();
             icon_collect.Add(icon);
             Select_Last();
         }
@@ -277,7 +267,7 @@ namespace BobyMultitools
                 if (txb.IsSelectionActive == true)
                 {
                     Icon tmp = dataGrid.SelectedItem as Icon;
-                    tmp.Name = txb.Text;
+                    tmp.NAME = txb.Text;
                 }
             }
             catch { }
@@ -312,59 +302,91 @@ namespace BobyMultitools
             catch { }
         }
 
-        private void sl_zoom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void btDownZoom_Click(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Zoom.Set_Value((float)(sl_zoom.Value * 2 + 150) / 100f);
-            lb_zoom.Content = sl_zoom.Value.ToString() + " %";
+            Setting.Boby.Radar.Zoom -= 0.02;
+            tZoom.Text = Setting.Boby.Radar.Zoom.ToString("F2");
         }
 
-        private void sl_icon_size_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void btUpZoom_Click(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Size.Set_Value((float)(sl_icon_size.Value * 1 + 91) / 100f);
-            lb_icon_size.Content = sl_icon_size.Value.ToString() + " %";
+            Setting.Boby.Radar.Zoom += 0.02;
+            tZoom.Text = Setting.Boby.Radar.Zoom.ToString("F2");
         }
 
-        private void sl_size_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void btDownSize_Click(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Radar_Width.Set_Value((int)((sl_size.Value * 2 + 199)));
-            in_Win_Main.in_Setting.in_Radar.Radar_Height.Set_Value((int)((sl_size.Value * 2 + 199)));
-            lb_size.Content = sl_size.Value.ToString() + " %";
+            Setting.Boby.Radar.Size -= 1;
+            tSize.Text = Setting.Boby.Radar.Size.ToString("F2");
+        }
 
-            in_Win_Main.in_Win_Radar.Width = in_Win_Main.in_Setting.in_Radar.Radar_Width.Get_Value();
-            in_Win_Main.in_Win_Radar.Height = in_Win_Main.in_Setting.in_Radar.Radar_Height.Get_Value();
-            in_Win_Main.in_Win_Radar.Canvas_Radar.Width = in_Win_Main.in_Setting.in_Radar.Radar_Width.Get_Value();
-            in_Win_Main.in_Win_Radar.Canvas_Radar.Height = in_Win_Main.in_Setting.in_Radar.Radar_Height.Get_Value();
-            in_Win_Main.in_Win_Radar.BG.Width = in_Win_Main.in_Setting.in_Radar.Radar_Width.Get_Value();
-            in_Win_Main.in_Win_Radar.BG.Height = in_Win_Main.in_Setting.in_Radar.Radar_Height.Get_Value();
-            in_Win_Main.in_Win_Radar.View.Width = in_Win_Main.in_Setting.in_Radar.Radar_Width.Get_Value();
-            in_Win_Main.in_Win_Radar.View.Height = in_Win_Main.in_Setting.in_Radar.Radar_Height.Get_Value();
-            in_Win_Main.in_Win_Radar.BG_Opa.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
-            in_Win_Main.in_Win_Radar.BG_Mask.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
+        private void btUpSize_Click(object sender, RoutedEventArgs e)
+        {
+            Setting.Boby.Radar.Size += 1;
+            tSize.Text = Setting.Boby.Radar.Size.ToString("F2");
+        }
 
-            in_Win_Main.in_Win_Radar.button_Setting.Margin = new Thickness(0, 0, sl_size.Value / 2.5 + 30, sl_size.Value / 2.5 + 10);
+        private void btDownIcon_Click(object sender, RoutedEventArgs e)
+        {
+            Setting.Boby.Radar.IconSize -= 0.1;
+            tIcon.Text = Setting.Boby.Radar.IconSize.ToString("F2");
+        }
+
+        private void btUpIcon_Click(object sender, RoutedEventArgs e)
+        {
+            Setting.Boby.Radar.IconSize += 0.1;
+            tIcon.Text = Setting.Boby.Radar.IconSize.ToString("F2");
+        }
+
+        private void tZoom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Setting.Boby.Radar.Zoom = double.Parse(tZoom.Text);
+            }
+            catch { }
+        }
+        private void tSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Setting.Boby.Radar.Size = double.Parse(tSize.Text);
+                in_Win_Main.in_Win_Radar.Width = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.Height = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.Canvas_Radar.Width = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.Canvas_Radar.Height = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.BG.Width = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.BG.Height = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.View.Width = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.View.Height = Setting.Boby.Radar.Size;
+                in_Win_Main.in_Win_Radar.BG_Opa.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
+                in_Win_Main.in_Win_Radar.BG_Mask.Viewport = new Rect(0, 0, in_Win_Main.in_Win_Radar.Canvas_Radar.Width, in_Win_Main.in_Win_Radar.Canvas_Radar.Height);
+                in_Win_Main.in_Win_Radar.button_Setting.Margin = new Thickness(Setting.Boby.Radar.Size * 0.64824120603, Setting.Boby.Radar.Size * 0.64824120603, 0, 0);
+            }
+            catch { }
+        }
+
+        private void tIcon_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Setting.Boby.Radar.IconSize = double.Parse(tIcon.Text);
+            }
+            catch { }
         }
     }
 
     public class Icon : System.ComponentModel.INotifyPropertyChanged
     {
-        private ImageSource img_src_mini;
         private ImageSource img_src;
-        private string Image_path;
+        private int id;
         private string name;
         private float scale;
         private float aggro_scale;
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        public ImageSource IMG_SRC_MINI
-        {
-            get { return img_src_mini; }
-            set
-            {
-                img_src_mini = value;
-                NotifyPropertyChanged("IMG_SRC_MINI");
-            }
-        }
 
+        [XmlIgnore]
         public ImageSource IMG_SRC
         {
             get { return img_src; }
@@ -375,81 +397,23 @@ namespace BobyMultitools
             }
         }
 
-        public string IMG_PATH
+        public int ID
         {
-            get { return Image_path; }
+            get { return id; }
             set
             {
-                Image_path = value;
-                NotifyPropertyChanged("IMG_PATH");
+                id = value;
+                NotifyPropertyChanged("ID");
             }
         }
 
-        public string Name
+        public string NAME
         {
             get { return name; }
             set
             {
                 name = value;
-                NotifyPropertyChanged("Name");
-            }
-        }
-
-        public float SCALE
-        {
-            get { return scale; }
-            set
-            {
-                scale = value;
-                NotifyPropertyChanged("SCALE");
-            }
-        }
-
-        public float AGGRO_SCALE
-        {
-            get { return aggro_scale; }
-            set
-            {
-                aggro_scale = value;
-                NotifyPropertyChanged("AGGRO_SCALE");
-            }
-        }
-
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-
-    public class Icon_Save
-    {
-        private string Image_path;
-        private string name;
-        private float scale;
-        private float aggro_scale;
-
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-
-        public string IMG_PATH
-        {
-            get { return Image_path; }
-            set
-            {
-                Image_path = value;
-                NotifyPropertyChanged("IMG_PATH");
-            }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                NotifyPropertyChanged("Name");
+                NotifyPropertyChanged("NAME");
             }
         }
 
@@ -483,11 +447,7 @@ namespace BobyMultitools
     }
 
     [Serializable]
-    public class IconSaveCollection : System.Collections.ObjectModel.ObservableCollection<Icon_Save>
-    {
-    }
-
-    [Serializable]
+    [XmlRoot("Icons")]
     public class IconCollection : System.Collections.ObjectModel.ObservableCollection<Icon>
     {
     }

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<Boby>
+  <Cheat Show="true" Left="0" Top="0">
+    <Attack_Speed>0</Attack_Speed>
+    <Move_Speed>0</Move_Speed>
+    <Acc_Distance>0.5</Acc_Distance>
+    <Sup_Distance>5</Sup_Distance>
+    <Safety>false</Safety>
+    <NoGrav>false</NoGrav>
+    <ZLock>false</ZLock>
+    <Key>false</Key>
+  </Cheat>
+  <CheatKey>
+    <keyNoGrav>0</keyNoGrav>
+    <keyZLock>0</keyZLock>
+    <keyToKey>0</keyToKey>
+    <keyAccFor>0</keyAccFor>
+    <keyAccUp>0</keyAccUp>
+    <keyAccDown>0</keyAccDown>
+    <keySupFor>0</keySupFor>
+    <keySupUp>0</keySupUp>
+    <keySupDown>0</keySupDown>
+    <modifierNoGrav>0</modifierNoGrav>
+    <modifierZLock>0</modifierZLock>
+    <modifierToKey>0</modifierToKey>
+    <modifierAccFor>0</modifierAccFor>
+    <modifierAccUp>0</modifierAccUp>
+    <modifierAccDown>0</modifierAccDown>
+    <modifierSupFor>0</modifierSupFor>
+    <modifierSupUp>0</modifierSupUp>
+    <modifierSupDown>0</modifierSupDown>
+  </CheatKey>
+  <Entity Show="true" Left="0" Top="0" Height="189" Width="409">
+    <NPC>true</NPC>
+    <Ally>true</Ally>
+    <Hostile>true</Hostile>
+    <Gather>true</Gather>
+    <Order>Rnk</Order>
+  </Entity>
+  <Radar Show="true" Left="0" Top="0" Width="199" Height="199">
+    <NPC>true</NPC>
+    <Ally>true</Ally>
+    <Hostile>true</Hostile>
+    <Gather>true</Gather>
+    <Travel>true</Travel>
+    <Nord>true</Nord>
+    <BGon>true</BGon>
+    <IconPlus>true</IconPlus>
+    <Zoom>1</Zoom>
+    <Size>1</Size>
+    <Icons>
+      <Icon>
+        <Id>0</Id>
+        <Name>test</Name>
+        <Size>0</Size>
+        <Aggro>0</Aggro>
+      </Icon>
+      <Icon>
+        <Id>0</Id>
+        <Name>test</Name>
+        <Size>0</Size>
+        <Aggro>0</Aggro>
+      </Icon>
+      <Icon>
+        <Id>0</Id>
+        <Name>test</Name>
+        <Size>0</Size>
+        <Aggro>0</Aggro>
+      </Icon>
+      <Icon>
+        <Id>0</Id>
+        <Name>test</Name>
+        <Size>0</Size>
+        <Aggro>0</Aggro>
+      </Icon>
+      <Icon>
+        <Id>0</Id>
+        <Name>test</Name>
+        <Size>0</Size>
+        <Aggro>0</Aggro>
+      </Icon>
+      <Icon>
+        <Id>0</Id>
+        <Name>test</Name>
+        <Size>0</Size>
+        <Aggro>0</Aggro>
+      </Icon>
+    </Icons>
+  </Radar>
+  <Scripts Show="true" Left="0" Top="0">
+    <TravelFiles />
+    <Files />
+  </Scripts>
+</Boby>

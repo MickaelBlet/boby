@@ -36,11 +36,15 @@ namespace Aion_Game
         Freyr,
         Jebal,
         Hisui,
-        Instance = 111,
-        Instance2,
-        Instance3,
-        Instance4,
-        Instance5,
+        Rookie1 = 111,
+        Rookie2,
+        Rookie3,
+        Rookie4,
+        Rookie5,
+        Rookie6,
+        Rookie7,
+        Rookie8,
+        Rookie9,
     }
 
     public enum eType
@@ -321,21 +325,103 @@ namespace Aion_Game
         public int Value { get; set; }
     }
 
+    public class fMouseAction
+    {
+        public static fMouseAction None = new fMouseAction(0);
+        public static fMouseAction Object = new fMouseAction(7);
+        public static fMouseAction NotObject = new fMouseAction(8);
+        public static fMouseAction Attackable = new fMouseAction(13);
+        public static fMouseAction NotAttackable = new fMouseAction(14);
+        public static fMouseAction Chat = new fMouseAction(15);
+        public static fMouseAction Vendor = new fMouseAction(17);
+        public static fMouseAction Low_Gatherable = new fMouseAction(22);
+        public static fMouseAction Low_NotGatherable = new fMouseAction(23);
+        public static fMouseAction Lootable = new fMouseAction(40);
+        public static fMouseAction NotLootable = new fMouseAction(41);
+        public static fMouseAction Gatherable = new fMouseAction(43);
+        public static fMouseAction NotGatherable = new fMouseAction(44);
+
+        public static explicit operator fMouseAction(int b)  // explicit byte to digit conversion operator
+        {
+            fMouseAction d = new fMouseAction(b);  // explicit conversion
+            return d;
+        }
+
+        public override string ToString()
+        {
+            foreach (System.Reflection.FieldInfo field in typeof(fMouseAction).GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
+            {
+                if (field.GetValue(null).GetHashCode() == this.Value)
+                    return field.Name;
+            }
+            return string.Empty;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            fMouseAction p = obj as fMouseAction;
+            if ((object)p == null)
+                return false;
+
+            return (this.Value == p.Value);
+        }
+
+        public static bool operator ==(fMouseAction t1, fMouseAction t2)
+        {
+            return t1.Value == t2.Value;
+        }
+
+        public static bool operator !=(fMouseAction t1, fMouseAction t2)
+        {
+            return t1.Value != t2.Value;
+        }
+
+        public static bool operator <=(fMouseAction t1, fMouseAction t2)
+        {
+            return t1.Value <= t2.Value;
+        }
+
+        public static bool operator >=(fMouseAction t1, fMouseAction t2)
+        {
+            return t1.Value >= t2.Value;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Value;
+        }
+
+        public fMouseAction(int value)
+        {
+            this.Value = value;
+        }
+
+        public int Value { get; set; }
+    }
+
     public class fAction
     {
         public static fAction None = new fAction(0);
-        public static fAction Object = new fAction(7);
-        public static fAction NotObject = new fAction(8);
-        public static fAction Attackable = new fAction(13);
-        public static fAction NotAttackable = new fAction(14);
-        public static fAction Chat = new fAction(15);
-        public static fAction Vendor = new fAction(17);
-        public static fAction Low_Gatherable = new fAction(22);
-        public static fAction Low_NotGatherable = new fAction(23);
-        public static fAction Lootable = new fAction(40);
-        public static fAction NotLootable = new fAction(41);
-        public static fAction Gatherable = new fAction(43);
-        public static fAction NotGatherable = new fAction(44);
+        public static fAction Attack = new fAction(1);
+        public static fAction Cast = new fAction(2);
+        public static fAction Talking = new fAction(3);
+        public static fAction Gather = new fAction(4);
+        public static fAction Follow = new fAction(6);
+        public static fAction MoveForward = new fAction(7);
+        public static fAction MoveBackward = new fAction(8);
+        public static fAction MoveForwardCombat = new fAction(9);
+        public static fAction MoveBackwardCombat = new fAction(10);
+        public static fAction ToggleCombat = new fAction(13);
+        public static fAction RestSit = new fAction(14);
+        public static fAction RestStand = new fAction(15);
+        public static fAction Emote = new fAction(18);
+        public static fAction FlightTakeOff = new fAction(19);
+        public static fAction FlightLand = new fAction(20);
+        public static fAction Loot = new fAction(21);
+        public static fAction FaceTarget = new fAction(22);
 
         public static explicit operator fAction(int b)  // explicit byte to digit conversion operator
         {

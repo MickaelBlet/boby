@@ -161,7 +161,7 @@ namespace BobyMultitools
             if (lenEntered > 0)
             {
                 var basic = "abstract as base break case catch checked continue default delegate do else event explicit extern false finally fixed for foreach goto if implicit in interface internal is lock namespace new null object operator out override params private protected public readonly ref return sealed sizeof stackalloc switch this throw true try typeof unchecked unsafe using virtual while";
-                var boby = "Ability AbilityList Chat Dialog DialogList Entity EntityList Inventory InventoryList Force ForceList Player Skill SkillList Travel TravelList";
+                var boby = "Ability AbilityList Chat Console Dialog DialogList Entity EntityList Inventory InventoryList Force ForceList Player Skill SkillList Travel TravelList";
                 scintilla.AutoCShow(lenEntered, boby + " " + basic);
             }
             intellisense();
@@ -212,6 +212,11 @@ namespace BobyMultitools
                     break;
                 case "EntityList":
                     list.Add("GetEntity");
+                    list_autocompletion(lenEntered - 1, lastword, list);
+                    break;
+                case "Console":
+                    list.Add("Write");
+                    list.Add("WriteLine");
                     list_autocompletion(lenEntered - 1, lastword, list);
                     break;
             }

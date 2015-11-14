@@ -92,6 +92,8 @@
     <CroppedBitmap x:Key="Special_Icon.Quest_Final_3"   Source="Special_Icon\Quest.png" SourceRect="32,48,16,16"/>
     <CroppedBitmap x:Key="Special_Icon.Quest_Final_4"   Source="Special_Icon\Quest.png" SourceRect="32,64,16,16"/>
 
+    <CroppedBitmap x:Key="GraphicChar"                  Source="Entity_Icon\GraphicChar.png" SourceRect="0,0,256,512"/>
+
     <Style x:Key="Style_Target" TargetType="{x:Type Image}">
         <Setter Property="RenderTransformOrigin" Value=".5,.5" />
         <Setter Property="RenderTransform">

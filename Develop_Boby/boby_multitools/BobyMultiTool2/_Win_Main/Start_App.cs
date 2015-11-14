@@ -32,52 +32,25 @@ namespace BobyMultitools
         {
             if (id > 0 && Aion_Process.Game.Open(id))
             {
-                do
-                {
-                    Offset.Loading(Aion_Process.Game.Base);
-                    if (!Offset.Base_windows.newbase.ContainsKey("chat_input_dialog"))
-                        break;
-                    System.Windows.Forms.Application.DoEvents();
-                    Thread.Sleep(100);
-                } while (!Offset.Base_windows.newbase.ContainsKey("chat_input_dialog"));
-
-                Aion_Game.Chat.Ini();
-
-                //Start_Scan_Entity();
-                New_Start_Scan_Entity();
+                Offset.SendCharacter();
+                Ping.Online_Users_Sequence();
+                Start_Scan_Entity();
+                Start_Scan_Dialog();
+                Aion_Game.Chat.Ini(this);
 
                 Start_Radar();
                 Start_Entity();
                 Start_Cheat();
                 Start_Script();
                 //Start_Quick();
-                
-				this.WindowState = System.Windows.WindowState.Minimized;
             }
             else
                 Refresh_lb_Game();
         }
 
-        public void New_Start_Scan_Entity()
-        {
-            if (in_Entity_List == null)
-            {
-                Thread T_Scan_Entity = new Thread(New_Scan_Entity_);
-                T_Scan_Entity.SetApartmentState(ApartmentState.STA);
-                T_Scan_Entity.Start();
-            }
-        }
-
-        public void New_Scan_Entity_()
-        {
-            in_Entity_List = new Aion_Game.EntityList(0);
-            Aion_Game.Entity_To_View.Start();
-            System.Windows.Threading.Dispatcher.Run();
-        }
-
         public void Start_Scan_Entity()
         {
-            if (in_Thread_Entity == null)
+            if (in_Entity_List == null)
             {
                 Thread T_Scan_Entity = new Thread(Scan_Entity_);
                 T_Scan_Entity.SetApartmentState(ApartmentState.STA);
@@ -87,7 +60,26 @@ namespace BobyMultitools
 
         public void Scan_Entity_()
         {
-            in_Thread_Entity = new Thread_Entity(in_Win_Main);
+            in_Entity_List = new Aion_Game.EntityList(0);
+            Entity_To_View.Start();
+            Aion_Game.Player.IniTimer();
+            System.Windows.Threading.Dispatcher.Run();
+        }
+
+        public void Start_Scan_Dialog()
+        {
+            if (in_Dialog_List == null)
+            {
+                Thread T_Scan_Dialog = new Thread(Scan_Dialog_);
+                T_Scan_Dialog.SetApartmentState(ApartmentState.STA);
+                T_Scan_Dialog.Start();
+            }
+        }
+
+        public void Scan_Dialog_()
+        {
+            in_Dialog_List = new Aion_Game.DialogList(0);
+            new Aion_Game.AbilityList(0);
             System.Windows.Threading.Dispatcher.Run();
         }
 
@@ -114,7 +106,7 @@ namespace BobyMultitools
             try
             {
                 Win_Radar in_Win_Radar = new Win_Radar(in_Win_Main);
-                if (in_Setting.in_Radar.Show.Get_Value())
+                if (Setting.Boby.Radar.Show)
                     in_Win_Radar.Show();
                 in_Win_Radar.Closed += (sender2, e2) => in_Win_Radar.Dispatcher.InvokeShutdown();
                 System.Windows.Threading.Dispatcher.Run();
@@ -145,7 +137,7 @@ namespace BobyMultitools
             try
             {
                 Win_Entity in_Win_Entity = new Win_Entity(in_Win_Main);
-                if (in_Setting.in_Entity.Show.Get_Value())
+                if (Setting.Boby.Entity.Show)
                     in_Win_Entity.Show();
                 in_Win_Entity.Closed += (sender2, e2) => in_Win_Entity.Dispatcher.InvokeShutdown();
                 System.Windows.Threading.Dispatcher.Run();
@@ -176,7 +168,7 @@ namespace BobyMultitools
             try
             {
                 Win_Cheat in_Win_Cheat = new Win_Cheat(in_Win_Main);
-                if (in_Setting.in_Cheat.Show.Get_Value())
+                if (Setting.Boby.Cheat.Show)
                     in_Win_Cheat.Show();
                 in_Win_Cheat.Closed += (sender2, e2) => in_Win_Cheat.Dispatcher.InvokeShutdown();
                 System.Windows.Threading.Dispatcher.Run();
@@ -207,7 +199,7 @@ namespace BobyMultitools
             try
             {
                 Win_Script in_Win_Script = new Win_Script(in_Win_Main);
-                if (in_Setting.in_Scripts.Show.Get_Value())
+                if (Setting.Boby.Scripts.Show)
                     in_Win_Script.Show();
                 in_Win_Script.Closed += (sender2, e2) => in_Win_Script.Dispatcher.InvokeShutdown();
                 System.Windows.Threading.Dispatcher.Run();

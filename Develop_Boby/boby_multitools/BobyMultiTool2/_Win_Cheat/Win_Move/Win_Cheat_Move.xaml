@@ -33,7 +33,7 @@
             </StackPanel>
         </Grid>
         <Grid Margin="1,28,1,1">
-            <Button Name="Forward" HorizontalAlignment="Left" VerticalAlignment="Top" Width="31" Height="42" MouseDown="Forward_MouseLeftButtonDown">◀</Button>
+            <Button Name="Forward" HorizontalAlignment="Left" VerticalAlignment="Top" Width="31" Height="42" Click="Forward_Click">◀</Button>
             <Button Name="Up" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="31,0,0,0" Width="26" Height="21" Click="Up_Click">▲</Button>
             <Button Name="Down" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="31,21,0,0" Width="26" Height="21" Click="Down_Click">▼</Button>
             <Button Name="BigUp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="57,0,0,0" Width="31" Height="21" Click="BigUp_Click">△</Button>

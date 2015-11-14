@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Windows;
 using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Effects;
 using System.Windows.Interop;
@@ -24,6 +26,7 @@ namespace BobyMultitools
     public partial class Win_Radar
     {
         public static Image[,] Img_Entity_Index = new Image[9, 300];
+        public static Line[] Line_Travel_Index = new Line[1000];
         public static int[] Last_Count_Index = new int[9];
         public static Image Player = new Image();
         public static Image Target = new Image();
@@ -37,6 +40,7 @@ namespace BobyMultitools
 
         DispatcherTimer messageTimer;
 
+        public CroppedBitmap[] FileImg = null;
         public ImageSource Player_NotFly = null;
         public ImageSource Player_Fly = null;
         public ImageSource Aggro = null;
@@ -54,6 +58,22 @@ namespace BobyMultitools
 
         private void Radar_Image_To_Canvas()
         {
+            ImageSource GraphicChar = (ImageSource)Application.Current.FindResource("GraphicChar");
+
+            int maxImage = 234;
+            FileImg = new CroppedBitmap[maxImage];
+
+            for (int y = 0; y < 17; y++)
+            {
+                for (int x = 0; x < 14; x++)
+                {
+                    if (y * 14 + x >= maxImage)
+                        break;
+                    CroppedBitmap img = new CroppedBitmap((BitmapSource)GraphicChar, new Int32Rect(x * 16 + x + 1, y * 16 + y + 1, 16, 16));
+                    FileImg[y * 14 + x] = img;
+                }
+            }
+
             Player_NotFly = (ImageSource)Application.Current.FindResource("Entity.Player");
             Player_Fly = (ImageSource)Application.Current.FindResource("Entity.Player_Fly");
             Aggro = (ImageSource)Application.Current.FindResource("Sensory.Sensory_01");
@@ -80,6 +100,14 @@ namespace BobyMultitools
             Canvas_Radar.Children.Add(e1);
             Canvas_Radar.Children.Add(e2);
             Canvas_Radar.Children.Add(e3);
+
+            for (int i = 0; i < 1000; i++)
+            {
+                Line_Travel_Index[i] = new Line();
+                Line_Travel_Index[i].StrokeThickness = 3;
+                Line_Travel_Index[i].Stroke = ToBrush("#99FFFF00");
+                Canvas_Radar.Children.Add(Line_Travel_Index[i]);
+            }
 
             Player.Source = Player_NotFly;
             Canvas_Radar.Children.Add(Player);
@@ -152,10 +180,11 @@ namespace BobyMultitools
             try
             {
                 int[] count_entity_index = new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+                int count_line = 0;
 
                 Image_Focus = false;
 
-                string tWhere = SplMemory.ReadWchar(Game.Base + Offset.Game.Where, 60);
+                string tWhere = SplMemory.ReadWchar(Game.Base + Offset.Extra.Where, 60);
 
                 float PlayerX = SplMemory.ReadFloat(Game.Base + Offset.Player.X);
                 float PlayerY = SplMemory.ReadFloat(Game.Base + Offset.Player.Y);
@@ -165,9 +194,9 @@ namespace BobyMultitools
                 float PlayerRot = 0;
 
                 if (SplMemory.ReadInt(Game.Base + Offset.Player.FreeCamRot) != 0)
-                    PlayerRot = SplMemory.ReadFloat(Game.Base + Offset.Player.FreeCamRotH);
+                    PlayerRot = SplMemory.ReadFloat(Game.Base + Offset.Player.FreeCamRot_H);
                 else
-                    PlayerRot = SplMemory.ReadFloat(Game.Base + Offset.Player.CamRotH);
+                    PlayerRot = SplMemory.ReadFloat(Game.Base + Offset.Player.CamRot_H);
 
                 if (PlayerRot > 180)
                     PlayerRot = PlayerRot - 360;
@@ -194,12 +223,12 @@ namespace BobyMultitools
                 Canvas.SetLeft(Target, -100);
                 Canvas.SetTop(Target, -100);
 
-                e1.Width = 26 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                e2.Width = 51 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                e3.Width = 76 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                e1.Height = 26 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                e2.Height = 51 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-                e3.Height = 76 * in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+                e1.Width = 26 * Setting.Boby.Radar.Zoom;
+                e2.Width = 51 * Setting.Boby.Radar.Zoom;
+                e3.Width = 76 * Setting.Boby.Radar.Zoom;
+                e1.Height = 26 * Setting.Boby.Radar.Zoom;
+                e2.Height = 51 * Setting.Boby.Radar.Zoom;
+                e3.Height = 76 * Setting.Boby.Radar.Zoom;
 
                 Canvas.SetLeft(Player, Canvas_Radar.Width / 2 - Player.ActualWidth / 2);
                 Canvas.SetTop(Player, Canvas_Radar.Height / 2 - Player.ActualHeight / 2);
@@ -213,14 +242,52 @@ namespace BobyMultitools
                 North.RenderTransform = new RotateTransform(-Angle_X + 90, North.ActualWidth / 2d, North.ActualHeight / 2d);
                 View.RenderTransform = new RotateTransform(-Angle_X - PlayerRot, North.ActualWidth / 2d, North.ActualHeight / 2d);
 
+                try
+                {
+                    Line lastLine = null;
+                    foreach (var travel in Win_TravelList.travelCollection)
+                    {
+                        if (count_line < 1000)
+                        {
+                            if (count_line > 0)
+                                PosLine(Line_Travel_Index[count_line], Line_Travel_Index[count_line - 1], travel.X, travel.Y, PlayerX, PlayerY);
+                            else
+                                PosLine(Line_Travel_Index[count_line], Line_Travel_Index[count_line], travel.X, travel.Y, PlayerX, PlayerY);
+                            count_line++;
+                        }
+                    }
+                    if (count_line > 0)
+                    { 
+                        Line_Travel_Index[count_line - 1].X2 = Line_Travel_Index[count_line - 1].X1;
+                        Line_Travel_Index[count_line - 1].Y2 = Line_Travel_Index[count_line - 1].Y1;
+                    }
+                    for (int i = count_line; i < 1000; i++)
+                    {
+                        Line_Travel_Index[i].X1 = 0;
+                        Line_Travel_Index[i].X2 = 0;
+                        Line_Travel_Index[i].Y1 = 0;
+                        Line_Travel_Index[i].Y2 = 0;
+                    }
+                }
+                catch
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        Line_Travel_Index[i].X1 = 0;
+                        Line_Travel_Index[i].X2 = 0;
+                        Line_Travel_Index[i].Y1 = 0;
+                        Line_Travel_Index[i].Y2 = 0;
+                    }
+                }
+
                 foreach (var view in Entity_To_View.View.Values)
                 {
-                    if (view.img == null && view.entity.Type != eType.Player)
+                    if (view.img == null && view.entity.Type != eType.Player && view.icon == null)
                         continue;
 
                     try
                     {
-                        long ID = SplMemory.ReadLong(view.entity.NodeStatus + Offset.Status.ID);
+                        long ID = SplMemory.ReadLong(view.entity.NodeStatus + Offset.Entity.Id);
                         if (ID != view.entity.Id)
                             continue;
                     }
@@ -240,6 +307,7 @@ namespace BobyMultitools
                         }
                         else
                         {
+                            view.entity.Update();
                             PosImage(Target, view.entity.X, view.entity.Y, PlayerRot, PlayerX, PlayerY);
                             if (Target.IsMouseDirectlyOver)
                             {
@@ -257,10 +325,10 @@ namespace BobyMultitools
                       c_Ennemy.IsChecked && view.entity.Type == eType.User && view.entity.Attitude != fAttitude.Friendly
                      )
                      && view.entity.Hp != 0 && view.entity.HpPercent != 0
-                     && count_entity_index[view.radar_img_index] < 300)
+                     && count_entity_index[0] < 300)
                     {
-                        ImageOnRadar(Img_Entity_Index[view.radar_img_index, count_entity_index[view.radar_img_index]], Aggro, view.entity, PlayerRot, PlayerX, PlayerY, 0.6f);
-                        count_entity_index[view.radar_img_index]++;
+                        ImageOnRadar(Img_Entity_Index[0, count_entity_index[0]], Aggro, view.entity, PlayerRot, PlayerX, PlayerY, 0.6f);
+                        count_entity_index[0]++;
                     }
 
                     if (view.entity.Type == eType.Player)
@@ -269,10 +337,10 @@ namespace BobyMultitools
                         try
                         {
                             if (view.entity.VehicleNode != 0)
-                                RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(SplMemory.ReadLong(view.entity.VehicleNode + Offset.Status.Node) + Offset.Entity.Status) + Offset.Status.Rot);
+                                RotPlayer = SplMemory.ReadFloat(view.entity.VehicleNode + Offset.Entity.Rotation);
                             else
-                                RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(view.entity.Node + Offset.Entity.Status) + Offset.Status.Rot);
-                            ID_Target_Player = SplMemory.ReadLong(SplMemory.ReadLong(view.entity.Node + Offset.Entity.Status) + Offset.Status.TargetId);
+                                RotPlayer = SplMemory.ReadFloat(SplMemory.ReadLong(view.entity.Node + Offset.Entity.Status) + Offset.Entity.Rotation);
+                            ID_Target_Player = SplMemory.ReadLong(SplMemory.ReadLong(view.entity.Node + Offset.Entity.Status) + Offset.Entity.TargetId);
                         }
                         catch { }
 
@@ -286,8 +354,22 @@ namespace BobyMultitools
                     {
                         if (count_entity_index[view.radar_img_index] < 300 && view.in_radar)
                         {
-                            ImageOnRadar(Img_Entity_Index[view.radar_img_index, count_entity_index[view.radar_img_index]], view.img, view.entity, PlayerRot, PlayerX, PlayerY);
-                            count_entity_index[view.radar_img_index]++;
+                            if (view.icon != null)
+                            {
+                                if (view.icon.AGGRO_SCALE > 0 && count_entity_index[0] < 300)
+                                {
+                                    float scale = (float)(view.icon.AGGRO_SCALE / 16 * Setting.Boby.Radar.Zoom / 2.65f);
+                                    ImageOnRadar(Img_Entity_Index[0, count_entity_index[0]], Signal_Aggro, view.entity, PlayerRot, PlayerX, PlayerY, scale);
+                                    count_entity_index[0]++;
+                                }
+                                ImageOnRadar(Img_Entity_Index[view.radar_img_index, count_entity_index[view.radar_img_index]], FileImg[view.icon.ID], view.entity, PlayerRot, PlayerX, PlayerY, view.icon.SCALE);
+                                count_entity_index[view.radar_img_index]++;
+                            }
+                            else
+                            {
+                                ImageOnRadar(Img_Entity_Index[view.radar_img_index, count_entity_index[view.radar_img_index]], view.img, view.entity, PlayerRot, PlayerX, PlayerY);
+                                count_entity_index[view.radar_img_index]++;
+                            }
                         }
                     }
                 }
@@ -326,7 +408,10 @@ namespace BobyMultitools
                 //else
                 //    messageTimer.Interval = t1;
             }
-            catch { Console.WriteLine("CanvasImg: Entity"); }
+            catch
+            {
+                Console.WriteLine("CanvasImg: Entity");
+            }
         }
 
         void ImageOnRadar(Image image, ImageSource source, Entity entity, float PlayerRot, float PlayerX, float PlayerY)
@@ -338,14 +423,14 @@ namespace BobyMultitools
 
             try
             {
-                long NodeLoc = SplMemory.ReadLong(entity.Node + Offset.Entity.Loc);
+                long NodeLoc = SplMemory.ReadLong(entity.Node + Offset.Entity.Position);
 
                 if (NodeLoc == 0 || NodeLoc == 0xCDCDCDCD)
                     PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY);
                 else
                 {
-                    float entity_X = SplMemory.ReadFloat(NodeLoc + Offset.Loc.X);
-                    float entity_Y = SplMemory.ReadFloat(NodeLoc + Offset.Loc.Y);
+                    float entity_X = SplMemory.ReadFloat(NodeLoc + Offset.Entity.X);
+                    float entity_Y = SplMemory.ReadFloat(NodeLoc + Offset.Entity.Y);
 
                     if (entity_X == float.NaN || entity_X == 0 || entity_Y == float.NaN || entity_Y == 0)
                         PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY);
@@ -376,39 +461,42 @@ namespace BobyMultitools
         void ImageOnRadar(Image image, ImageSource source, Entity entity, float PlayerRot, float PlayerX, float PlayerY, float Scale)
         {
             if (source == null)
-            {
-                Console.WriteLine("Problem PosImage.");
                 return;
-            }
 
             image.Source = source;
 
             try
             {
-                float entity_X = SplMemory.ReadFloat(entity.NodeLocation + Offset.Loc.X);
-                float entity_Y = SplMemory.ReadFloat(entity.NodeLocation + Offset.Loc.Y);
-                float entity_Z = SplMemory.ReadFloat(entity.NodeLocation + Offset.Loc.Z);
+                long NodeLoc = SplMemory.ReadLong(entity.Node + Offset.Entity.Position);
 
-                entity.X = entity_X;
-                entity.Y = entity_Y;
-                entity.Z = entity_Z;
+                if (NodeLoc == 0 || NodeLoc == 0xCDCDCDCD)
+                    PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY, Scale);
+                else
+                {
+                    float entity_X = SplMemory.ReadFloat(NodeLoc + Offset.Entity.X);
+                    float entity_Y = SplMemory.ReadFloat(NodeLoc + Offset.Entity.Y);
 
-                PosImage(image, entity_X, entity_Y, PlayerRot, PlayerX, PlayerY, Scale);
+                    if (entity_X == float.NaN || entity_X == 0 || entity_Y == float.NaN || entity_Y == 0)
+                        PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY, Scale);
+                    else
+                        PosImage(image, entity_X, entity_Y, PlayerRot, PlayerX, PlayerY, Scale);
+                }
             }
             catch
             {
+                Console.WriteLine("Problem PosImage.");
                 PosImage(image, entity.X, entity.Y, PlayerRot, PlayerX, PlayerY, Scale);
             }
             try
             {
-                /*if (image.IsMouseDirectlyOver)
+                if (image.IsMouseDirectlyOver)
                 {
                     in_Win_Radar_Popup.PopupContent(entity);
                     in_Win_Radar_Popup.Left = this.Left + Canvas.GetLeft(image) - in_Win_Radar_Popup.Width;
                     in_Win_Radar_Popup.Top = this.Top + Canvas.GetTop(image) - in_Win_Radar_Popup.Height;
-                    ID_Focus = entity.ID;
+                    ID_Focus = entity.Id;
                     Image_Focus = true;
-                }*/
+                }
             }
             catch
             { }
@@ -425,8 +513,8 @@ namespace BobyMultitools
             double cx = (PosX - PlayerX) / -2;
             double cy = (PosY - PlayerY) / -2;
 
-            float zoom = in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
-            float size = in_Win_Main.in_Setting.in_Radar.Size.Get_Value();
+            double zoom = Setting.Boby.Radar.Zoom;
+            double size = Setting.Boby.Radar.IconSize;
 
             Diff_X = ((cx * cosr) + (cy * sinr)) * zoom;
             Diff_Y = ((cx * sinr) - (cy * cosr)) * zoom;
@@ -452,7 +540,7 @@ namespace BobyMultitools
             double cx = (PosX - PlayerX) / -2;
             double cy = (PosY - PlayerY) / -2;
 
-            float zoom = in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value();
+            double zoom = Setting.Boby.Radar.Zoom;
 
             Diff_X = ((cx * cosr) + (cy * sinr)) * zoom;
             Diff_Y = ((cx * sinr) - (cy * cosr)) * zoom;
@@ -467,11 +555,33 @@ namespace BobyMultitools
             Canvas.SetTop(image, Diff_Y);
         }
 
+        private void PosLine(Line line, Line last, float PosX, float PosY, float PlayerX, float PlayerY)
+        {
+            double Diff_X;
+            double Diff_Y;
+
+            double cx = (PosX - PlayerX) / -2;
+            double cy = (PosY - PlayerY) / -2;
+
+            double zoom = Setting.Boby.Radar.Zoom;
+
+            Diff_X = ((cx * cosr) + (cy * sinr)) * zoom;
+            Diff_Y = ((cx * sinr) - (cy * cosr)) * zoom;
+
+            Diff_X = Diff_X + Canvas_Radar.Width / 2;
+            Diff_Y = Diff_Y + Canvas_Radar.Height / 2;
+
+            line.X1 = Diff_X;
+            line.Y1 = Diff_Y;
+            last.X2 = Diff_X;
+            last.Y2 = Diff_Y;
+        }
+
         private bool IsAggro(long nodeStatus)
         {
             try
             {
-                if (SplMemory.ReadInt(nodeStatus + Offset.Status.TargetId) == Aion_Game.Player.Id)
+                if (SplMemory.ReadInt(nodeStatus + Offset.Entity.TargetId) == Aion_Game.Player.Id)
                     return true;
                 else
                     return false;

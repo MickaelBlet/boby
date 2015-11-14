@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<TravelList>
+  <TravelPath>Circular</TravelPath>
+  <Travels>
+    <Travel>
+      <NAME>0</NAME>
+      <X>360.234528</X>
+      <Y>299.004517</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>1</NAME>
+      <X>363.262756</X>
+      <Y>300.064728</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>2</NAME>
+      <X>366.887573</X>
+      <Y>300.63913</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>3</NAME>
+      <X>370.418732</X>
+      <Y>300.3671</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>4</NAME>
+      <X>371.9988</X>
+      <Y>297.108</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>5</NAME>
+      <X>372.329865</X>
+      <Y>293.4662</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>6</NAME>
+      <X>370.4029</X>
+      <Y>290.7055</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>7</NAME>
+      <X>366.869415</X>
+      <Y>290.12616</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>8</NAME>
+      <X>363.326324</X>
+      <Y>290.755035</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>9</NAME>
+      <X>361.899261</X>
+      <Y>294.02243</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+    <Travel>
+      <NAME>10</NAME>
+      <X>361.1056</X>
+      <Y>297.601257</Y>
+      <Z>222.3536</Z>
+      <FLY>false</FLY>
+      <TYPE>None</TYPE>
+      <COMMENT />
+    </Travel>
+  </Travels>
+</TravelList>

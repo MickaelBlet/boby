@@ -51,17 +51,17 @@ namespace BobyMultitools
             in_Win_Entity_Popup.Left = -1000;
             in_Win_Entity_Popup.Top = -1000;
 
-            this.Left = in_Win_Main.in_Setting.in_Entity.Left.Get_Value();
-            this.Top = in_Win_Main.in_Setting.in_Entity.Top.Get_Value();
-            this.Height = in_Win_Main.in_Setting.in_Entity.Height.Get_Value();
-            this.Width = in_Win_Main.in_Setting.in_Entity.Width.Get_Value();
+            this.Left = Setting.Boby.Entity.Left;
+            this.Top = Setting.Boby.Entity.Top;
+            this.Height = Setting.Boby.Entity.Height;
+            this.Width = Setting.Boby.Entity.Width;
 
-            this.Check_NPC.IsChecked = in_Win_Main.in_Setting.in_Entity.NPC.Get_Value();
-            this.Check_Ally.IsChecked = in_Win_Main.in_Setting.in_Entity.Ally.Get_Value();
-            this.Check_Ennemy.IsChecked = in_Win_Main.in_Setting.in_Entity.Hostile.Get_Value();
-            this.Check_Gather.IsChecked = in_Win_Main.in_Setting.in_Entity.Gather.Get_Value();
+            this.Check_NPC.IsChecked = Setting.Boby.Entity.NPC;
+            this.Check_Ally.IsChecked = Setting.Boby.Entity.Ally;
+            this.Check_Ennemy.IsChecked = Setting.Boby.Entity.Hostile;
+            this.Check_Gather.IsChecked = Setting.Boby.Entity.Gather;
 
-            if (in_Win_Main.in_Setting.in_Entity.Show.Get_Value())
+            if (Setting.Boby.Entity.Show)
                 this.Show();
 
             Entity_List_View();
@@ -99,42 +99,42 @@ namespace BobyMultitools
 
         void Check_NPC_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.NPC.Set_Value(true);
+            Setting.Boby.Entity.NPC = true;
         }
 
         void Check_NPC_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.NPC.Set_Value(false);
+            Setting.Boby.Entity.NPC = false;
         }
 
         void Check_Ally_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Ally.Set_Value(true);
+            Setting.Boby.Entity.Ally = true;
         }
 
         void Check_Ally_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Ally.Set_Value(false);
+            Setting.Boby.Entity.Ally = false;
         }
 
         void Check_Ennemy_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Hostile.Set_Value(true);
+            Setting.Boby.Entity.Hostile = true;
         }
 
         void Check_Ennemy_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Hostile.Set_Value(false);
+            Setting.Boby.Entity.Hostile = false;
         }
 
         void Check_Gather_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Gather.Set_Value(true);
+            Setting.Boby.Entity.Gather = true;
         }
 
         void Check_Gather_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Gather.Set_Value(false);
+            Setting.Boby.Entity.Gather = false;
         }
 
         void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -146,7 +146,7 @@ namespace BobyMultitools
                     select_is_ready = false;
                     in_Win_Entity_Popup.Left = -1000;
                     in_Win_Entity_Popup.Top = -1000;
-                    Thread Select = new Thread(() => SlashSelect(in_Win_Entity_Popup.entityPtr));
+                    Thread Select = new Thread(() => SlashSelect(in_Win_Entity_Popup.entity));
                     Select.Start();
                 }
             }
@@ -154,14 +154,14 @@ namespace BobyMultitools
 
         private void tb_where_TextChanged(object sender, TextChangedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Entity.Where = tb_where.Text;
+            Setting.Boby.Entity.Where = tb_where.Text;
         }
 
         #endregion
 
-        void SlashSelect(long entityPtr)
+        void SlashSelect(Aion_Game.Entity entity)
         {
-            //Character.Select(entityPtr);
+            entity.Select();
             select_is_ready = true;
         }
 
@@ -296,8 +296,8 @@ namespace BobyMultitools
             BG_Count_Ally.Width = (this.Width - 20) / 2;
             BG_Count_Ennemy.Width = (this.Width - 20) / 2;
             AutoSizeColumns();
-            in_Win_Main.in_Setting.in_Entity.Height.Set_Value((int)this.Height);
-            in_Win_Main.in_Setting.in_Entity.Width.Set_Value((int)this.Width);
+            Setting.Boby.Entity.Width = this.Width;
+            Setting.Boby.Entity.Height = this.Height;
         }
 
         public void AutoSizeColumns()
@@ -324,64 +324,64 @@ namespace BobyMultitools
 
         private void bt_Rnk_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Rnk")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Rnk");
+            if (Setting.Boby.Entity.Order == "Rnk")
+                Setting.Boby.Entity.Order = "/Rnk";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Rnk");
+                Setting.Boby.Entity.Order = "Rnk";
             refresh_style_button();
         }
 
         private void bt_Name_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Name")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Name");
+            if (Setting.Boby.Entity.Order == "Name")
+                Setting.Boby.Entity.Order = "/Name";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Name");
+                Setting.Boby.Entity.Order = "Name";
             refresh_style_button();
         }
 
         private void bt_Guild_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Guild")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Guild");
+            if (Setting.Boby.Entity.Order == "Guild")
+                Setting.Boby.Entity.Order = "/Guild";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Guild");
+                Setting.Boby.Entity.Order = "Guild";
             refresh_style_button();
         }
 
         private void bt_Lvl_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Lvl")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Lvl");
+            if (Setting.Boby.Entity.Order == "Lvl")
+                Setting.Boby.Entity.Order = "/Lvl";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Lvl");
+                Setting.Boby.Entity.Order = "Lvl";
             refresh_style_button();
         }
 
         private void bt_Class_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Class")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Class");
+            if (Setting.Boby.Entity.Order == "Class")
+                Setting.Boby.Entity.Order = "/Class";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Class");
+                Setting.Boby.Entity.Order = "Class";
             refresh_style_button();
         }
 
         private void bt_Hp_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Hp")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Hp");
+            if (Setting.Boby.Entity.Order == "Hp")
+                Setting.Boby.Entity.Order = "/Hp";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Hp");
+                Setting.Boby.Entity.Order = "Hp";
             refresh_style_button();
         }
 
         private void bt_Dst_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Dst")
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("/Dst");
+            if (Setting.Boby.Entity.Order == "Dst")
+                Setting.Boby.Entity.Order = "/Dst";
             else
-                in_Win_Main.in_Setting.in_Entity.Order.Set_Value("Dst");
+                Setting.Boby.Entity.Order = "Dst";
             refresh_style_button();
         }
 
@@ -400,33 +400,33 @@ namespace BobyMultitools
             bt_Class.Style = style_List_Header;
             bt_Hp.Style = style_List_Header;
             bt_Dst.Style = style_List_Header;
-            if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Rnk")
+            if (Setting.Boby.Entity.Order == "/Rnk")
                 bt_Rnk.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Rnk")
+            else if (Setting.Boby.Entity.Order == "Rnk")
                 bt_Rnk.Style = style_List_Header_Red;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Name")
+            else if (Setting.Boby.Entity.Order == "Name")
                 bt_Name.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Name")
+            else if (Setting.Boby.Entity.Order == "/Name")
                 bt_Name.Style = style_List_Header_Red;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Guild")
+            else if (Setting.Boby.Entity.Order == "Guild")
                 bt_Guild.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Guild")
+            else if (Setting.Boby.Entity.Order == "/Guild")
                 bt_Guild.Style = style_List_Header_Red;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Lvl")
+            else if (Setting.Boby.Entity.Order == "Lvl")
                 bt_Lvl.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Lvl")
+            else if (Setting.Boby.Entity.Order == "/Lvl")
                 bt_Lvl.Style = style_List_Header_Red;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Class")
+            else if (Setting.Boby.Entity.Order == "Class")
                 bt_Class.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Class")
+            else if (Setting.Boby.Entity.Order == "/Class")
                 bt_Class.Style = style_List_Header_Red;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Hp")
+            else if (Setting.Boby.Entity.Order == "Hp")
                 bt_Hp.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Hp")
+            else if (Setting.Boby.Entity.Order == "/Hp")
                 bt_Hp.Style = style_List_Header_Red;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Dst")
+            else if (Setting.Boby.Entity.Order == "Dst")
                 bt_Dst.Style = style_List_Header_Green;
-            else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Dst")
+            else if (Setting.Boby.Entity.Order == "/Dst")
                 bt_Dst.Style = style_List_Header_Red;
         }
 
@@ -487,8 +487,8 @@ namespace BobyMultitools
                 this.Top = SystemParameters.VirtualScreenHeight - this.Height;
             if (this.Left + this.Width + 1 > SystemParameters.VirtualScreenWidth)
                 this.Left = SystemParameters.VirtualScreenWidth - this.Width;
-            in_Win_Main.in_Setting.in_Entity.Left.Set_Value((int)this.Left);
-            in_Win_Main.in_Setting.in_Entity.Top.Set_Value((int)this.Top);
+            Setting.Boby.Entity.Left = this.Left;
+            Setting.Boby.Entity.Top = this.Top;
         }
     }
 }

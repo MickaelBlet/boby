@@ -29,20 +29,11 @@ namespace BobyMultitools
         public Hashtable Image_File_Mini = null;
         public Hashtable Image_File_Real = null;
 
-        public IconCollection icon_collect;
-        public IconSaveCollection icon_save_collect;
-        public BuffCollection buff_collect;
-
         public Win_Cheat_Move(Win_Main tmp_in_Win_Main)
         {
             InitializeComponent();
 
             in_Win_Main = tmp_in_Win_Main;
-        }
-
-        private void hotkey_for_textbox(object textBoxZlock, object p1, object p2)
-        {
-            throw new NotImplementedException();
         }
 
         private void rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -59,7 +50,7 @@ namespace BobyMultitools
         {
             if (Aion_Game.Player.Node != 0)
             {
-                double CamRotH = (double)SplMemory.ReadFloat(Aion_Process.Game.Base + Offset.Player.CamRotH) / 180d;
+                double CamRotH = (double)SplMemory.ReadFloat(Aion_Process.Game.Base + Offset.Player.CamRot_H) / 180d;
                 float PosX = (float)((0.5 + 1) / 5d) * (float)Math.Sin(CamRotH * Math.PI) * -1;
                 float PosY = (float)((0.5 + 1) / 5d) * (float)Math.Cos(CamRotH * Math.PI) * -1;
                 Aion_Game.Player.X -= PosX;
@@ -103,7 +94,7 @@ namespace BobyMultitools
         {
             if (Aion_Game.Player.Node != 0)
             {
-                double CamRotH = (double)SplMemory.ReadFloat(Aion_Process.Game.Base + Offset.Player.CamRotH) / 180d;
+                double CamRotH = (double)SplMemory.ReadFloat(Aion_Process.Game.Base + Offset.Player.CamRot_H) / 180d;
                 float PosX = (float)((0.5 + 1) / 5d) * (float)Math.Sin(CamRotH * Math.PI) * -1;
                 float PosY = (float)((0.5 + 1) / 5d) * (float)Math.Cos(CamRotH * Math.PI) * -1;
                 Aion_Game.Player.X -= PosX;

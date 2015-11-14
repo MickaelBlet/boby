@@ -47,6 +47,7 @@ namespace Aion_Game
 
         // State
         protected fAttitude _attitude;
+        protected fMouseAction _mouse_action;
         protected fAction _action;
         protected byte _is_attackale;
         protected fStance _stance;
@@ -61,6 +62,7 @@ namespace Aion_Game
         protected float _rot;
         protected float _z_collision;
         protected byte _weapon_style;
+        protected byte _hide;
 
         // Location
         protected float _x;
@@ -119,7 +121,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteWchar(_node_status + Offset.Status.Name, value, 60);
+                SplMemory.WriteWchar(_node_status + Offset.Entity.Name, value, 60);
                 _name = value;
             }
         }
@@ -131,7 +133,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteWchar(_node_status + Offset.Status.Info, value, 16);
+                SplMemory.WriteWchar(_node_status + Offset.Entity.Info, value, 16);
                 _info = value;
             }
         }
@@ -143,7 +145,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteWchar(_node_status + Offset.Status.Guild, value, 60);
+                SplMemory.WriteWchar(_node_status + Offset.Entity.Guild, value, 60);
                 _guild = value;
             }
         }
@@ -206,11 +208,17 @@ namespace Aion_Game
         {
             get
             {
-                return _no_grav;
+                long vehicle = VehicleNode;
+                if (vehicle != 0)
+                    return SplMemory.ReadLong(vehicle + Offset.Entity.No_Grav);
+                return SplMemory.ReadLong(_node_status + Offset.Entity.No_Grav);
             }
             set
             {
-                SplMemory.WriteMemory(_node_status + Offset.Status.No_Grav, value);
+                if (VehicleNode != 0)
+                    SplMemory.WriteMemory(_vehicle_node + Offset.Entity.No_Grav, value);
+                else
+                    SplMemory.WriteMemory(_node_status + Offset.Entity.No_Grav, value);
                 _no_grav = value;
             }
         }
@@ -218,12 +226,12 @@ namespace Aion_Game
         {
             get
             {
-                return _no_grav;
+                return _no_skill;
             }
             set
             {
-                SplMemory.WriteMemory(_node_status + Offset.Status.No_Skill, value);
-                _no_grav = value;
+                SplMemory.WriteMemory(_node_status + Offset.Entity.No_Skill, value);
+                _no_skill = value;
             }
         }
         public long AtkSpeed
@@ -234,7 +242,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteMemory(_node_status + Offset.Status.AtkSpeed, value);
+                SplMemory.WriteMemory(_node_status + Offset.Entity.Atk_Speed, value);
                 _atk_speed = value;
             }
         }
@@ -246,7 +254,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteMemory(_node_status + Offset.Status.MoveSpeed, value);
+                SplMemory.WriteMemory(_node_status + Offset.Entity.Mov_Speed, value);
                 _move_speed = value;
             }
         }
@@ -256,7 +264,7 @@ namespace Aion_Game
         {
             get
             {
-                return _vehicle_node;
+                return SplMemory.ReadLong(_node_status + Offset.Entity.Vehicle);
             }
         }
 
@@ -268,6 +276,19 @@ namespace Aion_Game
                 return _attitude;
             }
         }
+        public fMouseAction Mouse_Action
+        {
+            get
+            {
+                return _mouse_action;
+            }
+            set
+            {
+                SplMemory.WriteMemory(_node_status + Offset.Entity.Mouse_Action, value.GetHashCode());
+                _mouse_action = value;
+            }
+        }
+
         public fAction Action
         {
             get
@@ -276,7 +297,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteMemory(_node_status + Offset.Status.Action, value.GetHashCode());
+                SplMemory.WriteMemory(_node_status + Offset.Entity.Action, value.GetHashCode());
                 _action = value;
             }
         }
@@ -295,7 +316,7 @@ namespace Aion_Game
             }
             set
             {
-                SplMemory.WriteMemory(_node_status + Offset.Status.Stance, value.GetHashCode());
+                SplMemory.WriteMemory(_node_status + Offset.Entity.Stance, value.GetHashCode());
                 _stance = value;
             }
         }
@@ -340,7 +361,10 @@ namespace Aion_Game
         {
             get
             {
-                return _z_collision;
+                long vehicle = VehicleNode;
+                if (vehicle != 0)
+                    return SplMemory.ReadFloat(vehicle + Offset.Entity.Z_Colision);
+                return SplMemory.ReadFloat(_node_status + Offset.Entity.Z_Colision);
             }
         }
         public byte WeaponStyle
@@ -348,6 +372,14 @@ namespace Aion_Game
             get
             {
                 return _weapon_style;
+            }
+        }
+
+        public byte Hide
+        {
+            get
+            {
+                return _hide;
             }
         }
 
@@ -359,10 +391,16 @@ namespace Aion_Game
             }
             set
             {
-                long readLocNode = SplMemory.ReadLong(_node + Offset.Entity.Loc);
+                long node;
+                long vehicle = VehicleNode;
+                if (vehicle != 0)
+                    node = SplMemory.ReadLong(vehicle + Offset.Entity.Node);
+                else
+                    node = _node;
+                long readLocNode = SplMemory.ReadLong(node + Offset.Entity.Position);
                 if (readLocNode != 0 && readLocNode != 0xCDCDCDCD)
                 {
-                    SplMemory.WriteMemory(readLocNode + Offset.Loc.X, value);
+                    SplMemory.WriteMemory(readLocNode + Offset.Entity.X, value);
                     _x = value;
                 }
             }
@@ -375,10 +413,16 @@ namespace Aion_Game
             }
             set
             {
-                long readLocNode = SplMemory.ReadLong(_node + Offset.Entity.Loc);
+                long node;
+                long vehicle = VehicleNode;
+                if (vehicle != 0)
+                    node = SplMemory.ReadLong(vehicle + Offset.Entity.Node);
+                else
+                    node = _node;
+                long readLocNode = SplMemory.ReadLong(node + Offset.Entity.Position);
                 if (readLocNode != 0 && readLocNode != 0xCDCDCDCD)
                 {
-                    SplMemory.WriteMemory(readLocNode + Offset.Loc.Y, value);
+                    SplMemory.WriteMemory(readLocNode + Offset.Entity.Y, value);
                     _y = value;
                 }
             }
@@ -391,10 +435,16 @@ namespace Aion_Game
             }
             set
             {
-                long readLocNode = SplMemory.ReadLong(_node + Offset.Entity.Loc);
+                long node;
+                long vehicle = VehicleNode;
+                if (vehicle != 0)
+                    node = SplMemory.ReadLong(vehicle + Offset.Entity.Node);
+                else
+                    node = _node;
+                long readLocNode = SplMemory.ReadLong(node + Offset.Entity.Position);
                 if (readLocNode != 0 && readLocNode != 0xCDCDCDCD)
                 {
-                    SplMemory.WriteMemory(readLocNode + Offset.Loc.Z, value);
+                    SplMemory.WriteMemory(readLocNode + Offset.Entity.Z, value);
                     _z = value;
                 }
             }
@@ -490,7 +540,7 @@ namespace Aion_Game
 
             // State
             _attitude = (fAttitude)0;
-            _action = (fAction)0;
+            _mouse_action = (fMouseAction)0;
             _is_attackale = 0;
             _stance = (fStance)0;
 
@@ -524,17 +574,17 @@ namespace Aion_Game
                 _node_status = SplMemory.ReadLong(_node + Offset.Entity.Status);
                 if (_node_status == 0 || _node_status == 0xCDCDCDCD)
                     return;
-                _node_location = SplMemory.ReadLong(_node + Offset.Entity.Loc);
+                _node_location = SplMemory.ReadLong(_node + Offset.Entity.Position);
                 if (_node_location == 0 || _node_location == 0xCDCDCDCD)
                     return;
-                _hp_percent = SplMemory.ReadByte(_node_status + Offset.Status.HP_Percent);
-                _lvl = SplMemory.ReadByte(_node_status + Offset.Status.Lvl);
-                _id = SplMemory.ReadLong(_node_status + Offset.Status.ID);
+                _hp_percent = SplMemory.ReadByte(_node_status + Offset.Entity.Hp_Percent);
+                _lvl = SplMemory.ReadByte(_node_status + Offset.Entity.Lvl);
+                _id = SplMemory.ReadLong(_node_status + Offset.Entity.Id);
                 _type = (eType)SplMemory.ReadByte(_node + Offset.Entity.Type);
-                _name = SplMemory.ReadWchar(_node_status + Offset.Status.Name, 60);
-                _x = SplMemory.ReadFloat(_node_location + Offset.Loc.X);
-                _y = SplMemory.ReadFloat(_node_location + Offset.Loc.Y);
-                _z = SplMemory.ReadFloat(_node_location + Offset.Loc.Z);
+                _name = SplMemory.ReadWchar(_node_status + Offset.Entity.Name, 60);
+                _x = SplMemory.ReadFloat(_node_location + Offset.Entity.X);
+                _y = SplMemory.ReadFloat(_node_location + Offset.Entity.Y);
+                _z = SplMemory.ReadFloat(_node_location + Offset.Entity.Z);
                 if (_hp_percent > 100 || _lvl < 0 || _lvl > 80 || _type == 0u || _name.Length == 0)
                     return;
 
@@ -542,15 +592,18 @@ namespace Aion_Game
                 _distance_2d = CalculDistance2D();
                 _distance_3d = CalculDistance3D();
 
-                _action = (fAction)SplMemory.ReadInt(_node_status + Offset.Status.Action);
-                _info = SplMemory.ReadWchar(_node_status + Offset.Status.Info, 30);
+                _mouse_action = (fMouseAction)SplMemory.ReadInt(_node_status + Offset.Entity.Mouse_Action);
+                _id_object = SplMemory.ReadLong(_node_status + Offset.Entity.Type_Object);
+                _info = SplMemory.ReadWchar(_node_status + Offset.Entity.Info, 30);
 
                 if (IsNPC() || IsUser() || IsPlayer())
                 {
-                    _attitude = (fAttitude)SplMemory.ReadInt(_node_status + Offset.Status.Type);
-                    _hp = SplMemory.ReadLong(_node_status + Offset.Status.HP);
-                    _hp_max = SplMemory.ReadLong(_node_status + Offset.Status.HP_Max);
-                    _target_id = SplMemory.ReadLong(_node_status + Offset.Status.TargetId);
+                    _attitude = (fAttitude)SplMemory.ReadInt(_node_status + Offset.Entity.Attitude);
+                    _hp = SplMemory.ReadLong(_node_status + Offset.Entity.Hp);
+                    _hp_max = SplMemory.ReadLong(_node_status + Offset.Entity.Hp_Max);
+                    _target_id = SplMemory.ReadLong(_node_status + Offset.Entity.TargetId);
+                    _hide = SplMemory.ReadByte(_node_status + Offset.Entity.Hide);
+                    _action = (fAction)SplMemory.ReadByte(_node_status + Offset.Entity.Action);
                     //_hide = SplMemory.ReadByte(_node_status + Offset.Status.Hide);
                 }
                 if (IsNPC() || IsUser())
@@ -563,19 +616,18 @@ namespace Aion_Game
 
                 if (IsNPC())
                 {
-                    _id_object = SplMemory.ReadLong(_node_status + Offset.Status.ID_Object);
-                    _id_type = (fIdTypeNPC)SplMemory.ReadInt(_node_status + Offset.Status.ID_Type_NPC);
-                    _id_type_quest = (fIdTypeQuest)SplMemory.ReadInt(_node_status + Offset.Status.ID_Type_Quest_Type);
-                    _id_progress_quest = (fIdProgressQuest)SplMemory.ReadInt(_node_status + Offset.Status.ID_Type_Quest);
+                    _id_type = (fIdTypeNPC)SplMemory.ReadInt(_node_status + Offset.Entity.Type_NPC);
+                    _id_type_quest = (fIdTypeQuest)SplMemory.ReadInt(_node_status + Offset.Entity.Type_Quest);
+                    _id_progress_quest = (fIdProgressQuest)SplMemory.ReadInt(_node_status + Offset.Entity.Type_Quest_Progress);
                     //_info = SplMemory.ReadWchar(_node_status + Offset.Status.Info, 30);
                 }
                 if (IsUser() || IsPlayer())
                 {
-                    _class = (eClass)SplMemory.ReadByte(_node_status + Offset.Status.Class);
-                    _stance = (fStance)SplMemory.ReadInt(_node_status + Offset.Status.Stance);
-                    _rank = CalculRank(SplMemory.ReadLong(_node_status + Offset.Status.Rank));
-                    _guild = SplMemory.ReadWchar(_node_status + Offset.Status.Guild, 60);
-                    _is_attackale = SplMemory.ReadByte(_node_status + Offset.Status.Is_Attackable);
+                    _class = (eClass)SplMemory.ReadByte(_node_status + Offset.Entity.Class);
+                    _stance = (fStance)SplMemory.ReadInt(_node_status + Offset.Entity.Stance);
+                    _rank = CalculRank(SplMemory.ReadLong(_node_status + Offset.Entity.Rank));
+                    _guild = SplMemory.ReadWchar(_node_status + Offset.Entity.Guild, 60);
+                    _is_attackale = SplMemory.ReadByte(_node_status + Offset.Entity.IsAttackable);
                 }
                 else
                 {
@@ -589,9 +641,10 @@ namespace Aion_Game
                     Player.entity = this;
                     Player.GroupUpdate();
                     Player.ForceUpdate();
-                    _weapon_style = SplMemory.ReadByte(_node_status + Offset.Status.WeaponStyle);
-                    _move_speed = SplMemory.ReadFloat(_node_status + Offset.Status.MoveSpeed);
-                    _atk_speed = SplMemory.ReadLong(_node_status + Offset.Status.AtkSpeed);
+                    _weapon_style = SplMemory.ReadByte(_node_status + Offset.Entity.WeaponStyle);
+                    _move_speed = SplMemory.ReadFloat(_node_status + Offset.Entity.Mov_Speed);
+                    _atk_speed = SplMemory.ReadLong(_node_status + Offset.Entity.Atk_Speed);
+                    _z_collision = SplMemory.ReadFloat(_node_status + Offset.Entity.Z_Colision);
                 }
 
                 //Console.WriteLine(_name + " " + _distance_2d + " " + _distance_3d);
@@ -722,11 +775,10 @@ namespace Aion_Game
             //Send_Key.keybd_event(0x10, 0, 0, 0);
             //Send_Key.keybd_event(0x10, 0, 2, 0);
 
-            try
+            (new System.Threading.Thread(() =>
             {
-                (new System.Threading.Thread(() =>
+                try
                 {
-                    //System.Windows.MessageBox.Show(Player.TargetId.ToString("X") + " == " + Id.ToString("X"));
                     if (Node == 0 || NodeLocation == 0 || NodeStatus == 0)
                         return;
                     if (!Player.IsPlayer())
@@ -766,11 +818,11 @@ namespace Aion_Game
                     Y = EntityY;
                     Z = EntityZ;
 
-                    if (Chat.GetValueChatIsOpen() == Chat.CHAT_ISOPEN)
+                    if (Chat.GetValueChatIsOpen())
                         Send_Key.Send(Aion_Process.Game.Whandle, eWindowsVirtualKey.VK_RETURN);
-                })).Start();
-            }
-            catch { }
+                }
+                catch { }
+            })).Start();
         }
     }
 }

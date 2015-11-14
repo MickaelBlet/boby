@@ -269,7 +269,6 @@ C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\bin\Debug
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\bin\Debug\boby_multitools.exe
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\bin\Debug\boby_multitools.pdb
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\bin\Debug\BobyScript.dll
-C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Boby_MultiTools.csprojResolveAssemblyReference.cache
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Resources\Aion_Resources\Aion_Resources.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Resources\Aion_Resources\Controls\Button\Button.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Resources\Aion_Resources\Controls\Button_Icone\Button.baml
@@ -293,7 +292,8 @@ C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Radar\Win_Radar.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\App.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Resources\Global_Resources\Windows.g.cs
-C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Buff\Win_Setting\Win_Buff_Setting.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_Script.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_Setting\Win_Buff_Setting.g.cs
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Cheat\Win_Cheat.g.cs
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Cheat\Win_Move\Win_Cheat_Move.g.cs
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Cheat\Win_Setting\Win_Cheat_Setting.g.cs
@@ -308,7 +308,8 @@ C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\boby_multitools_MarkupCompile.cache
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\boby_multitools_MarkupCompile.lref
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Resources\Global_Resources\Windows.baml
-C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Buff\Win_Setting\Win_Buff_Setting.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_Script.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_Setting\Win_Buff_Setting.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Cheat\Win_Cheat.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Cheat\Win_Move\Win_Cheat_Move.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Cheat\Win_Setting\Win_Cheat_Setting.baml
@@ -317,9 +318,14 @@ C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Radar\Win_Setting\Win_Radar_Setting.baml
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\boby_multitools.g.resources
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\BobyMultitools.Win_Download.resources
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\BobyMultitools.Editor.resources
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Boby_MultiTools.csproj.GenerateResource.Cache
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\boby_multitools.exe
 C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\boby_multitools.pdb
-C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Buff\Win_Script.g.cs
-C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Buff\Win_Script.baml
-C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\BobyMultitools.Editor.resources
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\Boby_MultiTools.csprojResolveAssemblyReference.cache
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_DialogList\Win_DialogList.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_DialogList\Win_DialogList.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_AbilityList\Win_AbilityList.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_AbilityList\Win_AbilityList.baml
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_TravelList\Win_TravelList.g.cs
+C:\Users\mickael\Documents\Develop_Boby\boby_multitools\BobyMultiTool2\obj\Debug\_Win_Scripts\Win_TravelList\Win_TravelList.baml

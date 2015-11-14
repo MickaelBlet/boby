@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 using Aion_Process;
 using MemoryLib;
-using _Threads;
+using Aion_Game;
 
 namespace BobyMultitools
 {
@@ -19,6 +19,7 @@ namespace BobyMultitools
     /// </summary>
     public partial class Win_Radar_Popup : Window
     {
+        public Entity entity = null;
         public long entityPtr = 0;
         public string entityName = "";
 
@@ -38,8 +39,9 @@ namespace BobyMultitools
             Altitude_Up = (ImageSource)FindResource("Sign_Popup.Altitude_Up");
         }
 
-        public void PopupContent(Aion_Game.Entity entity)
+        public void PopupContent(Entity entityparam)
         {
+            entity = entityparam;
             BrushConverter bc = new BrushConverter();
 
             if (entity.Type == Aion_Game.eType.Gather)

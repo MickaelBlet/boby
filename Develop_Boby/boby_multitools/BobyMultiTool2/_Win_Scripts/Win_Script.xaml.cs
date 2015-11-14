@@ -40,7 +40,9 @@ namespace BobyMultitools
         public static TextBox Console = null;
 
         public static Win_Main in_Win_Main = null;
-        public Win_Buff_Setting in_Win_Buff_Setting = null;
+        public Win_DialogList in_Win_DialogList = null;
+        public Win_AbilityList in_Win_AbilityList = null;
+        public Win_TravelList in_Win_TravelList = null;
         public bool is_play = false;
 
         public Win_Script(Win_Main tmp_in_Win_Main)
@@ -57,8 +59,8 @@ namespace BobyMultitools
             in_Win_Main = tmp_in_Win_Main;
             in_Win_Main.in_Win_Script = this;
 
-            this.Top = in_Win_Main.in_Setting.in_Scripts.Top.Get_Value();
-            this.Left = in_Win_Main.in_Setting.in_Scripts.Left.Get_Value();
+            this.Top = Setting.Boby.Scripts.Top;
+            this.Left = Setting.Boby.Scripts.Left;
 
             try
             {
@@ -87,19 +89,17 @@ namespace BobyMultitools
 
             try
             {
-                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\scripts_list.xml";
+                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_multitools_scripts.xml";
 
                 if (File.Exists(filePath))
                 {
                     script_collect.Clear();
-                    XmlSerializer serializer = new XmlSerializer(typeof(ScriptSaveCollection));
+                    XmlSerializer serializer = new XmlSerializer(typeof(ScriptCollection));
                     using (FileStream stream = new FileStream(filePath, FileMode.Open))
                     {
-                        IEnumerable<Script_Element> personData = (IEnumerable<Script_Element>)serializer.Deserialize(stream);
-                        foreach (Script_Element p in personData)
-                        {
-                            script_collect.Add(new Script { FILE = p.file });
-                        }
+                        IEnumerable<Script> fileData = (IEnumerable<Script>)serializer.Deserialize(stream);
+                        foreach (var item in fileData)
+                            script_collect.Add(item);
                     }
                 }
             }
@@ -113,9 +113,12 @@ namespace BobyMultitools
                 script_collect.Add(new Script { FILE = "" });
             }
 
-            if (in_Win_Main.in_Setting.in_Scripts.Show.Get_Value())
+            if (Setting.Boby.Scripts.Show)
                 this.Show();
 
+            in_Win_DialogList = new Win_DialogList();
+            in_Win_AbilityList = new Win_AbilityList();
+            in_Win_TravelList = new Win_TravelList();
             //in_Win_Buff_Setting = new Win_Buff_Setting(in_Win_Main);
 
             //Buff_Sequence();
@@ -125,15 +128,13 @@ namespace BobyMultitools
         {
             try
             {
-                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\scripts_list.xml";
-                ScriptSaveCollection scripts_save_collect = new ScriptSaveCollection();
-                foreach (Script p in script_collect)
-                    scripts_save_collect.Add(new Script_Element { file = p.FILE });
-
-                XmlSerializer serializer = new XmlSerializer(typeof(ScriptSaveCollection));
+                string filePath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\boby_multitools_scripts.xml";
+                XmlSerializer serializer = new XmlSerializer(typeof(ScriptCollection));
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
                 using (FileStream stream = new FileStream(filePath, FileMode.Create))
                 {
-                    serializer.Serialize(stream, scripts_save_collect);
+                    serializer.Serialize(stream, script_collect, ns);
                 }
             }
             catch
@@ -142,22 +143,30 @@ namespace BobyMultitools
             in_Win_Main.Full_Close();
         }
 
-        private void rt_Title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Window_LocationChanged(object sender, EventArgs e)
         {
-            DragMove();
-            in_Win_Main.in_Setting.in_Scripts.Left.Set_Value((int)this.Left);
-            in_Win_Main.in_Setting.in_Scripts.Top.Set_Value((int)this.Top);
+            if (this.Top < 1)
+                this.Top = 0;
+            if (this.Left < 1)
+                this.Left = 0;
+            if (this.Top + this.Height + 1 > SystemParameters.VirtualScreenHeight)
+                this.Top = SystemParameters.VirtualScreenHeight - this.Height;
+            if (this.Left + this.Width + 1 > SystemParameters.VirtualScreenWidth)
+                this.Left = SystemParameters.VirtualScreenWidth - this.Width;
+            Setting.Boby.Scripts.Left = this.Left;
+            Setting.Boby.Scripts.Top = this.Top;
         }
 
         private void bt_Setting_Click(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Buff_Setting.IsVisible)
+            if (in_Win_DialogList.IsVisible)
             {
-                in_Win_Buff_Setting.Hide();
+                in_Win_DialogList.Hide();
             }
             else
             {
-                in_Win_Buff_Setting.Show();
+                in_Win_DialogList.Show();
+                in_Win_DialogList.Update();
             }
         }
 
@@ -183,36 +192,6 @@ namespace BobyMultitools
                     item.COMBO = list_files;
             }
             catch (Exception)
-            { }
-        }
-
-        private void tFile_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + @"\BuffFiles\";
-                string filename = "";// tFile.SelectedValue.ToString();
-
-                in_Win_Buff_Setting.buff_collect.Clear();
-
-                XmlSerializer serializer = new XmlSerializer(typeof(BuffCollection));
-
-                using (FileStream stream = new FileStream(appPath + filename, FileMode.Open))
-                {
-                    IEnumerable<Buff> personData = (IEnumerable<Buff>)serializer.Deserialize(stream);
-
-                    foreach (Buff p in personData)
-                    {
-                        in_Win_Buff_Setting.buff_collect.Add(p);
-                    }
-                }
-
-                //in_Win_Main.in_Setting.in_Script.File.Set_Value(appPath + filename);
-
-                //string[] ssplit = in_Win_Main.in_Setting.in_Script.File.Get_Value().Split('\\');
-                // in_Win_Buff_Setting.tFile.SelectedItem = ssplit[ssplit.Length - 1];
-            }
-            catch
             { }
         }
 
@@ -301,21 +280,51 @@ namespace BobyMultitools
                 parent.RaiseEvent(eventArg);
             }
         }
+
+        private void bt_Ability_Click(object sender, RoutedEventArgs e)
+        {
+            if (in_Win_AbilityList.IsVisible)
+            {
+                in_Win_AbilityList.Hide();
+            }
+            else
+            {
+                in_Win_AbilityList.Show();
+                in_Win_AbilityList.Update();
+            }
+        }
+
+        private void bt_Travel_Click(object sender, RoutedEventArgs e)
+        {
+            if (in_Win_TravelList.IsVisible)
+            {
+                in_Win_TravelList.Hide();
+            }
+            else
+            {
+                in_Win_TravelList.Show();
+                in_Win_TravelList.Update();
+            }
+        }
     }
 
     [Serializable]
+    [XmlRoot("ScriptFiles")]
     public class ScriptCollection : System.Collections.ObjectModel.ObservableCollection<Script>
     {
     }
 
+    [XmlType(TypeName = "ScriptFile")]
     public class Script : System.ComponentModel.INotifyPropertyChanged
     {
+        [XmlIgnore]
         public static List<string> combo = null;
         private string file = "";
         private bool play = false;
         private bool combo_enable = true;
         private DispatcherTimer timer = null;
-        private BobyScript.IBobyScript script = null;
+        private BobyScript.IBobyScript Interface = null;
+        private BobyScript.BobyScript Class = null;
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
@@ -326,23 +335,18 @@ namespace BobyMultitools
             timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
         }
 
-        ~Script()
-        {
-            if (timer != null)
-                timer.Stop();
-            if (script != null)
-            {
-                script.OnStop();
-                script = null;
-            }
-        }
-
         void _OnRun(object sender, EventArgs e)
         {
-            if (Aion_Game.Player.IsPlayer())
-                script.OnRun();
+            if (Class.run == false)
+            {
+                COMBO_ENABLE = true;
+                PLAY = false;
+            }
+            else if (Aion_Game.Player.IsPlayer())
+                Interface.OnRun();
         }
 
+        [XmlAttribute("Name")]
         public string FILE
         {
             get { return file; }
@@ -353,6 +357,7 @@ namespace BobyMultitools
             }
         }
 
+        [XmlIgnore]
         public bool PLAY
         {
             get { return play; }
@@ -364,6 +369,7 @@ namespace BobyMultitools
             }
         }
 
+        [XmlIgnore]
         public bool COMBO_ENABLE
         {
             get { return combo_enable; }
@@ -374,6 +380,7 @@ namespace BobyMultitools
             }
         }
 
+        [XmlIgnore]
         public List<string> COMBO
         {
             get { return combo; }
@@ -416,8 +423,13 @@ namespace BobyMultitools
                 {
                     try
                     {
-                        if ((script = GetPlugins(result.CompiledAssembly)) != null)
+                        GetPlugins(result.CompiledAssembly, ref Interface, ref Class);
+                        if (Interface != null && Class != null)
+                        {
+                            Class.run = true;
+                            Interface.OnPlay();
                             timer.Start();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -430,54 +442,42 @@ namespace BobyMultitools
             {
                 if (timer != null)
                     timer.Stop();
-                if (script != null)
+                if (Interface != null)
                 {
-                    script.OnStop();
-                    script = null;
+                    Interface.OnStop();
+                    Interface = null;
                 }
             }
         }
         private CompilerResults LoadScript(string filepath)
         {
-            string language = CSharpCodeProvider.GetLanguageFromExtension(
-                                      Path.GetExtension(filepath));
+            string language = CSharpCodeProvider.GetLanguageFromExtension(Path.GetExtension(filepath));
             CodeDomProvider codeDomProvider = CSharpCodeProvider.CreateProvider(language);
             CompilerParameters compilerParams = new CompilerParameters();
             compilerParams.GenerateExecutable = false;
             compilerParams.GenerateInMemory = true;
             compilerParams.IncludeDebugInformation = false;
 
-            compilerParams.ReferencedAssemblies.Add("BobyScript.dll");
-            compilerParams.ReferencedAssemblies.Add("boby_multitools.exe");
-            //compilerParams.ReferencedAssemblies.Add("System.dll");
-            //compilerParams.ReferencedAssemblies.Add("System.Drawing.dll");
-            //compilerParams.ReferencedAssemblies.Add("System.Windows.Forms.dll");
+            //compilerParams.ReferencedAssemblies.Add("BobyScript.dll");
+            compilerParams.ReferencedAssemblies.Add(Path.GetFullPath(System.Reflection.Assembly.GetEntryAssembly().Location));
+            compilerParams.ReferencedAssemblies.Add("System.dll");
+            compilerParams.ReferencedAssemblies.Add("System.Drawing.dll");
+            compilerParams.ReferencedAssemblies.Add("System.Windows.Forms.dll");
             return codeDomProvider.CompileAssemblyFromFile(compilerParams, filepath);
         }
 
-        private BobyScript.IBobyScript GetPlugins(System.Reflection.Assembly assembly)
+        private void GetPlugins(System.Reflection.Assembly assembly, ref BobyScript.IBobyScript Interface, ref BobyScript.BobyScript Class)
         {
             foreach (Type type in assembly.GetTypes())
             {
                 if (!type.IsClass || type.IsNotPublic) continue;
-                if (((IList<Type>)type.GetInterfaces()).Contains(typeof(BobyScript.IBobyScript)))
+                if (((IList<Type>)type.GetInterfaces()).Contains(typeof(BobyScript.IBobyScript)) && type.IsSubclassOf(typeof(BobyScript.BobyScript)))
                 {
-                    BobyScript.IBobyScript first = (BobyScript.IBobyScript)Activator.CreateInstance(type);
-                    first.OnPlay();
-                    return first;
+                    var script = Activator.CreateInstance(type);
+                    Interface = (BobyScript.IBobyScript)script;
+                    Class = (BobyScript.BobyScript)script;
                 }
             }
-            return null;
         }
-    }
-
-    [Serializable]
-    public class ScriptSaveCollection : System.Collections.ObjectModel.ObservableCollection<Script_Element>
-    {
-    }
-
-    public class Script_Element
-    {
-        public string file { get; set; }
     }
 }

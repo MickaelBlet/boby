@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MyControl"
 	Title="BOBY_Multitools"
-	Height="185"
+	Height="200"
 	Width="318"
 	WindowStartupLocation="CenterScreen"
 	Topmost="True"
@@ -309,7 +309,7 @@
 							    HorizontalAlignment="Center"
 							    VerticalAlignment="Center"
                                 Opacity="1"
-                                Height="135">
+                                Height="115">
                                 <Image.Effect>
                                     <DropShadowEffect
 						                ShadowDepth="0"
@@ -392,7 +392,7 @@
                 </Grid>
                 <Grid VerticalAlignment="Top"
 				      HorizontalAlignment="Left"
-				      Width="93" Margin="2,3,0,0" Background="#00555555" Height="162">
+				      Width="93" Margin="2,3,0,0" Background="#00555555" Height="152">
                     <StackPanel VerticalAlignment="Top"
 				HorizontalAlignment="Stretch" Margin="0,0,0,0">
                         <CheckBox Name="cb_Radar"
@@ -411,7 +411,7 @@
                                   Checked="cb_Cheat_Checked"
                                   Unchecked="cb_Cheat_Unchecked"
                                   Margin="0,1,0,1">Cheat</CheckBox>
-                        <CheckBox Name="cb_Script"
+                        <CheckBox Name="cb_Script" IsEnabled="False"
                                   Checked="cb_Script_Checked"
                                   Unchecked="cb_Script_Unchecked"
                                   Margin="0,1,0,1">Script</CheckBox>
@@ -422,6 +422,7 @@
                     </StackPanel>
                 </Grid>
             </StackPanel>
+            <TextBlock FontSize="8" Foreground="#999" TextAlignment="Center">COPYRIGHT © NCSOFT CORPORATION. AION LOGO, IMAGES, GAME CONTENT</TextBlock>
         </StackPanel>
     </Grid>
 </Window>

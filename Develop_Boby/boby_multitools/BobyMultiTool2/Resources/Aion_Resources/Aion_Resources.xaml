@@ -18,6 +18,5 @@
         <ResourceDictionary Source="Entity\Class_Icone\Class.xaml" />
         <ResourceDictionary Source="Entity\Target_Button\Button.xaml" />
         <ResourceDictionary Source="Windows\Windows.xaml" />
-        <ResourceDictionary Source="Windows\BG\BG.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

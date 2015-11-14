@@ -2,39 +2,22 @@ using Aion_Game;
 
 namespace BobyScript
 {
-	public class Script : IBobyScript
+	public class Script : BobyScript, IBobyScript
 	{
-		int gCount = 0;
-		bool find = false;
-
 		public void OnPlay()
 		{
-			Console.WriteLine("test");
+			Console.WriteLine("Play");
+            Console.WriteLine(this.index.ToString());
+            BobyScriptStop();
+            //Chat.Send("/skill " + AbilityList.GetAbility(50006).Name);
+            //var ab = AbilityList.GetAbility(4203); //Appel de mecha
+            //Console.WriteLine(ab.Node.ToString("X") + "\t" + ab.Id + " " + ab.Name + "\t" + ab.Maintain);
 		}
 
 		public void OnRun()
 		{
-            if (gCount == 0)
-			{
-				find = false;
-				var users = EntityList.GetEntity(eType.User);
-				foreach (var user in users)
-				{
-					find = true;
-					Console.WriteLine(user.Name);			
-				}
-			}
-			else
-			{
-				Console.Write("|");
-			}
-			gCount++;
-			if (gCount > 10)
-			{
-				if (find)
-					Console.Write("\n");
-				gCount = 0;
-			}
+            //AbilityList.GetAbility(3939) //Light of Rejuvenation
+            //MessageBox.Show("test");
 		}
 
 		public void OnStop()

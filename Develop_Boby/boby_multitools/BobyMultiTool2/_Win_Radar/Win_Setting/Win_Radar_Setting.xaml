@@ -19,6 +19,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="MinHeight" Value="20" />
+            <Setter Property="Height" Value="26" />
             <Setter Property="Foreground" Value="White" />
             <!--			<Setter Property="Foreground" Value="White" />-->
         </Style>
@@ -26,39 +27,16 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="26" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridRow}">
                         <Border x:Name="DGR_Border" Background="Transparent"
 			                BorderBrush="{TemplateBinding BorderBrush}"
-			                BorderThickness="{TemplateBinding BorderThickness}"
-		                    SnapsToDevicePixels="True">
+			                BorderThickness="{TemplateBinding BorderThickness}">
                             <SelectiveScrollingGrid Name="bg">
-                                <SelectiveScrollingGrid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </SelectiveScrollingGrid.ColumnDefinitions>
-                                <SelectiveScrollingGrid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </SelectiveScrollingGrid.RowDefinitions>
                                 <DataGridCellsPresenter Grid.Column="1"
-			                        ItemsPanel="{TemplateBinding ItemsPanel}"
-			                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                <DataGridDetailsPresenter Grid.Row="1"
-			                        Grid.Column="1"
-			                        SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding 
-                                    AreRowDetailsFrozen,
-                                    ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical},
-			                        Converter={x:Static DataGrid.RowDetailsScrollingConverter},
-			                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-			                        Visibility="{TemplateBinding DetailsVisibility}" />
-                                <DataGridRowHeader Grid.RowSpan="2"
-			                        SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
-			                        Visibility="{Binding HeadersVisibility,
-                                    ConverterParameter={x:Static DataGridHeadersVisibility.Row},
-                                    Converter={x:Static DataGrid.HeadersVisibilityConverter},
-                                    RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+			                        ItemsPanel="{TemplateBinding ItemsPanel}" />
                             </SelectiveScrollingGrid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -74,23 +52,37 @@
             </Setter>
         </Style>
 
-        <Style x:Key="ColumnHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Height" Value="15"/>
-            <Setter Property="Background" Value="#000"/>
-            <Setter Property="Foreground" Value="#FFF"/>
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="SeparatorVisibility" Value="Visible" />
-            <Setter Property="SeparatorBrush" Value="#FFF" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Style
+			TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Background" Value="#00000000" />
+            <Setter Property="Foreground" Value="#AAFFFFFF" />
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Grid>
+                            <Border Name="HeaderBorder"
+                              BorderThickness="0"
+                              Padding="0,0,0,0">
+                                <ContentPresenter Name="HeaderContent"
+                                                  TextElement.Foreground="White"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Margin="0,0,0,1" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <Style x:Key="Button_Scale" TargetType="{x:Type Button}">
+        <Style x:Key="Button_Scale" TargetType="{x:Type RepeatButton}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="Transparent" />
             <Setter Property="Height" Value="20" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
                         <Grid Height="20">
                             <Image Name="bg" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0" Stretch="Fill" Source="{StaticResource Button_Icone.Ini}" />
                             <TextBlock Height="20" Name="content_back" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="1,3,0,0" FontWeight="{TemplateBinding FontWeight}" TextAlignment="Center" Width="{TemplateBinding Width}" Text="{TemplateBinding Content}" />
@@ -140,149 +132,84 @@
         <Grid>
             <Grid Margin="1,26,1,1">
                 <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label
-                            Margin="0,0,0,0"
-				            Content="Zoom"
-				            FontSize="12"
-				            Foreground="#FFEFEDC4"
-				            VerticalAlignment="Top"
-				            HorizontalAlignment="Left" 
-				            Height="24"
-                            Width="70"
-				            HorizontalContentAlignment="Center"
-				            VerticalContentAlignment="Top">
-                        </Label>
-                        <Slider
-                            Name="sl_zoom"
-                            IsSnapToTickEnabled="True"
-			                TickFrequency="1"
-			                Maximum="100"
-			                LargeChange="1"
-                            ValueChanged="sl_zoom_ValueChanged"
-                            Width="199"
-                            Margin="0,-4,5,0" />
-                        <Label
-                            Name="lb_zoom"
-                            Margin="0,0,0,0"
-				            Content="100%"
-				            FontSize="12"
-				            Foreground="#FFEFEDC4"
-				            VerticalAlignment="Top"
-				            HorizontalAlignment="Left" 
-				            Height="24"
-                            Width="50"
-				            HorizontalContentAlignment="Center"
-				            VerticalContentAlignment="Top">
-                        </Label>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label
-                            Margin="0,-5,0,0"
-				            Content="Icons Size"
-				            FontSize="12"
-				            Foreground="#FFEFEDC4"
-				            VerticalAlignment="Top"
-				            HorizontalAlignment="Left" 
-				            Height="24"
-                            Width="70"
-				            HorizontalContentAlignment="Center"
-				            VerticalContentAlignment="Top">
-                        </Label>
-                        <Slider
-                            Name="sl_icon_size"
-		    	            HorizontalAlignment="Right"
-                            IsSnapToTickEnabled="True"
-			                TickFrequency="1"
-			                Maximum="100"
-			                LargeChange="1"
-                            ValueChanged="sl_icon_size_ValueChanged"
-                            Width="199"
-                            Margin="0,-10,5,0" />
-                        <Label
-                            Name="lb_icon_size"
-                            Margin="0,0,0,0"
-				            Content="100%"
-				            FontSize="12"
-				            Foreground="#FFEFEDC4"
-				            VerticalAlignment="Top"
-				            HorizontalAlignment="Left" 
-				            Height="24"
-                            Width="50"
-				            HorizontalContentAlignment="Center"
-				            VerticalContentAlignment="Top">
-                        </Label>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label
-                            Margin="0,-5,0,0"
-				            Content="Size"
-				            FontSize="12"
-				            Foreground="#FFEFEDC4"
-				            VerticalAlignment="Top"
-				            HorizontalAlignment="Left" 
-				            Height="24"
-                            Width="70"
-				            HorizontalContentAlignment="Center"
-				            VerticalContentAlignment="Top">
-                        </Label>
-                        <Slider
-                            Name="sl_size"
-		    	            HorizontalAlignment="Right"
-                            IsSnapToTickEnabled="True"
-			                TickFrequency="1"
-			                Maximum="100"
-			                LargeChange="1"
-                            ValueChanged="sl_size_ValueChanged"
-                            Width="199"
-                            Margin="0,-10,5,0" />
-                        <Label
-                            Name="lb_size"
-                            Margin="0,0,0,0"
-				            Content="100%"
-				            FontSize="12"
-				            Foreground="#FFEFEDC4"
-				            VerticalAlignment="Top"
-				            HorizontalAlignment="Left" 
-				            Height="24"
-                            Width="50"
-				            HorizontalContentAlignment="Center"
-				            VerticalContentAlignment="Top">
-                        </Label>
-                    </StackPanel>
+                    <UniformGrid Columns="3">
+                        <Grid Height="50">
+                            <Label Content="Zoom" FontSize="12" Foreground="#FFEFEDC4" Height="24" Width="70" VerticalAlignment="Top"
+				                   HorizontalContentAlignment="Center"
+				                   VerticalContentAlignment="Top">
+                            </Label>
+                            <RepeatButton Name="btDownZoom" Margin="2,0,0,2" Width="20" Height="20" Click="btDownZoom_Click" Style="{StaticResource Button_Scale}" VerticalAlignment="Bottom" HorizontalAlignment="Left">-</RepeatButton>
+                            <TextBox Name="tZoom" Width="60" TextAlignment="Center" Text="0.0" VerticalAlignment="Bottom" TextChanged="tZoom_TextChanged"></TextBox>
+                            <RepeatButton Name="btUpZoom" Margin="0,0,2,2" Width="20" Height="20" Click="btUpZoom_Click" Style="{StaticResource Button_Scale}" VerticalAlignment="Bottom" HorizontalAlignment="Right">+</RepeatButton>
+                        </Grid>
+                        <Grid Height="50">
+                            <Label Content="Size" FontSize="12" Foreground="#FFEFEDC4" Height="24" Width="70" VerticalAlignment="Top"
+				                   HorizontalContentAlignment="Center"
+				                   VerticalContentAlignment="Top">
+                            </Label>
+                            <RepeatButton  Name="btDownSize" Margin="2,0,0,2" Width="20" Height="20" Click="btDownSize_Click"  Style="{StaticResource Button_Scale}" VerticalAlignment="Bottom" HorizontalAlignment="Left">-</RepeatButton>
+                            <TextBox Name="tSize" Width="60" TextAlignment="Center" Text="0.0" VerticalAlignment="Bottom" TextChanged="tSize_TextChanged"></TextBox>
+                            <RepeatButton  Name="btUpSize" Margin="0,0,2,2" Width="20" Height="20" Click="btUpSize_Click"  Style="{StaticResource Button_Scale}" VerticalAlignment="Bottom" HorizontalAlignment="Right">+</RepeatButton>
+                        </Grid>
+                        <Grid Height="50">
+                            <Label Content="Icon Size" FontSize="12" Foreground="#FFEFEDC4" Height="24" Width="70" VerticalAlignment="Top"
+				                   HorizontalContentAlignment="Center"
+				                   VerticalContentAlignment="Top">
+                            </Label>
+                            <RepeatButton  Name="btDownIcon" Margin="2,0,0,2" Width="20" Height="20" Click="btDownIcon_Click" Style="{StaticResource Button_Scale}" VerticalAlignment="Bottom" HorizontalAlignment="Left">-</RepeatButton>
+                            <TextBox Name="tIcon" Width="60" TextAlignment="Center" Text="0.0" VerticalAlignment="Bottom" TextChanged="tIcon_TextChanged"></TextBox>
+                            <RepeatButton  Name="btUpIcon" Margin="0,0,2,2" Width="20" Height="20" Click="btUpIcon_Click" Style="{StaticResource Button_Scale}" VerticalAlignment="Bottom" HorizontalAlignment="Right">+</RepeatButton>
+                        </Grid>
+                    </UniformGrid>
                     <DataGrid
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Margin="0,-3,0,0"
-			x:FieldModifier="public"
-			Name="dataGrid"
-			ItemsSource="{Binding Source={StaticResource PersonCollectionViewSource}}"
-			Background="Transparent"
-			AutoGenerateColumns="False"
-			CanUserReorderColumns="False"
-			CanUserResizeColumns="False"
-			CanUserResizeRows="False"
-			CanUserSortColumns="False"
-			CanUserAddRows="False"
-			CanUserDeleteRows="False"
-			RowDetailsVisibilityMode="Collapsed"
-			VerticalGridLinesBrush="#00FFFFFF"
-			HorizontalGridLinesBrush="#00FFFFFF"
-			SelectionMode="Single"
-			RowHeaderWidth="0"
-			Height="162"
-			Width="324"
-            ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
-			BorderBrush="#00FFFFFF"
-			ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-			ScrollViewer.VerticalScrollBarVisibility="Visible">
+			            VerticalAlignment="Top"
+			            HorizontalAlignment="Left"
+			            Margin="0,2,0,0"
+			            x:FieldModifier="public"
+			            Name="dataGrid"
+			            ItemsSource="{Binding Source={StaticResource PersonCollectionViewSource}}"
+			            AutoGenerateColumns="False"
+			            CanUserReorderColumns="False"
+			            CanUserResizeColumns="False"
+			            CanUserResizeRows="False"
+			            CanUserSortColumns="False"
+			            CanUserAddRows="False"
+			            CanUserDeleteRows="False"
+			            RowDetailsVisibilityMode="Collapsed"
+			            VerticalGridLinesBrush="#00FFFFFF"
+			            HorizontalGridLinesBrush="#00FFFFFF"
+			            SelectionMode="Single"
+			            RowHeaderWidth="0"
+			            Height="184"
+			            Width="324"
+			            BorderBrush="#00FFFFFF"
+			            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+			            ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <DataGrid.Background>
+                            <DrawingBrush TileMode="Tile"  Stretch="Fill" Viewport="0,0,1,52" ViewportUnits="Absolute">
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <GeometryDrawing Brush="#55000000">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,1,1" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                        <GeometryDrawing Brush="#55555555">
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,1,1,1" />
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </DataGrid.Background>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn
-                        Header="Img"
-                        Width="20">
+                                    Header="Img"
+                                    Width="20">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Height="20" Stretch="None" Source="{Binding IMG_SRC_MINI}" />
+                                        <Image Margin="-3,-3,-3,-3" Stretch="None" Source="{Binding IMG_SRC}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -291,7 +218,7 @@
                         Width="130">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Width="128" TextAlignment="Left" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_Name_TextChanged" ></TextBox>
+                                        <TextBox Width="128" TextAlignment="Left" Text="{Binding NAME, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_Name_TextChanged" ></TextBox>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -301,9 +228,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Width="20" Height="20" Click="scale_moin_Click" Style="{StaticResource Button_Scale}">-</Button>
+                                            <RepeatButton  Width="20" Height="20" Click="scale_moin_Click" Style="{StaticResource Button_Scale}">-</RepeatButton>
                                             <TextBox Width="40" TextAlignment="Center" Text="{Binding SCALE, StringFormat=N1}" TextChanged="TextBox_scale_TextChanged" ></TextBox>
-                                            <Button Width="20" Height="20" Click="scale_plus_Click" Style="{StaticResource Button_Scale}">+</Button>
+                                            <RepeatButton  Width="20" Height="20" Click="scale_plus_Click" Style="{StaticResource Button_Scale}">+</RepeatButton>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -314,9 +241,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Width="20" Height="20" Click="aggro_scale_moin_Click" Style="{StaticResource Button_Scale}">-</Button>
+                                            <RepeatButton  Width="20" Height="20" Click="aggro_scale_moin_Click" Style="{StaticResource Button_Scale}">-</RepeatButton>
                                             <TextBox Width="40" TextAlignment="Center" Text="{Binding AGGRO_SCALE}" TextChanged="TextBox_aggro_scale_TextChanged"></TextBox>
-                                            <Button Width="20" Height="20" Click="aggro_scale_plus_Click" Style="{StaticResource Button_Scale}">+</Button>
+                                            <RepeatButton  Width="20" Height="20" Click="aggro_scale_plus_Click" Style="{StaticResource Button_Scale}">+</RepeatButton>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

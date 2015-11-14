@@ -124,8 +124,8 @@ namespace Aion_Game
             HashSet<long> save_node = new HashSet<long>();
             List<long> entity_remove = new List<long>();
 
-            long entity_map = SplMemory.ReadLong(Game.Base + Offset.EntityList.Pointer);
-            long entityArray = SplMemory.ReadLong(entity_map + Offset.EntityList.Array);
+            long entity_map = SplMemory.ReadLong(Game.Base + Offset.EntityList.Map);
+            long entityArray = SplMemory.ReadLong(entity_map + Offset.EntityList.Node);
             long firstEntity = SplMemory.ReadLong(entityArray);
 
             Node_Scan(firstEntity, ref save_node_entity, ref save_node);

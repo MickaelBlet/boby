@@ -36,24 +36,23 @@ namespace BobyMultitools
             in_Win_Main = tmp_in_Win_Main;
             in_Win_Main.in_Win_Radar = this;
 
-            this.Left = in_Win_Main.in_Setting.in_Radar.Left.Get_Value();
-            this.Top = in_Win_Main.in_Setting.in_Radar.Top.Get_Value();
+            this.Left = Setting.Boby.Radar.Left;
+            this.Top = Setting.Boby.Radar.Top;
 
             s_North = this.North.Source;
             //s_BG_Setting = this.BG_Setting.Source;
 
             #region _Check_Box_Ini_
-            c_NPC.IsChecked         = in_Win_Main.in_Setting.in_Radar.NPC.Get_Value();
-            c_Ally.IsChecked        = in_Win_Main.in_Setting.in_Radar.Ally.Get_Value();
-            c_Ennemy.IsChecked      = in_Win_Main.in_Setting.in_Radar.Hostile.Get_Value();
-            c_Gather.IsChecked      = in_Win_Main.in_Setting.in_Radar.Gather.Get_Value();
-            c_IconPlus.IsChecked    = in_Win_Main.in_Setting.in_Radar.IconPlus.Get_Value();
-            c_North.IsChecked       = in_Win_Main.in_Setting.in_Radar.Nord.Get_Value();
-            //c_Overlay.IsChecked     = in_Win_Main.in_Setting.in_Radar.Overlay.Get_Value();
-            c_BG.IsChecked          = in_Win_Main.in_Setting.in_Radar.BGon.Get_Value();
+            c_NPC.IsChecked = Setting.Boby.Radar.NPC;
+            c_Ally.IsChecked = Setting.Boby.Radar.Ally;
+            c_Ennemy.IsChecked = Setting.Boby.Radar.Hostile;
+            c_Gather.IsChecked = Setting.Boby.Radar.Gather;
+            c_IconPlus.IsChecked = Setting.Boby.Radar.IconPlus;
+            c_North.IsChecked = Setting.Boby.Radar.North;
+            c_BG.IsChecked = Setting.Boby.Radar.BGon;
             #endregion
 
-            if (in_Win_Main.in_Setting.in_Radar.Show.Get_Value())
+            if (Setting.Boby.Radar.Show)
                 this.Show();
 
             in_Win_Radar_Popup = new Win_Radar_Popup();
@@ -80,94 +79,84 @@ namespace BobyMultitools
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
-            in_Win_Main.in_Setting.in_Radar.Left.Set_Value((int)this.Left);
-            in_Win_Main.in_Setting.in_Radar.Top.Set_Value((int)this.Top);
+            Setting.Boby.Radar.Left = this.Left;
+            Setting.Boby.Radar.Top = this.Top;
             if (in_Win_Radar_Popup.Opacity == 1d)
             {
                 if (select_is_ready)
                 {
                     in_Win_Radar_Popup.Opacity = 0d;
                     select_is_ready = false;
-                    Thread Select = new Thread(() => SlashSelect(in_Win_Radar_Popup.entityPtr));
+                    Thread Select = new Thread(() => SlashSelect(in_Win_Radar_Popup.entity));
                     Select.Start();
                 }
             }
         }
 
-        void SlashSelect(long entityPtr)
+        void SlashSelect(Aion_Game.Entity entity)
         {
-            //Character.Select(entityPtr);
+            entity.Select();
             select_is_ready = true;
         }
 
         private void c_NPC_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.NPC.Set_Value(true);
+            Setting.Boby.Radar.NPC = true;
         }
 
         private void c_NPC_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.NPC.Set_Value(false);
+            Setting.Boby.Radar.NPC = false;
         }
 
         private void c_Ally_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Ally.Set_Value(true);
+            Setting.Boby.Radar.Ally = true;
         }
 
         private void c_Ally_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Ally.Set_Value(false);
+            Setting.Boby.Radar.Ally = false;
         }
 
         private void c_Ennemy_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Hostile.Set_Value(true);
+            Setting.Boby.Radar.Hostile = true;
         }
 
         private void c_Ennemy_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Hostile.Set_Value(false);
+            Setting.Boby.Radar.Hostile = false;
         }
 
         private void c_Gather_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Gather.Set_Value(true);
+            Setting.Boby.Radar.Gather = true;
         }
 
         private void c_Gather_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Gather.Set_Value(false);
+            Setting.Boby.Radar.Gather = false;
         }
 
         private void c_IconPlus_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.IconPlus.Set_Value(true);
+            Setting.Boby.Radar.IconPlus = true;
         }
 
         private void c_IconPlus_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.IconPlus.Set_Value(false);
+            Setting.Boby.Radar.IconPlus = false;
         }
 
         private void c_North_Checked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Nord.Set_Value(true);
+            Setting.Boby.Radar.North = true;
         }
 
         private void c_North_Unchecked(object sender, RoutedEventArgs e)
         {
-            in_Win_Main.in_Setting.in_Radar.Nord.Set_Value(false);
-        }
-
-        private void c_Overlay_Checked(object sender, RoutedEventArgs e)
-        {
-            in_Win_Main.in_Setting.in_Radar.Overlay.Set_Value(true);
-        }
-
-        private void c_Overlay_Unchecked(object sender, RoutedEventArgs e)
-        {
-            in_Win_Main.in_Setting.in_Radar.Overlay.Set_Value(false);
+            Setting.Boby.Radar.North = false;
         }
 
         private void c_BG_Checked(object sender, RoutedEventArgs e)
@@ -177,7 +166,7 @@ namespace BobyMultitools
             this.North.Source = null;
             this.button_Setting.Visibility = Visibility.Hidden;
             this.bt_Setting.Opacity = 0;
-            in_Win_Main.in_Setting.in_Radar.BGon.Set_Value(true);
+            Setting.Boby.Radar.BGon = true;
         }
 
         private void c_BG_Unchecked(object sender, RoutedEventArgs e)
@@ -187,7 +176,7 @@ namespace BobyMultitools
             this.North.Source = s_North;
             this.button_Setting.Visibility = Visibility.Visible;
             this.bt_Setting.Opacity = 1;
-            in_Win_Main.in_Setting.in_Radar.BGon.Set_Value(false);
+            Setting.Boby.Radar.BGon = false;
         }
 
         private void b_close_Click(object sender, RoutedEventArgs e)
@@ -202,28 +191,28 @@ namespace BobyMultitools
             {
                 if (e.Delta < 0)
                 {
-                    if (in_Win_Main.in_Setting.in_Radar.Size.Get_Value() > 0.9)
-                        in_Win_Main.in_Setting.in_Radar.Size.Set_Value(in_Win_Main.in_Setting.in_Radar.Size.Get_Value() - 0.1f);
+                    if (Setting.Boby.Radar.Size > 0.9)
+                        Setting.Boby.Radar.Size -= 0.1;
                 }
                 else
                 {
-                    if (in_Win_Main.in_Setting.in_Radar.Size.Get_Value() < 2)
-                        in_Win_Main.in_Setting.in_Radar.Size.Set_Value(in_Win_Main.in_Setting.in_Radar.Size.Get_Value() + 0.1f);
+                    if (Setting.Boby.Radar.Size < 2)
+                        Setting.Boby.Radar.Size += 0.1;
                 }
-                in_Win_Radar_Setting.sl_size.Value = (int)((in_Win_Main.in_Setting.in_Radar.Size.Get_Value() - 0.9) * 91d);
+                //in_Win_Radar_Setting.sl_size.Value = (Setting.Boby.Radar.Size - 0.9) * 91d;
             }
             else
             {
                 if (e.Delta < 0)
                 {
-                    if (in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value() > 1.50)
-                        in_Win_Main.in_Setting.in_Radar.Zoom.Set_Value(in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value() - 0.02f);
+                    if (Setting.Boby.Radar.Zoom > 1.5)
+                        Setting.Boby.Radar.Zoom -= 0.02;
                 }
                 else
                 {
-                    in_Win_Main.in_Setting.in_Radar.Zoom.Set_Value(in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value() + 0.02f);
+                      Setting.Boby.Radar.Zoom += 0.02;
                 }
-                in_Win_Radar_Setting.sl_zoom.Value = (int)((in_Win_Main.in_Setting.in_Radar.Zoom.Get_Value() - 1.5d) * 50d);
+                //in_Win_Radar_Setting.sl_zoom.Value = (Setting.Boby.Radar.Zoom - 1.5) * 50d;
             }
         }
 

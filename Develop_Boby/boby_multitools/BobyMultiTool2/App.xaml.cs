@@ -18,16 +18,16 @@ namespace BobyMultitools
 	/// </summary>
 	public partial class App : Application
 	{
-        public string User;
-        public string Offset;
+        public static string Path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+
+        public static string User;
+        public static string Offset;
         public DateTime SessionTime;
         void Checker()
         {
-            string origin_path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-
-            if (!File.Exists(origin_path + @"\boby_checker.exe"))
+            if (!File.Exists(Path + @"\boby_checker.exe"))
             {
-                Win_Download down = new Win_Download("boby_checker.exe");
+                new Win_Download("boby_checker.exe");
                 return;
             }
 
@@ -36,10 +36,10 @@ namespace BobyMultitools
                 Process process = new Process();
                 process.StartInfo.CreateNoWindow = false;
                 process.StartInfo.UseShellExecute = false;
-                process.StartInfo.WorkingDirectory = origin_path + @"\";
+                process.StartInfo.WorkingDirectory = Path + @"\";
                 process.StartInfo.Verb = "runas";
                 process.StartInfo.Arguments = "boby_multitools";
-                process.StartInfo.FileName = origin_path + @"\boby_checker.exe";
+                process.StartInfo.FileName = Path + @"\boby_checker.exe";
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 process.Start();
             }
@@ -47,8 +47,8 @@ namespace BobyMultitools
             {
                 try
                 {
-                    File.Delete(origin_path + @"\boby_checker.exe");
-                    Win_Download down = new Win_Download("boby_checker.exe");
+                    File.Delete(Path + @"\boby_checker.exe");
+                    new Win_Download("boby_checker.exe");
                     return;
                 }
                 catch (Exception)
@@ -58,49 +58,68 @@ namespace BobyMultitools
             Environment.Exit(0);
         }
 
-        string Key(string key, string user)
+        void Key(string key)
         {
             string offset = string.Empty;
+            int tentative = 0;
 
-            try
+            while (offset.Length == 0 && tentative < 5)
             {
-                using (var client = new WebClient())
+                try
                 {
-                    var values = new NameValueCollection();
-                    values["u"] = user;
-                    values["k"] = key;
+                    using (var client = new WebClient())
+                    {
+                        var values = new NameValueCollection();
+                        values["k"] = key;
 
-                    var response = client.UploadValues(@"http://boby.pe.hu/app/checkkey.php", values);
-                    offset = Encoding.Default.GetString(response);
+                        var response = client.UploadValues(@"http://bobytools.com/app/checkkey.php", values);
+                        offset = Encoding.Default.GetString(response);
+                    }
                 }
+                catch
+                {
+                    if (tentative == 4)
+                    {
+                        MessageBox.Show("Connection server.", "Error");
+                        Environment.Exit(0);
+                    }
+                }
+                tentative++;
             }
-            catch
-            {
-                MessageBox.Show("Connection server.", "Error");
-                Environment.Exit(0);
-            }
-
             if (offset.Length == 0)
             {
                 MessageBox.Show("Connection server.", "Error");
                 Environment.Exit(0);
             }
 
-            return offset;
+            char[] t = new char[1];
+            t[0] = '|';
+            string[] spl = offset.Split(t, 2);
+
+            //MessageBox.Show(spl[0]);
+            //MessageBox.Show(spl[1]);
+
+            if (spl.Length == 2)
+            {
+                User = spl[0];
+                Offset = spl[1];
+            }
+            else
+                Environment.Exit(0);
         }
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-           /* if (e.Args.Length < 2)
+            if (e.Args.Length < 1)
             {
                 Checker();
             }
             else
-            {*/
-               // Offset = Key(e.Args[0], e.Args[1]);
-               // User = e.Args[1];
+            {
+                Setting.Load();
+                Key(e.Args[0]);
                 Win_Main start = new Win_Main();
-            //}
+            }
         }
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<TravelList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Travel>
+    <NAME>0</NAME>
+    <X>2596.585</X>
+    <Y>488.6347</Y>
+    <Z>427.626</Z>
+    <FLY>false</FLY>
+    <TYPE>yolo</TYPE>
+    <COMMENT />
+  </Travel>
+  <Travel>
+    <NAME>1</NAME>
+    <X>2596.585</X>
+    <Y>488.6347</Y>
+    <Z>427.626</Z>
+    <FLY>false</FLY>
+    <TYPE>yolo</TYPE>
+    <COMMENT />
+  </Travel>
+  <Travel>
+    <NAME>2</NAME>
+    <X>2596.585</X>
+    <Y>488.6347</Y>
+    <Z>427.626</Z>
+    <FLY>false</FLY>
+    <TYPE>yolo</TYPE>
+    <COMMENT />
+  </Travel>
+</TravelList>

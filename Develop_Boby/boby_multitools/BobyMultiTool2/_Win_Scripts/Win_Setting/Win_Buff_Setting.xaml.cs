@@ -29,7 +29,6 @@ namespace BobyMultitools
     public partial class Win_Buff_Setting : Window
     {
         public IconCollection icon_collect;
-        public IconSaveCollection icon_save_collect;
         public BuffCollection buff_collect;
         public PlayerBuffCollection player_buff_collect;
         public static Win_Main in_Win_Main = null;
@@ -410,7 +409,7 @@ namespace BobyMultitools
                         }
                         while (reader.Read())
                         {
-                            if (reader.Name == "skillicon_name")
+                            if (reader.Name == "file")
                             {
                                 file = reader.ReadString();
                                 break;

@@ -127,6 +127,23 @@
         </Setter>
     </Style>
 
+    <Style x:Key="WindowButton.Refresh" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="#9D0888FE" />
+        <Setter Property="Background" Value="#9D0043B5" />
+        <Setter Property="Width" Value="24" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Button Style="{StaticResource Style_Win_Button}" Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}"
+                            Width="{TemplateBinding Width}">
+                        <Image Source="{StaticResource Img.WindowButton.Refresh}" />
+                    </Button>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="Style_Hide_Button" TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />

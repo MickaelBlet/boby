@@ -83,7 +83,7 @@ namespace MemoryLib
 		
 		public static void WriteMemory(long address, long value)
 		{
-            Memory.WriteMemory(st_hanble, address, value);
+            Memory.WriteMemory(st_hanble, address, (uint)value);
 		}
 		
 		public static void WriteMemory(long address, float value)

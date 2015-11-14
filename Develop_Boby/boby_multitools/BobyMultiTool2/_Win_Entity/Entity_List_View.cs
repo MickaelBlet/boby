@@ -26,11 +26,27 @@ namespace BobyMultitools
     public partial class Win_Entity
     {
         DispatcherTimer messageTimer;
-        Hashtable File_img;
+        CroppedBitmap[] FileImg;
         int date = 0;
 
         public void Entity_List_View()
         {
+            ImageSource GraphicChar = (ImageSource)Application.Current.FindResource("GraphicChar");
+
+            int maxImage = 234;
+            FileImg = new CroppedBitmap[maxImage];
+
+            for (int y = 0; y < 17; y++)
+            {
+                for (int x = 0; x < 14; x++)
+                {
+                    if (y * 14 + x >= maxImage)
+                        break;
+                    CroppedBitmap img = new CroppedBitmap((BitmapSource)GraphicChar, new Int32Rect(x * 16 + x + 1, y * 16 + y + 1, 16, 16));
+                    FileImg[y * 14 + x] = img;
+                }
+            }
+
             messageTimer = new DispatcherTimer();
             messageTimer.Tick += new EventHandler(messageTimer_Tick);
             messageTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
@@ -51,33 +67,33 @@ namespace BobyMultitools
                 int index = 0;
 
                 IOrderedEnumerable<KeyValuePair<long, View_Entity>> sortedDict = null;
-                if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Dst")
+                if (Setting.Boby.Entity.Order == "Dst")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Distance ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Dst")
+                else if (Setting.Boby.Entity.Order == "/Dst")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Distance descending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Rnk")
+                else if (Setting.Boby.Entity.Order == "/Rnk")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Rank ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Rnk")
+                else if (Setting.Boby.Entity.Order == "Rnk")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Rank descending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Name")
+                else if (Setting.Boby.Entity.Order == "Name")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Name_To_Lower ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Name")
+                else if (Setting.Boby.Entity.Order == "/Name")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Name_To_Lower descending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Guild")
+                else if (Setting.Boby.Entity.Order == "Guild")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Guild ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Guild")
+                else if (Setting.Boby.Entity.Order == "/Guild")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Guild descending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Class")
+                else if (Setting.Boby.Entity.Order == "Class")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Class ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Class")
+                else if (Setting.Boby.Entity.Order == "/Class")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.Class descending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Lvl")
+                else if (Setting.Boby.Entity.Order == "Lvl")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Lvl ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Lvl")
+                else if (Setting.Boby.Entity.Order == "/Lvl")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.Lvl descending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "Hp")
+                else if (Setting.Boby.Entity.Order == "Hp")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.HpPercent ascending select entry;
-                else if (in_Win_Main.in_Setting.in_Entity.Order.Get_Value() == "/Hp")
+                else if (Setting.Boby.Entity.Order == "/Hp")
                     sortedDict = from entry in Entity_To_View.View orderby entry.Value.entity.HpPercent descending select entry;
 
                 if (this.IsVisible == true)
@@ -96,8 +112,8 @@ namespace BobyMultitools
                                 else
                                     Count_Ennemy++;
                             }
-                            if (entity.Aggro && entity.Type != eType.Player && entity.HpPercent > 0
-                                || entry.Value.in_entity)
+                            if ((entity.Aggro && entity.Type != eType.Player && entity.HpPercent > 0)
+                                || (entry.Value.in_entity && entity.Type != eType.Player))
                             {
                                 EntityCollectionAdd(entry.Value, index);
                                 index++;
@@ -143,10 +159,10 @@ namespace BobyMultitools
                 if (entity.Rank > 100)
                 {
                     long irank = entity.Rank - 100;
-                    entity_view_tmp.Rank = (EnumAion.eRank)irank + "";
+                    entity_view_tmp.Rank = (eRank)irank + "";
                 }
                 else
-                    entity_view_tmp.Rank = ((EnumAion.eRank)entity.Rank) + "";
+                    entity_view_tmp.Rank = (eRank)entity.Rank + "";
                 //if (entity.Buff == 1)
                 //    entity_view_tmp.Name = "#" + entity.Name.ToString();
                 //else
@@ -163,6 +179,10 @@ namespace BobyMultitools
                 entity_view_tmp.Name = entity.Name.ToString();
                 entity_view_tmp.Lvl = entity.Lvl.ToString();
                 entity_view_tmp.Distance = ((int)entity.Distance2D).ToString() + "m";
+            }
+            else
+            {
+                return;
             }
 
             entity_view_tmp = Entity_View_Graph(entry, entity_view_tmp);
@@ -216,7 +236,9 @@ namespace BobyMultitools
                 {
                     entity_view_tmp.graph_img = (ImageSource)File_img[entity._Icon.IMG_PATH];
                 }*/
-                if (entry.img != null)
+                if (entry.icon != null)
+                    entity_view_tmp.graph_img = FileImg[entry.icon.ID];
+                else if (entry.img != null)
                     entity_view_tmp.graph_img = entry.img;
 
                 if (entity.Attitude == fAttitude.Friendly)

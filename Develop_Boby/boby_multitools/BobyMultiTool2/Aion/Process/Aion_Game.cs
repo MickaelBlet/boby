@@ -41,6 +41,8 @@ namespace Aion_Process
                 tmp_thread_update_Modules.Start();
                 tmp_thread_update_Modules.Join();
             }
+            if (Base != 0)
+                MemoryLib.Offset.Loading(Base, Version, Phandle);
             return (Base != 0);
         }
 
@@ -99,7 +101,7 @@ namespace Aion_Process
                     return Module.BaseAddress.ToInt32();
             return 0;
         }
-        private static string GetModuleVersion(string modulename, int pid)
+        public static string GetModuleVersion(string modulename, int pid)
         {
             System.Diagnostics.Process HandleP = System.Diagnostics.Process.GetProcessById(pid);
 

@@ -12,7 +12,8 @@
 	    Background="Transparent"
 	    AllowsTransparency="True"
 	    ResizeMode="NoResize"
-        ShowInTaskbar="False">
+        ShowInTaskbar="False"
+        LocationChanged="Window_LocationChanged">
     <Window.Resources>
         <local:ScriptCollection
 			x:Key="ScriptCollection" />
@@ -29,14 +30,32 @@
 			  VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
                 <Button
-				Name="bt_Setting"
-				IsTabStop="False"
-				Style="{StaticResource WindowButton.Setting}"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Top"
-                Width="27"
-				Margin="2,0,0,0"
-				Click="bt_Setting_Click" />
+				    Name="bt_Travel"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Setting}"
+				    HorizontalAlignment="Right"
+				    VerticalAlignment="Top"
+                    Width="27"
+				    Margin="2,0,0,0"
+				    Click="bt_Travel_Click" />
+                <Button
+				    Name="bt_Ability"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Setting}"
+				    HorizontalAlignment="Right"
+				    VerticalAlignment="Top"
+                    Width="27"
+				    Margin="2,0,0,0"
+				    Click="bt_Ability_Click" />
+                <Button
+				    Name="bt_Setting"
+				    IsTabStop="False"
+				    Style="{StaticResource WindowButton.Setting}"
+				    HorizontalAlignment="Right"
+				    VerticalAlignment="Top"
+                    Width="27"
+				    Margin="2,0,0,0"
+				    Click="bt_Setting_Click" />
                 <Button
 				    Name="bt_Close"
 				    IsTabStop="False"
@@ -49,6 +68,19 @@
         </Grid>
         <Grid Margin="1,28,1,1">
             <StackPanel>
+                <Grid Margin="2,2,2,0">
+                    <Label Foreground="White" Height="22" Padding="2">Travel File : </Label>
+                    <ComboBox HorizontalAlignment="Left" Margin="70,0,0,0" Width="170"></ComboBox>
+                    <Button Name="bt_Travel_Edit"
+                            IsTabStop="False"
+				            Style="{StaticResource Style_Buff_Play_Button}"
+				            HorizontalAlignment="Right"
+				            VerticalAlignment="Top"
+                            Height="22"
+                            Width="22"
+				            Margin="0,0,2,0"
+				            Click="bt_Edit_Click"/>
+                </Grid>
                 <TextBox Name="console" TextWrapping="WrapWithOverflow" Height="150" Margin="2" AcceptsReturn="True" IsReadOnly="True" FontSize="11" ScrollViewer.VerticalScrollBarVisibility="Visible"></TextBox>
                 <ListBox Name="lb_Buff"
                      Margin="0,0,0,0"
@@ -58,7 +90,7 @@
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Visible"
                      ItemsSource="{Binding Source={StaticResource ScriptViewSource}}"
-                     Height="85">
+                     Height="60">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Vertical"/>

@@ -30,7 +30,6 @@ namespace BobyMultitools
         public Hashtable Image_File_Real = null;
 
         public IconCollection icon_collect;
-        public IconSaveCollection icon_save_collect;
         public BuffCollection buff_collect;
 
         public Win_Cheat_Setting(Win_Main tmp_in_Win_Main)
@@ -39,25 +38,25 @@ namespace BobyMultitools
 
             in_Win_Main = tmp_in_Win_Main;
 
-            if (in_Win_Main.in_Setting.in_Cheat.Acc_Distance.Get_Value() != 0)
-                sl_acc_dist.Value = in_Win_Main.in_Setting.in_Cheat.Acc_Distance.Get_Value();
+            if (Setting.Boby.Cheat.Acc_Distance != 0)
+                sl_acc_dist.Value = Setting.Boby.Cheat.Acc_Distance;
             else
                 sl_acc_dist_ValueChanged(null, null);
 
-            if (in_Win_Main.in_Setting.in_Cheat.Sup_Distance.Get_Value() != 0)
-                sl_Sup_dist.Value = in_Win_Main.in_Setting.in_Cheat.Sup_Distance.Get_Value();
+            if (Setting.Boby.Cheat.Sup_Distance != 0)
+                sl_Sup_dist.Value = Setting.Boby.Cheat.Sup_Distance;
             else
                 sl_Sup_dist_ValueChanged(null, null);
 
-            hotkey_for_textbox(keys_NoGrav, in_Win_Main.in_Setting.in_CheatKey.modifierNoGrav.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keyNoGrav.Get_Value());
-            hotkey_for_textbox(keys_ZLock, in_Win_Main.in_Setting.in_CheatKey.modifierZLock.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keyZLock.Get_Value());
-            hotkey_for_textbox(keys_Actived, in_Win_Main.in_Setting.in_CheatKey.modifierToKey.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keyToKey.Get_Value());
-            hotkey_for_textbox(keys_Acc_For, in_Win_Main.in_Setting.in_CheatKey.modifierAccFor.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keyAccFor.Get_Value());
-            hotkey_for_textbox(keys_Acc_Up, in_Win_Main.in_Setting.in_CheatKey.modifierAccUp.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keyAccUp.Get_Value());
-            hotkey_for_textbox(keys_Acc_Down, in_Win_Main.in_Setting.in_CheatKey.modifierAccDown.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keyAccDown.Get_Value());
-            hotkey_for_textbox(keys_Sup_For, in_Win_Main.in_Setting.in_CheatKey.modifierSupFor.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keySupFor.Get_Value());
-            hotkey_for_textbox(keys_Sup_Up, in_Win_Main.in_Setting.in_CheatKey.modifierSupUp.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keySupUp.Get_Value());
-            hotkey_for_textbox(keys_Sup_Down, in_Win_Main.in_Setting.in_CheatKey.modifierSupDown.Get_Value(), in_Win_Main.in_Setting.in_CheatKey.keySupDown.Get_Value());
+            hotkey_for_textbox(keys_NoGrav, Setting.Boby.CheatKey.modifierNoGrav, Setting.Boby.CheatKey.keyNoGrav);
+            hotkey_for_textbox(keys_ZLock, Setting.Boby.CheatKey.modifierZLock, Setting.Boby.CheatKey.keyZLock);
+            hotkey_for_textbox(keys_Actived, Setting.Boby.CheatKey.modifierToKey, Setting.Boby.CheatKey.keyToKey);
+            hotkey_for_textbox(keys_Acc_For, Setting.Boby.CheatKey.modifierAccFor, Setting.Boby.CheatKey.keyAccFor);
+            hotkey_for_textbox(keys_Acc_Up, Setting.Boby.CheatKey.modifierAccUp, Setting.Boby.CheatKey.keyAccUp);
+            hotkey_for_textbox(keys_Acc_Down, Setting.Boby.CheatKey.modifierAccDown, Setting.Boby.CheatKey.keyAccDown);
+            hotkey_for_textbox(keys_Sup_For, Setting.Boby.CheatKey.modifierSupFor, Setting.Boby.CheatKey.keySupFor);
+            hotkey_for_textbox(keys_Sup_Up, Setting.Boby.CheatKey.modifierSupUp, Setting.Boby.CheatKey.keySupUp);
+            hotkey_for_textbox(keys_Sup_Down, Setting.Boby.CheatKey.modifierSupDown, Setting.Boby.CheatKey.keySupDown);
         }
 
         private void hotkey_for_textbox(object textBoxZlock, object p1, object p2)
@@ -77,7 +76,7 @@ namespace BobyMultitools
 
         private void sl_acc_dist_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            in_Win_Main.in_Setting.in_Cheat.Acc_Distance.Set_Value((int)sl_acc_dist.Value);
+            Setting.Boby.Cheat.Acc_Distance = (int)sl_acc_dist.Value;
 
             double txt = (sl_acc_dist.Value + 1) / 100d;
             lb_acc_dist.Content = txt.ToString("0.00m");
@@ -85,7 +84,7 @@ namespace BobyMultitools
 
         private void sl_Sup_dist_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            in_Win_Main.in_Setting.in_Cheat.Sup_Distance.Set_Value((int)sl_Sup_dist.Value);
+            Setting.Boby.Cheat.Sup_Distance = (int)sl_Sup_dist.Value;
 
             double txt = (sl_Sup_dist.Value + 1) / 10d;
             lb_Sup_dist.Content = txt.ToString("0.00m");
@@ -170,13 +169,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_NoGrav, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierNoGrav.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keyNoGrav.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierNoGrav = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keyNoGrav = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierNoGrav.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keyNoGrav.Set_Value(0);
+                Setting.Boby.CheatKey.modifierNoGrav = 0;
+                Setting.Boby.CheatKey.keyNoGrav = 0;
             }
         }
 
@@ -185,13 +184,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_ZLock, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierZLock.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keyZLock.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierZLock = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keyZLock = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierZLock.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keyZLock.Set_Value(0);
+                Setting.Boby.CheatKey.modifierZLock = 0;
+                Setting.Boby.CheatKey.keyZLock = 0;
             }
         }
 
@@ -200,13 +199,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Actived, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierToKey.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keyToKey.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierToKey = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keyToKey = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierToKey.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keyToKey.Set_Value(0);
+                Setting.Boby.CheatKey.modifierToKey = 0;
+                Setting.Boby.CheatKey.keyToKey = 0;
             }
         }
 
@@ -215,13 +214,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Acc_For, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierAccFor.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keyAccFor.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierAccFor = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keyAccFor = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierAccFor.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keyAccFor.Set_Value(0);
+                Setting.Boby.CheatKey.modifierAccFor = 0;
+                Setting.Boby.CheatKey.keyAccFor = 0;
             }
         }
 
@@ -230,13 +229,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Acc_Up, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierAccUp.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keyAccUp.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierAccUp = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keyAccUp = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierAccUp.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keyAccUp.Set_Value(0);
+                Setting.Boby.CheatKey.modifierAccUp = 0;
+                Setting.Boby.CheatKey.keyAccUp = 0;
             }
         }
 
@@ -245,13 +244,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Acc_Down, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierAccDown.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keyAccDown.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierAccDown = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keyAccDown = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierAccDown.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keyAccDown.Set_Value(0);
+                Setting.Boby.CheatKey.modifierAccDown = 0;
+                Setting.Boby.CheatKey.keyAccDown = 0;
             }
         }
 
@@ -260,13 +259,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Sup_For, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierSupFor.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keySupFor.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierSupFor = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keySupFor = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierSupFor.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keySupFor.Set_Value(0);
+                Setting.Boby.CheatKey.modifierSupFor = 0;
+                Setting.Boby.CheatKey.keySupFor = 0;
             }
         }
 
@@ -275,13 +274,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Sup_Up, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierSupUp.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keySupUp.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierSupUp = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keySupUp = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierSupUp.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keySupUp.Set_Value(0);
+                Setting.Boby.CheatKey.modifierSupUp = 0;
+                Setting.Boby.CheatKey.keySupUp = 0;
             }
         }
 
@@ -290,13 +289,13 @@ namespace BobyMultitools
             Key key = (e.Key == Key.System ? e.SystemKey : e.Key);
             if (textbox_for_hotkey(keys_Sup_Down, key))
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierSupDown.Set_Value((int)Keyboard.Modifiers);
-                in_Win_Main.in_Setting.in_CheatKey.keySupDown.Set_Value((int)key);
+                Setting.Boby.CheatKey.modifierSupDown = (int)Keyboard.Modifiers;
+                Setting.Boby.CheatKey.keySupDown = (int)key;
             }
             else
             {
-                in_Win_Main.in_Setting.in_CheatKey.modifierSupDown.Set_Value(0);
-                in_Win_Main.in_Setting.in_CheatKey.keySupDown.Set_Value(0);
+                Setting.Boby.CheatKey.modifierSupDown = 0;
+                Setting.Boby.CheatKey.keySupDown = 0;
             }
         }
     }

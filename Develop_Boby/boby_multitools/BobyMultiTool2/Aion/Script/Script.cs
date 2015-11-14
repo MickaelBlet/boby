@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace BobyScript
 {
@@ -24,5 +25,32 @@ namespace BobyScript
     public static class Environment { }
 
     public static class Offset { }
+
+    public interface IBobyScript
+    {
+        void OnPlay();
+        void OnRun();
+        void OnStop();
+    }
+
+
+    public class BobyScript
+    {
+        public bool run = false;
+        public void BobyScriptStop()
+        {
+            run = false;
+        }
+        public void BobyScriptPlay()
+        {
+            run = true;
+        }
+
+        public void Sleep(int ms)
+        {
+            System.Threading.Thread.Sleep(ms);
+        }
+        public int index = 0;
+    }
 }
 

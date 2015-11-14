@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<ScriptFiles>
+  <ScriptFile Name="test.cs" />
+  <ScriptFile Name="test2.cs" />
+  <ScriptFile Name="test3.cs" />
+  <ScriptFile Name="test4.cs" />
+</ScriptFiles>

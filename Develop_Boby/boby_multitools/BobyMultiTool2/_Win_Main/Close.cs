@@ -20,39 +20,46 @@ namespace BobyMultitools
 
         public void Full_Close()
         {
-            if (In_Close == false)
+            try
             {
-                In_Close = true;
-                /*if (in_Win_Radar != null)
+                if (In_Close == false)
                 {
-                    in_Win_Radar.Dispatcher.Invoke((Action)(() =>
+                    In_Close = true;
+                    /*if (in_Win_Radar != null)
                     {
-                        in_Win_Radar.Hide();
-                    }));
+                        in_Win_Radar.Dispatcher.Invoke((Action)(() =>
+                        {
+                            in_Win_Radar.Hide();
+                        }));
+                    }
+                    if (in_Win_Entity != null)
+                    {
+                        in_Win_Entity.Dispatcher.Invoke((Action)(() =>
+                        {
+                            in_Win_Entity.Hide();
+                        }));
+                    }
+                    if (in_Win_Cheat != null)
+                    {
+                        in_Win_Cheat.Dispatcher.Invoke((Action)(() =>
+                        {
+                            in_Win_Cheat.Hide();
+                        }));
+                    }
+                    if (in_Win_Script != null)
+                    {
+                        in_Win_Script.Dispatcher.Invoke((Action)(() =>
+                        {
+                            in_Win_Script.Hide();
+                        }));
+                    }*/
+                    Setting.Save();
+                    Environment.Exit(0);
                 }
-                if (in_Win_Entity != null)
-                {
-                    in_Win_Entity.Dispatcher.Invoke((Action)(() =>
-                    {
-                        in_Win_Entity.Hide();
-                    }));
-                }
-                if (in_Win_Cheat != null)
-                {
-                    in_Win_Cheat.Dispatcher.Invoke((Action)(() =>
-                    {
-                        in_Win_Cheat.Hide();
-                    }));
-                }
-                if (in_Win_Script != null)
-                {
-                    in_Win_Script.Dispatcher.Invoke((Action)(() =>
-                    {
-                        in_Win_Script.Hide();
-                    }));
-                }*/
-                in_Setting.Save();
-                Environment.Exit(0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
     }

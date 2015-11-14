@@ -12,7 +12,7 @@ using MemoryLib;
 using Aion_Process;
 using Aion_Game;
 
-namespace Aion_Game
+namespace BobyMultitools
 {
     class Entity_To_View
     {
@@ -35,6 +35,7 @@ namespace Aion_Game
         public static bool Entity_Ally = false;
         public static bool Entity_Enemy = false;
         public static bool Entity_Gather = false;
+        public static Dictionary<string, Icon> Icons = new Dictionary<string, Icon>();
 
         public static void Start()
         {
@@ -58,19 +59,22 @@ namespace Aion_Game
             if (Game.Pid == 0 || Game.Base == 0)
                 return;
 
-            Icon_Plus = BobyMultitools.Setting.in_Setting.in_Radar.IconPlus.Get_Value();
-            Where_In_Entity = View_Entity.RemoveDiacritics(BobyMultitools.Setting.in_Setting.in_Entity.Where.ToLower());
-            Where_In_Game = View_Entity.RemoveDiacritics(SplMemory.ReadWchar(Game.Base + Offset.Game.Where, 60).ToLower());
+            Icons = new Dictionary<string, Icon>();
+            foreach (var icon in Win_Radar_Setting.icon_collect)
+                Icons[View_Entity.RemoveDiacritics(icon.NAME.ToLower())] = icon;
+            Icon_Plus = Setting.Boby.Radar.IconPlus;
+            Where_In_Entity = View_Entity.RemoveDiacritics(Setting.Boby.Entity.Where);
+            Where_In_Game = View_Entity.RemoveDiacritics(SplMemory.ReadWchar(Game.Base + Offset.Extra.Where, 60).ToLower());
 
-            Radar_NPC = BobyMultitools.Setting.in_Setting.in_Radar.NPC.Get_Value();
-            Radar_Ally = BobyMultitools.Setting.in_Setting.in_Radar.Ally.Get_Value();
-            Radar_Enemy = BobyMultitools.Setting.in_Setting.in_Radar.Hostile.Get_Value();
-            Radar_Gather = BobyMultitools.Setting.in_Setting.in_Radar.Gather.Get_Value();
+            Radar_NPC = Setting.Boby.Radar.NPC;
+            Radar_Ally = Setting.Boby.Radar.Ally;
+            Radar_Enemy = Setting.Boby.Radar.Hostile;
+            Radar_Gather = Setting.Boby.Radar.Gather;
 
-            Entity_NPC = BobyMultitools.Setting.in_Setting.in_Entity.NPC.Get_Value();
-            Entity_Ally = BobyMultitools.Setting.in_Setting.in_Entity.Ally.Get_Value();
-            Entity_Enemy = BobyMultitools.Setting.in_Setting.in_Entity.Hostile.Get_Value();
-            Entity_Gather = BobyMultitools.Setting.in_Setting.in_Entity.Gather.Get_Value();
+            Entity_NPC = Setting.Boby.Entity.NPC;
+            Entity_Ally = Setting.Boby.Entity.Ally;
+            Entity_Enemy = Setting.Boby.Entity.Hostile;
+            Entity_Gather = Setting.Boby.Entity.Gather;
 
             sView = new Dictionary<long, View_Entity>();
             foreach (var entity in Aion_Game.EntityList.uList.Values)
@@ -162,6 +166,7 @@ namespace Aion_Game
     {
         // image
         public ImageSource img = null;
+        public Icon icon = null;
         public int radar_img_index = 0;
 
         // entity
@@ -212,16 +217,34 @@ namespace Aion_Game
                 this.in_entity = true;
                 return;
             }
+
+            if (Name_To_Lower != string.Empty)
+            {
+                foreach (var item in Entity_To_View.Icons)
+                {
+                    string name = item.Key;
+                    if (name == string.Empty)
+                        continue;
+                    if (Name_To_Lower.Contains(name))
+                    {
+                        this.icon = item.Value;
+                        this.radar_img_index = 7;
+                        this.in_radar = true;
+                        this.in_entity = true;
+                        return;
+                    }
+                }
+            }
             if (entity.Type == eType.Gather)
             {
-                if (entity.Action == fAction.Gatherable || entity.Action == fAction.Low_Gatherable)
+                if (entity.Mouse_Action == fMouseAction.Gatherable || entity.Mouse_Action == fMouseAction.Low_Gatherable)
                 {
                     if (entity.IdObject >= 401001 && entity.IdObject <= 401077)
                         this.img = Resources_Entity.Entity.Ether;
                     else
                         this.img = Resources_Entity.Entity.Gather;
                 }
-                else if (entity.Action == fAction.NotGatherable || entity.Action == fAction.Low_NotGatherable)
+                else if (entity.Mouse_Action == fMouseAction.NotGatherable || entity.Mouse_Action == fMouseAction.Low_NotGatherable)
                 {
                     if (entity.IdObject >= 401001 && entity.IdObject <= 401077)
                         this.img = Resources_Entity.Entity.Ether_Not;
@@ -259,7 +282,7 @@ namespace Aion_Game
                             this.img = Resources_Entity.Special_Icon.Stigma;
                         else if (entity.IdType >= fIdTypeNPC.CoinVendorStart && entity.IdType <= fIdTypeNPC.CoinVendorEnd)
                             this.img = Resources_Entity.Special_Icon.Coins;
-                        else if (entity.Action == fAction.Vendor)
+                        else if (entity.Mouse_Action == fMouseAction.Vendor)
                             this.img = Resources_Entity.Special_Icon.Merchant;
                         if (entity.IdProgressQuest != (fIdProgressQuest)0)
                         {
@@ -319,7 +342,7 @@ namespace Aion_Game
                             this.radar_img_index = 1;
                         }
                     }
-                    else if (entity.Action == fAction.Object)
+                    else if (entity.Mouse_Action == fMouseAction.Object)
                     {
                         this.img = Resources_Entity.Entity.NPC_Object;
                         this.radar_img_index = 3;
@@ -328,8 +351,8 @@ namespace Aion_Game
                             && entity.Attitude != fAttitude.Friendly
                             && entity.Attitude != fAttitude.NoCombat
                             && entity.Type != eType.PlaceableObject
-                            && entity.Action != fAction.NotObject)
-                        || (entity.Type == eType.Pet && entity.Action == fAction.Attackable))
+                            && entity.Mouse_Action != fMouseAction.NotObject)
+                        || (entity.Type == eType.Pet && entity.Mouse_Action == fMouseAction.Attackable))
                     {
                         this.img = Resources_Entity.Entity.NPC_Enemy;
                         this.radar_img_index = 2;
@@ -337,7 +360,7 @@ namespace Aion_Game
                     else if ((entity.Attitude == fAttitude.Passive
                             || entity.Attitude == fAttitude.NoCombat)
                         || (entity.Type == eType.PlaceableObject
-                            && entity.Action == fAction.Object))
+                            && entity.Mouse_Action == fMouseAction.Object))
                     {
                         this.img = Resources_Entity.Entity.NPC_Neutral;
                         this.radar_img_index = 1;
@@ -352,7 +375,7 @@ namespace Aion_Game
                 }
                 else // !if (this.Hp != 0 && entity.Stance != fStance.Dead)
                 {
-                    if (entity.Action == fAction.Lootable)
+                    if (entity.Mouse_Action == fMouseAction.Lootable)
                         this.img = Resources_Entity.Entity.NPC_Loot;
                     else
                         this.img = null;
@@ -392,8 +415,11 @@ namespace Aion_Game
                 else
                     this.img = (ImageSource)Application.Current.FindResource("Entity.Force_Dead");
                 this.radar_img_index = 8;
-                this.in_radar = true;
-                this.in_entity = true;
+                if (entity.Hide == 0)
+                {
+                    this.in_radar = true;
+                    this.in_entity = true;
+                }
             }
             else if (entity.Type == eType.User && entity.Attitude == fAttitude.Friendly)
             {
@@ -416,7 +442,7 @@ namespace Aion_Game
             {
                 if (entity.HpPercent != 0 && entity.Stance != fStance.Dead)
                 {
-                    /*if (entity.Hide == 1)
+                    if (entity.Hide == 1)
                     {
                         if ((entity.Z + 10) < Player.Z)
                             this.img = (ImageSource)Application.Current.FindResource("Entity.Ennemy_Fufu_Down");
@@ -425,7 +451,7 @@ namespace Aion_Game
                         else
                             this.img = (ImageSource)Application.Current.FindResource("Entity.Ennemy_Fufu");
                     }
-                    else */
+                    else
                     if (entity.IsAttackable == 0)
                     {
                         if ((entity.Z + 10) < Player.Z)

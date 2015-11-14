@@ -1,0 +1,6 @@
+C:\Users\mickael\Documents\Develop_Boby\xml_aion\xml_aion\bin\Debug\xml_aion.exe.config
+C:\Users\mickael\Documents\Develop_Boby\xml_aion\xml_aion\bin\Debug\xml_aion.exe
+C:\Users\mickael\Documents\Develop_Boby\xml_aion\xml_aion\bin\Debug\xml_aion.pdb
+C:\Users\mickael\Documents\Develop_Boby\xml_aion\xml_aion\obj\Debug\xml_aion.csprojResolveAssemblyReference.cache
+C:\Users\mickael\Documents\Develop_Boby\xml_aion\xml_aion\obj\Debug\xml_aion.exe
+C:\Users\mickael\Documents\Develop_Boby\xml_aion\xml_aion\obj\Debug\xml_aion.pdb

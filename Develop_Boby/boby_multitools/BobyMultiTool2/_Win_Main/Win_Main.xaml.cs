@@ -29,7 +29,6 @@ namespace BobyMultitools
         [DllImport("User32.dll")]
         private static extern bool SetCursorPos(int X, int Y);
 
-        public Setting      in_Setting                    = null;
         public Win_Main     in_Win_Main                   = null;
         public Win_Radar    in_Win_Radar                  = null;
         public Win_Entity   in_Win_Entity                 = null;
@@ -37,30 +36,27 @@ namespace BobyMultitools
         public Win_Script   in_Win_Script                 = null;
         public Thread_Entity in_Thread_Entity             = null;
         public Aion_Game.EntityList in_Entity_List                = null;
+        public Aion_Game.DialogList in_Dialog_List                = null;
         public Style        Style_ShugoLoading            = null;
         public Style        Style_Radar_Target            = null;
 
         public Win_Main()
         {
-            Listing.List();
             in_Win_Main = this;
             InitializeComponent();
 
             this.Show();
-
-            in_Setting = new Setting(in_Win_Main);
-
-            //Online_Users_Sequence();
+            MemoryLib.Offset.Download(this);
 
             Style_ShugoLoading = this.FindResource("Style_ShugoLoading") as Style;
             Style_Radar_Target = this.FindResource("Style_Target") as Style;
 
             Refresh_lb_Game();
 
-            cb_Radar.IsChecked = in_Setting.in_Radar.Show.Get_Value();
-            cb_Entity.IsChecked = in_Setting.in_Entity.Show.Get_Value();
-            cb_Script.IsChecked = in_Setting.in_Scripts.Show.Get_Value();
-            cb_Cheat.IsChecked = in_Setting.in_Cheat.Show.Get_Value();
+            cb_Cheat.IsChecked = Setting.Boby.Cheat.Show;
+            cb_Radar.IsChecked = Setting.Boby.Radar.Show;
+            cb_Entity.IsChecked = Setting.Boby.Entity.Show;
+            cb_Script.IsChecked = Setting.Boby.Scripts.Show;
         }
 
         #region _Event gui_
@@ -82,7 +78,7 @@ namespace BobyMultitools
 
         private void cb_hide_Checked(object sender, RoutedEventArgs e)
         {
-            if (in_Win_Radar != null && in_Setting.in_Radar.Show.Get_Value() == true)
+            if (in_Win_Radar != null && Setting.Boby.Radar.Show)
             {
                 in_Win_Radar.Dispatcher.Invoke((Action)(() =>
                 {
@@ -90,7 +86,7 @@ namespace BobyMultitools
                 }));
             }
 
-            if (in_Win_Entity != null && in_Setting.in_Entity.Show.Get_Value() == true)
+            if (in_Win_Entity != null && Setting.Boby.Entity.Show)
             {
                 in_Win_Entity.Dispatcher.Invoke((Action)(() =>
                 {
@@ -98,7 +94,7 @@ namespace BobyMultitools
                 }));
             }
 
-            if (in_Win_Cheat != null && in_Setting.in_Cheat.Show.Get_Value() == true)
+            if (in_Win_Cheat != null && Setting.Boby.Cheat.Show)
             {
                 in_Win_Cheat.Dispatcher.Invoke((Action)(() =>
                 {
@@ -106,7 +102,7 @@ namespace BobyMultitools
                 }));
             }
 
-            if (in_Win_Script != null && in_Setting.in_Scripts.Show.Get_Value() == true)
+            if (in_Win_Script != null && Setting.Boby.Scripts.Show)
             {
                 in_Win_Script.Dispatcher.Invoke((Action)(() =>
                 {
@@ -193,7 +189,7 @@ namespace BobyMultitools
                     in_Win_Radar.Show();
                 }));
             }
-            in_Setting.in_Radar.Show.Set_Value(true);
+            Setting.Boby.Radar.Show = true;
         }
 
         private void cb_Radar_Unchecked(object sender, RoutedEventArgs e)
@@ -205,7 +201,7 @@ namespace BobyMultitools
                     in_Win_Radar.Hide();
                 }));
             }
-            in_Setting.in_Radar.Show.Set_Value(false);
+            Setting.Boby.Radar.Show = false;
         }
 
         private void cb_Entity_Checked(object sender, RoutedEventArgs e)
@@ -217,7 +213,7 @@ namespace BobyMultitools
                     in_Win_Entity.Show();
                 }));
             }
-            in_Setting.in_Entity.Show.Set_Value(true);
+            Setting.Boby.Entity.Show = true;
         }
 
         private void cb_Entity_Unchecked(object sender, RoutedEventArgs e)
@@ -229,7 +225,7 @@ namespace BobyMultitools
                     in_Win_Entity.Hide();
                 }));
             }
-            in_Setting.in_Entity.Show.Set_Value(false);
+            Setting.Boby.Entity.Show = false;
         }
 
         private void cb_Cheat_Checked(object sender, RoutedEventArgs e)
@@ -241,7 +237,7 @@ namespace BobyMultitools
                     in_Win_Cheat.Show();
                 }));
             }
-            in_Setting.in_Cheat.Show.Set_Value(true);
+            Setting.Boby.Cheat.Show = true;
         }
 
         private void cb_Cheat_Unchecked(object sender, RoutedEventArgs e)
@@ -253,7 +249,7 @@ namespace BobyMultitools
                     in_Win_Cheat.Hide();
                 }));
             }
-            in_Setting.in_Cheat.Show.Set_Value(false);
+            Setting.Boby.Cheat.Show = false;
         }
 
         private void cb_Script_Checked(object sender, RoutedEventArgs e)
@@ -265,7 +261,7 @@ namespace BobyMultitools
                     in_Win_Script.Show();
                 }));
             }
-            in_Setting.in_Scripts.Show.Set_Value(true);
+            Setting.Boby.Scripts.Show = true;
         }
 
         private void cb_Script_Unchecked(object sender, RoutedEventArgs e)
@@ -277,7 +273,7 @@ namespace BobyMultitools
                     in_Win_Script.Hide();
                 }));
             }
-            in_Setting.in_Scripts.Show.Set_Value(false);
+            Setting.Boby.Scripts.Show = false;
         }
         #endregion
 

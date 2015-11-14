@@ -105,9 +105,8 @@ namespace BobyMultitools
                 IntPtr hanble = Memory.OpenProcess(pid[i].Id);
                 SplMemory.SetHanble(hanble);
                 int Aion_DLL_Game = Aion_Process.Game.GetModuleBase("Game.dll", pid[i].Id);
-                if (Aion_DLL_Game != 0)
+                if (Aion_DLL_Game != 0 && Offset.Loading(Aion_DLL_Game, Aion_Process.Game.GetModuleVersion("Game.dll", pid[i].Id), hanble))
                 {
-                    Offset.Loading(Aion_DLL_Game);
                     string name = SplMemory.ReadWchar(Aion_DLL_Game + Offset.Player.Name, 30);
                     byte lvl = SplMemory.ReadByte(Aion_DLL_Game + Offset.Player.Lvl);
                     Class = SplMemory.ReadByte(Aion_DLL_Game + Offset.Player.Class);
@@ -119,13 +118,15 @@ namespace BobyMultitools
                     }
                     else
                     {
+                        Pid = "0";
                         Name = "(Login / Select.Character)";
                         Lvl = "Pid: " + pid[i].Id.ToString();
                     }
                 }
                 else
                 {
-                    Name = "(game.dll not found)";
+                    Pid = "0";
+                    Name = "(game version not found)";
                     Lvl = "Pid: " + pid[i].Id.ToString();
                 }
                 db.Add(new Game_View { Pid = Pid, Name = Name, Lvl = Lvl, Class = "", graph_class = class_image, Race = "" });
